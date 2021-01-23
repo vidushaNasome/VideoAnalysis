@@ -1,0 +1,22 @@
+#nn{
+    color: #7b909a;
+}
+#nn:hover{
+    color: #1eb4ff;
+    text-decoration: none;
+
+}
+#heading{
+    color: #576971;
+    text-decoration: none;
+    font-size: 28px;
+    margin-left: 15%;
+    padding: 6px 0;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: "Open Sans", sans-serif;
+}
+#kk{
+    margin-left: 25%;
+}
