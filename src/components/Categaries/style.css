@@ -1,0 +1,64 @@
+#heading{
+    color: #576971;
+    text-decoration: none;
+    font-size: 28px;
+    margin-left: 15%;
+    padding: 6px 0;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: "Open Sans", sans-serif;
+}
+#kk{
+    margin-left: 25%;
+}
+#homedetails{
+    margin-top: 5%;
+}
+#hero h2 {
+    color: #576971;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", sans-serif;
+}
+h1 {
+    margin: 0 0 20px 0;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 56px;
+    color: #364146;
+}
+h3 {
+    color: #576971;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+#homebtnid{
+    font-family: "Raleway", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 3px;
+    transition: 0.5s;
+    color: #fff;
+    background: #009cea;
+}
+#submitbtn{
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 3px;
+    transition: 0.5s;
+    color: #fff;
+    background: #009cea;
+}
+

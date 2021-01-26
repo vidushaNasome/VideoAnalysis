@@ -3,13 +3,11 @@
 }
 #nn:hover{
     color: #1eb4ff;
-    text-decoration: none;
-
 }
 #heading{
     color: #576971;
     text-decoration: none;
-    font-size: 28px;
+    font-size: 10px;
     margin-left: 15%;
     padding: 6px 0;
     line-height: 1;
@@ -20,3 +18,10 @@
 #kk{
     margin-left: 25%;
 }
+#logoutbtn{
+    font-family: "Raleway", sans-serif;
+    font-size: 9px;
+    color: #7b909a;
+
+}
+
