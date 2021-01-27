@@ -12,9 +12,9 @@ function NavigationBar() {
         <div >
             <br/>
             {sessionStorage.getItem("Position") === 'Health Professional'?
-                <Nav >
+                <Nav className="fixed-top" id="navd">
                     <h1 id="heading">CSAAT - Video Analysis </h1>
-                    <Nav.Link id="kk" style={{  textDecoration: 'none' }} href="https://CSAAT-WEB.com"> CSAAT Home </Nav.Link>
+                    <Nav.Link id="kk" style={{  textDecoration: 'none' }} href="https://CSAAT-WEB.com/user/1"> CSAAT Home </Nav.Link>
             &nbsp;&nbsp;&nbsp;&nbsp;
                 <NavDropdown title="Annotating" id="basic-nav-dropdown">
                     <NavDropdown.Item><Link to="/" exact id="nn" style={{  textDecoration: 'none' }}>Main Screen</Link></NavDropdown.Item>
@@ -43,10 +43,10 @@ function NavigationBar() {
                         </div>}
 
         </Nav>
-                :<Nav>
+                :<Nav className="fixed-top" id="navd">
                     <h1 id="heading">CSAAT - Video Analysis </h1>
                     <Nav.Item id="kk" >
-                        <a href={"https://CSAAT-WEB.com"}> CSAAT Home </a>
+                        <a href={"https://CSAAT-WEB.com/user1"}> CSAAT Home </a>
                     </Nav.Item>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <Nav.Item>

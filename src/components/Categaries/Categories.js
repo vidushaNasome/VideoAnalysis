@@ -35,7 +35,7 @@ onSubmit123(id){
 render() {
     const { tt } = this.state;
     return (
-        <div>
+        <div className="xx">
             <h1 align="center">Categories Management</h1>
         <div id="addmaincat">
             <div>

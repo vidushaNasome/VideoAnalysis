@@ -7,7 +7,7 @@ class Home extends Component{
 
     render() {
         return(
-            <div className="container">
+            <div className="container" id="xx">
                 <div className="row">
                     <div className="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center"
                          data-aos="fade-up">
@@ -22,6 +22,7 @@ class Home extends Component{
                         <img src={photo1} className="img-fluid" alt=""/>
 
                     </div>
+
                 </div>
             </div>
         );

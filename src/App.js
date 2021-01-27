@@ -11,11 +11,38 @@ import Home from "./components/Home/Home";
 import CategoriesSub from "./components/Categaries/CategoriesSub";
 import Categorieslevel from "./components/Categaries/CategoriesLevel3";
 import Complete from "./components/Annotating/Complete";
+import { Redirect } from 'react-router-dom'
+import Home1 from "./components/Home/Home1";
 
 class App extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state={
+            loginStatus:''
+        }
+    }
+
     componentDidMount() {
-        alert("new application");
+
+        //Logged In as an Authorized Annotator(Health Researcher, Consultant, Officer)
+        if(window.location.pathname==="/user/1"){
+        sessionStorage.setItem("Username","Ann");
+        sessionStorage.setItem("Position","Health Professional");
+            this.setState({loginStatus:'loggedInHealthProffesional'})
+        }
+        //Logged In as Parent
+        else if(window.location.pathname==="/user/2"){
+            sessionStorage.setItem("Username","Mat");
+            sessionStorage.setItem("Position","Parent")
+            this.setState({loginStatus:'loggedInParent'})
+        }//Normal page without login(Guest Account)
+        else{
+            sessionStorage.clear();
+            this.setState({loginStatus:''})
+        }
+
     }
 
     render() {
@@ -25,17 +52,16 @@ class App extends Component {
                     <Router>
                         <NavigationBar />
                         <Switch>
-                            <Route  path="/" exact component={Home}/>
+                            <Route  path="/"  component={Home}/>
+                            <Route  path="/annotateNotComplete"  component={Analyze}/>
+                            <Route  path="/annotateComplete"  component={Complete}/>
 
+                            <Route  path="/categories"  component={Categories} />
+                            <Route  path="/categoriessub"  component={CategoriesSub} />
+                            <Route  path="/categorieslevel"  component={Categorieslevel} />
 
-                            <Route  path="/annotateNotComplete" exact component={Analyze}/>
-                            <Route  path="/annotateComplete" exact component={Complete}/>
+                            <Route  path="/searchandretrive"  component={SearchAndRetrieve} />
 
-                            <Route  path="/categories" exact component={Categories} />
-                            <Route  path="/categoriessub" exact component={CategoriesSub} />
-                            <Route  path="/categorieslevel" exact component={Categorieslevel} />
-
-                            <Route  path="/searchandretrive" exact component={SearchAndRetrieve} />
                         </Switch>
 
                     </Router>
