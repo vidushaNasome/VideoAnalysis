@@ -3,14 +3,16 @@ import {Nav,NavItem,Navbar,NavDropdown} from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import './style.css';
 import "bootstrap/dist/css/bootstrap.min.css";
+import userimg from "../Images/user.png"
+import photo1 from "../Images/photo3.jpg";
 
 function NavigationBar() {
 
     return(
-        <div>
+        <div >
             <br/>
             {sessionStorage.getItem("Position") === 'Health Professional'?
-                <Nav>
+                <Nav >
                     <h1 id="heading">CSAAT - Video Analysis </h1>
                     <Nav.Link id="kk" style={{  textDecoration: 'none' }} href="https://CSAAT-WEB.com"> CSAAT Home </Nav.Link>
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -31,8 +33,11 @@ function NavigationBar() {
                     {sessionStorage.getItem("Username") === null?
                         <div>
                         </div>
-                        :<div className="alert-heading">
-                            <h6 id="login">{sessionStorage.getItem("Username")}</h6>
+                        :<div id="logged1">
+                            <img src={userimg}  alt="" height="20" width="20"/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <h6>{sessionStorage.getItem("Username")}</h6>
+
                             {/*<button id="logoutbtn">Log Out</button>*/}
 
                         </div>}
@@ -56,8 +61,10 @@ function NavigationBar() {
                     {sessionStorage.getItem("Username") === null?
                         <div>
                         </div>
-                        :<div className="alert-heading">
-                            <h6 id="nn">{sessionStorage.getItem("Username")}</h6>
+                        :<div id="logged2">
+                            <img src={userimg}  alt="" height="20" width="20"/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <h6>{sessionStorage.getItem("Username")}</h6>
 
                             {/*<button id="logoutbtn">Log Out</button>*/}
 

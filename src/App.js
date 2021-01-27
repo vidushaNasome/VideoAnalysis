@@ -13,6 +13,11 @@ import Categorieslevel from "./components/Categaries/CategoriesLevel3";
 import Complete from "./components/Annotating/Complete";
 
 class App extends Component {
+
+    componentDidMount() {
+        alert("new application");
+    }
+
     render() {
         return (
             <div>

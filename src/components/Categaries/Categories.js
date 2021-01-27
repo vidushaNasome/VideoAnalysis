@@ -1,18 +1,15 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import './style.css';
+import { Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 class Categories extends Component{
 constructor() {
     super()
     this.state = {
-        name: '',
-        price: '',
-        cat:'',
-        tt:[],
-        pp:'',
-        code:'',
-        tel:''
+        id: '',
+        name: ''
+
     }
     this.onSubmit=this.onSubmit.bind(this);
     this.handleInputChange=this.handleInputChange.bind(this);
@@ -39,43 +36,40 @@ render() {
     const { tt } = this.state;
     return (
         <div>
+            <h1 align="center">Categories Management</h1>
+        <div id="addmaincat">
             <div>
-                <h1 align="center">Categories Management</h1>
-                <h3 align="center">Add Main Categories</h3>
+                <br/>
+                <h3 align="center" id="headingSub">Add Main Categories</h3>
             </div>
             <div align="center">
-                <form align="center" onSubmit={this.onSubmit} >
-                    <label>Id </label>
-                    <input id='name'
-                           onChange={this.handleInputChange} name='name' type='text'
-                           value={this.state.name["name"]} required/><br/><br/>
-                    <label>Main Category</label>
-                    <input id='tel'
-                           onChange={this.handleInputChange} name='tel' type='number'
-                           value={this.state.tel["tel"]} required/><br/><br/>
-                           <button id="submitbtn"> Submit </button>
-                    <br/><br/>
-                </form>
+                <Form className="categoryclass">
+                    <Form.Group>
+                        <Form.Label>Main Category ID </Form.Label>
+                        <Form.Control type="text" placeholder="Main Category ID" />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Main Category</Form.Label>
+                        <Form.Control type="text" placeholder="Type Main Category" />
+                    </Form.Group>
+                    <Button id="btnSubmit" variant="primary" type="submit">
+                        Add Main Category
+                    </Button>
+                </Form>
+                <br/><br/>
             </div>
+        </div>
 
-            <div className="container">
-                <table className="alert alert-primary" align="center" id="c12" width="90%">
-                    {tt.map((post) => (
-                        <div className="alert-heading">
-                            <tr><td width="10%">Name<div className="card-header"> {post.name} </div></td>
-                                <td width="40%">Category and Details<div className="card-header"> {post.category} </div></td>
-                                <td width="20%">Contact Number<div className="card-header"> {post.tel} </div></td>
-                                <td width="20%">Budget<div className="card-body"><p className="card-text">Rs.{post.price}.00</p></div></td>
-                                <td width="10%"><input id='code' placeholder="Insert code to delete this detail" onChange={this.handleInputChange} name='code' type='text'
-                                                       value={this.state.code["code"]}/></td>
-                                <button width="20%" className="btn-danger" type="submit"
-                                        onClick={this.onSubmit123.bind(this,post._id)} >delete</button>
-                                <td></td>
-                            </tr>
-
-                        </div>
-                    ))}
-                </table>
+            <div id="addmaincat">
+                <div>
+                    <br/>
+                    <h3 align="center" id="headingSub">View Main Categories</h3>
+                </div>
+                <div align="center">
+                    <p>(View Main Categories)</p>
+                    <br/><br/>
+                </div>
             </div>
 
 
