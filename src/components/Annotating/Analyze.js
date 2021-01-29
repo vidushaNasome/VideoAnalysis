@@ -4,7 +4,7 @@ class Analyze extends Component{
 
     render() {
         return(
-            <div> Yet to be Annotate</div>
+            <div> <br/>   <br/>   <br/>   <br/>   <br/> Yet to be Annotate</div>
         );
     }
 

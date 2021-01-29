@@ -4,7 +4,8 @@ class SearchAndRetrieve extends Component{
 
     render() {
         return(
-        <div> Search and Retrieve</div>
+
+        <div><br/>   <br/>   <br/>   <br/>   <br/>    Search and Retrieve</div>
         );
     }
 

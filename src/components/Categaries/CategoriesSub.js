@@ -4,7 +4,7 @@ class CategoriesSub extends Component{
 
     render() {
         return(
-            <div> Sub Categories </div>
+            <div> <br/>   <br/>   <br/>   <br/>   <br/>Sub Categories </div>
         );
     }
 

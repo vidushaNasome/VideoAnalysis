@@ -39,8 +39,8 @@ class App extends Component {
             this.setState({loginStatus:'loggedInParent'})
         }//Normal page without login(Guest Account)
         else{
-            sessionStorage.clear();
-            this.setState({loginStatus:''})
+            /*sessionStorage.clear();
+            this.setState({loginStatus:''})*/
         }
 
     }
@@ -52,7 +52,9 @@ class App extends Component {
                     <Router>
                         <NavigationBar />
                         <Switch>
-                            <Route  path="/"  component={Home}/>
+                            <Route  path="/" exact  component={Home}/>
+                            <Route  path="/user/"   component={Home}/>
+
                             <Route  path="/annotateNotComplete"  component={Analyze}/>
                             <Route  path="/annotateComplete"  component={Complete}/>
 
@@ -60,7 +62,7 @@ class App extends Component {
                             <Route  path="/categoriessub"  component={CategoriesSub} />
                             <Route  path="/categorieslevel"  component={Categorieslevel} />
 
-                            <Route  path="/searchandretrive"  component={SearchAndRetrieve} />
+                            <Route  path="/searchandretrive" exact  component={SearchAndRetrieve} />
 
                         </Switch>
 

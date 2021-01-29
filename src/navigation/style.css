@@ -1,5 +1,6 @@
 #nn{
     color: #7b909a;
+    padding: 15px;
 }
 #nn:hover{
     color: #1eb4ff;
@@ -18,9 +19,17 @@
 
 }
 #logoutbtn{
+    background: #ffffff;
+    display: inline-block;
+    padding: 1px 1px;
+    border-radius: 4px;
+    color:#009cea;
+    font-size: 13px;
     font-family: "Raleway", sans-serif;
-    font-size: 9px;
-    color: #7b909a;
+    margin-left: 10px;
+    height: 25px;
+    border-color: white;
+
 
 }
 #logged1{
@@ -28,8 +37,14 @@
     flex-direction: row;
     color: #1eb4ff;
     font-size: 9px;
-    margin-right: 3%;
-    margin-top: 1%;
+    margin-top: 0.5%;
+    margin-left: 10px;
+    background-color: #eeeeee;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 35px;
+    padding-top: 5px;
+    border-radius: 4px;
 
 }
 #logged2{
@@ -37,7 +52,14 @@
     flex-direction: row;
     color: #1eb4ff;
     font-size: 9px;
-    margin-right: 3%;
+    margin-left: 10px;
+    background-color: #eeeeee;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    height: 35px;
+    border-radius: 4px;
+
 }
 #overall{
     background-color: crimson;
@@ -46,11 +68,12 @@
 }
 #navd{
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 5px;
+    padding-left: 5px;
     padding-top: 15px;
     margin-right: auto;
     margin-left: auto;
     background-color: #ffffff;
+
 }
 
