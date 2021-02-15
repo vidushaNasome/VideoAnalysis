@@ -49,6 +49,87 @@ h2 {
     background: #009cea;
 }
 #xx{
-    margin-top: 2%;
+    margin-top: 5%;
+}
+#categoriesHome{
+    background: #f7f8f9;
+    margin-top: 8%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+}
+
+.icon-box {
+    margin-top: 5%;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    background: #fff;
+    box-shadow: 0 10px 10px 0 rgb(68 88 144 );
+    transition: all 0.3s ease-in-out;
+    border-radius: 4px;
+    text-align: center;
+    border-bottom: 3px solid #fff;
+    width: auto;
+
+}
+#heading2 {
+    margin-top: 8%;
+    margin-bottom: 20px;
+    padding-bottom: 0;
+
+}
+
+#tt{
+    font-size: 28px;
+    font-family: "Raleway", sans-serif;
+    font-weight: 600;
+}
+
+#footer{
+    margin-top: 5%;
+    background: #f7f8f9;
+    padding: 10px 0 30px 0;
+    color: #364146;
+    font-size: 14px;
+}
+#button3{
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 4px;
+    transition: 0.5s;
+    margin: 10px;
+    color: #fff;
+    background: #009cea;
+
+}
+#section3{
+    margin-top: 5%;
+}
+#button4{
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 4px;
+    transition: 0.5s;
+    margin: 10px;
+    color: #fff;
+    background: #009cea;
+    border-color: white;
+}
+button4:hover{
+    color: #1eb4ff;
+    text-decoration: none;
+}
+.dd{
+    margin-top: 5%;
 }
 

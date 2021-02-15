@@ -4,39 +4,40 @@ import './style.css';
 import { Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 class Categories extends Component{
-constructor() {
-    super()
-    this.state = {
-        id: '',
-        name: ''
+    constructor() {
+        super()
+        this.state = {
+            id: '',
+            name: ''
+
+        }
+        this.onSubmit=this.onSubmit.bind(this);
+        this.handleInputChange=this.handleInputChange.bind(this);
+    }
+    componentDidMount() {
+    }
+
+    handleInputChange(event){
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+
+    onSubmit(e){
+        e.preventDefault();
 
     }
-    this.onSubmit=this.onSubmit.bind(this);
-    this.handleInputChange=this.handleInputChange.bind(this);
-}
-componentDidMount() {
-}
+    onSubmit123(id){
 
-handleInputChange(event){
-    this.setState({
-        [event.target.name]: event.target.value
-    })
-}
+    }
 
-
-onSubmit(e){
-    e.preventDefault();
-
-}
-onSubmit123(id){
-
-}
-
-render() {
+    render() {
     const { tt } = this.state;
     return (
         <div className="xx">
             <h1 align="center">Categories Management</h1>
+            <Button id="btnSubmit"><Link to="/categories"  style={{  textDecoration: 'none', color:'white'  }}>Category Main Page</Link></Button>
         <div id="addmaincat">
             <div>
                 <br/>

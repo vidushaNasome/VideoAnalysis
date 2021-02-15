@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import NavigationBar from "./navigation/NavigationBar";
 import {BrowserRouter as Router,Route} from 'react-router-dom';
-//import videojs from 'video.js'
+
 import Switch from "react-bootstrap/Switch";
 import Analyze from "./components/Annotating/Analyze";
 import Categories from "./components/Categaries/Categories";
@@ -11,8 +11,11 @@ import Home from "./components/Home/Home";
 import CategoriesSub from "./components/Categaries/CategoriesSub";
 import Categorieslevel from "./components/Categaries/CategoriesLevel3";
 import Complete from "./components/Annotating/Complete";
-import { Redirect } from 'react-router-dom'
+//import { Redirect } from 'react-router-dom'
 import Home1 from "./components/Home/Home1";
+import Footer from "./navigation/Footer";
+import CategoryMain from "./components/Categaries/CategoryMain";
+import Annotatemain from "./components/Annotating/Annotatemain";
 
 class App extends Component {
 
@@ -39,6 +42,7 @@ class App extends Component {
             this.setState({loginStatus:'loggedInParent'})
         }//Normal page without login(Guest Account)
         else{
+            //Guest Account
             /*sessionStorage.clear();
             this.setState({loginStatus:''})*/
         }
@@ -55,10 +59,12 @@ class App extends Component {
                             <Route  path="/" exact  component={Home}/>
                             <Route  path="/user/"   component={Home}/>
 
+                            <Route  path="/annotate"  component={Annotatemain}/>
                             <Route  path="/annotateNotComplete"  component={Analyze}/>
                             <Route  path="/annotateComplete"  component={Complete}/>
 
-                            <Route  path="/categories"  component={Categories} />
+                            <Route  path="/categories"  component={CategoryMain} />
+                            <Route  path="/categoriesm"  component={Categories} />
                             <Route  path="/categoriessub"  component={CategoriesSub} />
                             <Route  path="/categorieslevel"  component={Categorieslevel} />
 
@@ -67,7 +73,7 @@ class App extends Component {
                         </Switch>
 
                     </Router>
-
+                    <Footer/>
 
                 </div>
                 <br/>

@@ -15,20 +15,10 @@ function NavigationBar() {
                 <Nav className="fixed-top" id="navd">
                     <h1 id="heading">CSAAT - Video Analysis </h1>
                     <Nav.Link id="kk" style={{  textDecoration: 'none' }} href="https://CSAAT-WEB.com/user/1"> CSAAT Home </Nav.Link>
-
-                <NavDropdown title="Annotating" id="basic-nav-dropdown">
-                    <NavDropdown.Item><Link to="/" exact id="nn" style={{  textDecoration: 'none' }}>Main Screen</Link></NavDropdown.Item>
-                    <NavDropdown.Item><Link to="/annotateComplete" id="nn" style={{  textDecoration: 'none' }}>Annotation Completed Videos</Link></NavDropdown.Item>
-                    <NavDropdown.Item><Link to="/annotateNotComplete" id="nn" style={{  textDecoration: 'none' }}>Yet to be Annotated Videos</Link></NavDropdown.Item>
-                    <NavDropdown.Item><Link to="/searchandretrive" id="nn" style={{  textDecoration: 'none' }}>Search and Retrieved</Link></NavDropdown.Item>
-                </NavDropdown>
-
-                <NavDropdown title="Categories" id="basic-nav-dropdown">
-                    <NavDropdown.Item><Link to="/categories" id="nn" style={{  textDecoration: 'none' }}>Main Category</Link></NavDropdown.Item>
-                    <NavDropdown.Item><Link to="/categoriesSub" id="nn" style={{  textDecoration: 'none' }}>Sub Category</Link></NavDropdown.Item>
-                    <NavDropdown.Item><Link to="/categorieslevel" id="nn" style={{  textDecoration: 'none' }}>Level 3 Category</Link></NavDropdown.Item>
-                </NavDropdown>
-
+                    <Link to="/user/" id="nn" style={{  textDecoration: 'none' }}>Home</Link>
+                    <Link to="/annotate" id="nn" style={{  textDecoration: 'none' }}>Annotate</Link>
+                    <Link to="/categories" id="nn" style={{  textDecoration: 'none' }}>Category</Link>
+                    {/*<Nav.Link to="/searchandretrive" id="nn" style={{  textDecoration: 'none' }}>Search</Nav.Link>*/}
                     {sessionStorage.getItem("Username") === null?
                         <div>
                         </div>
@@ -49,7 +39,7 @@ function NavigationBar() {
                     </Nav.Item>
 
                     <Nav.Item>
-                        <Link to="/" exact id="nn" style={{ textDecoration: 'none' }}>Main Screen</Link>
+                        <Link to="/" exact id="nn" style={{ textDecoration: 'none' }}>Home</Link>
                     </Nav.Item>
 
                     <Nav.Item>
