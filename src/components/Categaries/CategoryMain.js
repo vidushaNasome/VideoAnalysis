@@ -9,35 +9,29 @@ class CategoryMain extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            categories: []
+            cat: []
         }
     }
 
     componentDidMount() {
-        axios.get("http://127.0.0.1:8000/api/5")
+        axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/")
             .then(response => {
-                this.setState({categories: response.data});
-                console.log("checkig"+this.state)
+                this.setState({cat: response.data});
+                console.log(this.props)
+
             })
             .catch(function (error) {
                 console.log(error);
+
 
             })
     }
 
     render() {
-        const {categories}=this.state;
-        const list =this.state.categories.map((post) => {
-                return (
-                    <tr key={post.id}>
-                        <td className="text-truncate" id="cs">{post.mc_id}</td>
-                        <td className="text-truncate" id="cs">{post.name}</td>
-                    </tr>
-                )
-            }
-        );
-        return(
-            <div><br/>   <br/>   <br/>   <br/>   <br/>
+        const {cat}=this.state;
+        return (
+            <div>
+                <br/>   <br/>   <br/>   <br/>   <br/>
                 <h1 align="center">Categories Management</h1>
                 <div id="addmaincat">
                     <div>
@@ -45,6 +39,12 @@ class CategoryMain extends Component{
                         <h3 align="center" id="headingSub">View Categories</h3>
                     </div>
                     <div align="center">
+
+                        <div className="users">
+                            {cat.map((l1cat) => (
+                                <div className="user">{l1cat.id}{l1cat.name}</div>
+                            ))}
+                        </div>
 
                         <br/><br/><br/>
                     </div>
