@@ -5,17 +5,18 @@ import {BrowserRouter as Router,Route} from 'react-router-dom';
 
 import Switch from "react-bootstrap/Switch";
 import Analyze from "./components/Annotating/Analyze";
-import Categories from "./components/Categaries/Categories";
+import CategoryLevel1 from "./components/Categaries/CategoryLevel1";
 import SearchAndRetrieve from "./components/SearchAndRetrieve";
 import Home from "./components/Home/Home";
-import CategoriesSub from "./components/Categaries/CategoriesSub";
+import CategoriesLevel2 from "./components/Categaries/CategoriesLevel2";
 import Categorieslevel from "./components/Categaries/CategoriesLevel3";
 import Complete from "./components/Annotating/Complete";
 //import { Redirect } from 'react-router-dom'
 import Home1 from "./components/Home/Home1";
 import Footer from "./navigation/Footer";
-import CategoryMain from "./components/Categaries/CategoryMain";
+import Category from "./components/Categaries/Category";
 import Annotatemain from "./components/Annotating/Annotatemain";
+import MainVideo from "./components/VideoAnnotating/MainVideo";
 
 class App extends Component {
 
@@ -59,14 +60,15 @@ class App extends Component {
                             <Route  path="/" exact  component={Home}/>
                             <Route  path="/user/"   component={Home}/>
 
-                            <Route  path="/annotate"  component={Annotatemain}/>
-                            <Route  path="/annotateNotComplete"  component={Analyze}/>
-                            <Route  path="/annotateComplete"  component={Complete}/>
+                            <Route  path="/annotate" exact component={Annotatemain}/>
+                            <Route  path="/annotateNotComplete" exact  component={Analyze}/>
+                            <Route  path="/annotateComplete" exact  component={Complete}/>
+                            <Route  path="/annotateVideo"  component={MainVideo}/>
 
-                            <Route  path="/categories"  component={CategoryMain} />
-                            <Route  path="/categoriesm"  component={Categories} />
-                            <Route  path="/categoriessub"  component={CategoriesSub} />
-                            <Route  path="/categorieslevel"  component={Categorieslevel} />
+                            <Route  path="/categories" exact component={Category} />
+                            <Route  path="/categoriesm" exact component={CategoryLevel1} />
+                            <Route  path="/categoriessub" exact  component={CategoriesLevel2} />
+                            <Route  path="/categorieslevel" exact component={Categorieslevel} />
 
                             <Route  path="/searchandretrive" exact  component={SearchAndRetrieve} />
 

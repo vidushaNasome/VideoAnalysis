@@ -4,7 +4,7 @@ import './style.css';
 import { Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import axios from "axios";
 
-class Categories extends Component{
+class CategoryLevel1 extends Component{
     constructor() {
         super()
         this.state = {
@@ -40,7 +40,17 @@ class Categories extends Component{
 
     onSubmit(e){
         e.preventDefault();
-        alert("working");
+        this.name=this.state.name;
+        axios.post('http://127.0.0.1:8000/VideoAnalysis/Categories/', {
+            name: this.name
+
+        })
+            .then(function (response) {
+                console.log(response);
+                window.location.reload();
+
+            })
+
 
     }
     onSubmit123(id){
@@ -51,22 +61,28 @@ class Categories extends Component{
     const { tt } = this.state;
     const {cat}=this.state;
     return (
-        <div className="xx">
+        <div className="xx"><br/><br/><br/>
             <h1 align="center">Categories Management</h1>
             <Button id="btnSubmit"><Link to="/categories"  style={{  textDecoration: 'none', color:'white'  }}>Category Main Page</Link></Button>
         <div id="addmaincat">
             <div>
                 <br/>
-                <h3 align="center" id="headingSub">Add Main Categories</h3>
+                <h3 align="center" id="headingSub">Add Level 1 Categories</h3>
             </div>
             <div align="center">
-                <Form className="categoryclass" onSubmit={this.onSubmit()}>
+                <Form className="categoryclass" onSubmit={this.onSubmit} >
                     <Form.Group>
                         <Form.Label>Main Category</Form.Label>
-                        <Form.Control type="text" placeholder="Type Main Category" />
+                        <Form.Control type="text"
+                                      placeholder="Type Main Category"
+                                      onChange={this.handleInputChange}
+                                      value={this.state.name}
+                                      name="name"
+
+                        />
                     </Form.Group>
                     <Button id="btnSubmit" variant="primary" type="submit">
-                        Add Main Category
+                        Add Category
                     </Button>
                 </Form>
                 <br/><br/>
@@ -76,13 +92,20 @@ class Categories extends Component{
             <div id="addmaincat">
                 <div>
                     <br/>
-                    <h3 align="center" id="headingSub">View Main Categories</h3>
+                    <h3 align="center" id="headingSub">View Level 1 Categories</h3>
                 </div>
                 <div align="center">
 
-                    <div className="users">
+                    <div className="catelevel1dis">
                         {cat.map((l1cat) => (
-                            <div className="user">{l1cat.id}{l1cat.name}</div>
+                            <div className="col-md-4">
+                                <div className="card text-center font-weight-bold">
+                                    <div className="card-header text-black">
+                                <tr className="row">{l1cat.name}
+                                <button className="btn-primary" id="cardbtn">Update</button>
+                                <button className="btn-primary" id="cardbtn">Delete</button></tr>
+                                    </div></div>
+                            </div>
                         ))}
                     </div>
 
@@ -100,4 +123,4 @@ class Categories extends Component{
 
 
 
-export default Categories;
+export default CategoryLevel1;

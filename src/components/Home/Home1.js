@@ -141,7 +141,7 @@ class Home1 extends Component{
                                 data-aos="zoom-in">
                                 <div className="icon-box">
                                     <div className="icon"><i className="bx bxl-dribbble"></i></div>
-                                    <h4 className="title"><Link to="/categoriesm"  style={{  textDecoration: 'none' }}>Main Category</Link></h4>
+                                    <h4 className="title"><Link to="/categoriesm"  style={{  textDecoration: 'none' }}>Level 1 Category</Link></h4>
                                     <p className="description">A video can have a 2 or more main categories</p>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@ class Home1 extends Component{
                                 data-aos="zoom-in" data-aos-delay="100">
                                 <div className="icon-box icon-box-cyan">
                                     <div className="icon"><i className="bx bx-file"></i></div>
-                                    <h4 className="title"><Link to="/categoriessub"  style={{  textDecoration: 'none' }}>Sub Category</Link></h4>
+                                    <h4 className="title"><Link to="/categoriessub"  style={{  textDecoration: 'none' }}>Level 2 Category</Link></h4>
                                     <p className="description">A trimmed video under a main category can have a 2 or more subcategories</p>
                                 </div>
                             </div>
@@ -161,7 +161,7 @@ class Home1 extends Component{
                                 data-aos="zoom-in" data-aos-delay="200">
                                 <div className="icon-box icon-box-green">
                                     <div className="icon"><i className="bx bx-tachometer"></i></div>
-                                    <h4 className="title"><Link to="/categorieslevel"  style={{  textDecoration: 'none' }}>Level 3Category</Link></h4>
+                                    <h4 className="title"><Link to="/categorieslevel"  style={{  textDecoration: 'none' }}>Level 3 Category</Link></h4>
                                     <p className="description">A trimmed video under a main-sub category has a 2 or more level 3 categories</p>
                                 </div>
                             </div>

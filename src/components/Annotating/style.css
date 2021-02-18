@@ -90,6 +90,13 @@ h3 {
     margin-top: 5%;
     margin-right: 3%;
 }
+#addmaincat3{
+    background-color: #beccff;
+    padding: 0 0 0 0;
+    margin-top: 5%;
+    margin-right: 3%;
+
+}
 .xx{
     margin-top: 3%;
 }
@@ -122,3 +129,15 @@ h3 {
     padding: 0 0 0 0;
     margin-right: 3%;
 }
+#addmaincat4{
+    margin-top: 5%;
+    background-color: #f7f8f9;
+    padding: 0 0 0 0;
+    margin-right: 3%;
+
+}
+.admincat4{
+    max-height: 500px;
+    background-color: #61dafb;
+}
+

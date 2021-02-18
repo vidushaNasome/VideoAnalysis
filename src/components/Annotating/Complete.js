@@ -4,7 +4,7 @@ class Complete extends Component{
 
     render() {
         return(
-            <div> <br/>   <br/>   <br/>   <br/>   <br/> Completed</div>
+            <div> <br/> Completed</div>
         );
     }
 

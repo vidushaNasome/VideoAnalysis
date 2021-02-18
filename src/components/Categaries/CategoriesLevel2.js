@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Button, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
-class CategoriesSub extends Component{
+class CategoriesLevel2 extends Component{
 
     constructor() {
         super()
@@ -16,13 +17,21 @@ class CategoriesSub extends Component{
         this.handleInputChange=this.handleInputChange.bind(this);
     }
     componentDidMount() {
-        this.setState({
+        axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/")
+            .then(response => {
+                this.setState({mainCategories: response.data});
+            } )
+            .catch(function (error) {
+                console.log(error);
+
+            })
+        /*this.setState({
             mainCategories: [
                 {id: 1, name: 'Child Playing with mother'},
                 {id: 2, name: 'xxxxx'},
                 {id: 3, name: 'yyyyy'}
             ]
-        });
+        });*/
 
     }
 
@@ -56,32 +65,29 @@ class CategoriesSub extends Component{
 
         return (
             <div className="xx">
+                <br/><br/><br/>
                 <h1 align="center">Categories Management</h1>
                 <Button id="btnSubmit"><Link to="/categories"  style={{  textDecoration: 'none',color:'white'  }}>Category Main Page</Link></Button>
                 <div id="addmaincat">
                     <div>
                         <br/>
-                        <h3 align="center" id="headingSub">Add Sub Categories</h3>
+                        <h3 align="center" id="headingSub">Add Level 2 Categories</h3>
                     </div>
                     <div align="center">
                         <Form className="categoryclass">
                             <Form.Group>
-                                <Form.Label>Sub Category ID </Form.Label>
-                                <Form.Control type="text" placeholder="Main Category ID" />
-                            </Form.Group>
-                           <Form.Group>
-                               <Form.Label>Select Main Category </Form.Label>
+                               <Form.Label>Select Level 1 Category </Form.Label>
                                <select id="selectmain" variant="primary">
                                    {mainCategoriesList}
                                </select>
                            </Form.Group>
 
                             <Form.Group>
-                                <Form.Label>Sub Category</Form.Label>
+                                <Form.Label>Level 2 Category</Form.Label>
                                 <Form.Control type="text" placeholder="Type Sub Category" />
                             </Form.Group>
                             <Button id="btnSubmit" variant="primary" type="submit">
-                                Add Sub Category
+                                Add Category
                             </Button>
                         </Form>
                         <br/><br/>
@@ -107,4 +113,4 @@ class CategoriesSub extends Component{
     }
 
 }
-export default CategoriesSub;
+export default CategoriesLevel2;

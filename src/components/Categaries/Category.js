@@ -4,7 +4,7 @@ import {Button} from "react-bootstrap";
 import axios from "axios";
 import "./style.css";
 
-class CategoryMain extends Component{
+class Category extends Component{
 
     constructor(props) {
         super(props);
@@ -40,10 +40,12 @@ class CategoryMain extends Component{
                     </div>
                     <div align="center">
 
-                        <div className="users">
+                        <div className="col-md-4">
+                            <div className="card text-center font-weight-bold">
+                                <div className="card-header text-black">
                             {cat.map((l1cat) => (
-                                <div className="user">{l1cat.id}{l1cat.name}</div>
-                            ))}
+                                <div className="user">{l1cat.name}</div>
+                            ))}</div></div>
                         </div>
 
                         <br/><br/><br/>
@@ -54,9 +56,9 @@ class CategoryMain extends Component{
                     <div align="center">
                         <div className="cat">
                             <h3 align="center" id="headingSub">Go to Categories Pages</h3>
-                            <Button id="btnSubmit"><Link to="/categoriesm"  style={{  textDecoration: 'none' ,color:'white' }}>Main Category</Link></Button>
-                            <Button id="btnSubmit"><Link to="/categoriessub"  style={{  textDecoration: 'none',color:'white'  }}>Sub Category</Link></Button>
-                            <Button id="btnSubmit"><Link to="/categorieslevel"  style={{  textDecoration: 'none',color:'white'  }}>Level 3Category</Link></Button>
+                            <Button id="btnSubmit"><Link to="/categoriesm"  style={{  textDecoration: 'none' ,color:'white' }}>Level 1 Category</Link></Button>
+                            <Button id="btnSubmit"><Link to="/categoriessub"  style={{  textDecoration: 'none',color:'white'  }}>Level 2 Category</Link></Button>
+                            <Button id="btnSubmit"><Link to="/categorieslevel"  style={{  textDecoration: 'none',color:'white'  }}>Level 3 Category</Link></Button>
                         </div>
                         <br/><br/><br/>
                     </div>
@@ -71,4 +73,4 @@ class CategoryMain extends Component{
     }
 
 }
-export default CategoryMain;
+export default Category;
