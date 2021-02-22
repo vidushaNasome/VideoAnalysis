@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import VideoPlayer from "react-video-js-player";
 import { Link } from 'react-router-dom';
+import './style.css';
 
 
 class AnnotateVideo extends Component {
@@ -53,16 +54,16 @@ class AnnotateVideo extends Component {
         let {name} = this.state;
         let {id} = this.state;
         return (
-            <div className="container-fluid">
+            <div>
                 Video id:{id} Video Name:{name}
-                    <div className="content pt-4 pt-lg-0">
-                        <div className="row-cols-2">
+                    <div>
+                        <div>
                         <VideoPlayer
                             controls={true}
                             src={this.state.video.src}
                             poster={this.state.video.poster}
-                            width="200px"
-                            height="200px"
+                            width="400px"
+                            height="250px"
                             onReady={this.onPlayerReady.bind(this)}
                             onPlay={this.onVideoPlay.bind(this)}
                             onPause={this.onVideoPause.bind(this)}
@@ -73,10 +74,9 @@ class AnnotateVideo extends Component {
                         />
                         <div><br/>
                             Chlid Specification
-                            <Link to={"/annotateVideo/id?_k=" +id }> Annotate </Link>
+                            <h4 className="videonavmainbtn" style={{  textDecoration: 'none' }}> <Link to={"/annotateVideo/id?_k=" +id }> Annotate </Link></h4>
+                        </div><br/><br/>
                         </div>
-                        </div>
-                        <br/><br/>
                     </div>
 
             </div>

@@ -16,32 +16,30 @@ class Annotatemain extends Component{
 
     render() {
         return(
-            <div><br/>   <br/>   <br/>   <br/>   <br/>
+            <div>
                 <h1 align="center">Annotate</h1>
-
+                <h3 align="left" id="headingSub">Yet to be Annotated Videos</h3>
                 <div id="addmaincat4">
                     <div className="container">
                     <div className="sizecontainer">
-                        <br/>
-                        <h3 align="center" id="headingSub">Yet to be Annotated Videos</h3>
-                        <Analyze/>
                     </div></div>
                     <div align="center">
-                        <br/><br/><br/>
+                        <br/>
+                        <Analyze/>
+                        <br/>
                     </div>
                 </div>
 
+                <br/>
+                <h3 align="left" id="headingSub">Annotation Completed Videos</h3>
                 <div id="addmaincat3">
                     <div className="container">
                         <div className="sizecontainer">
                     <div>
-                        <br/>
-                        <h3 align="center" id="headingSub">Annotation Completed Videos</h3>
-                        <Complete/>
                     </div>
                     <div align="center">
-
-                        <br/><br/><br/>
+                        <Complete/>
+                        <br/> <br/> <br/> <br/>
                     </div></div></div>
                 </div>
 

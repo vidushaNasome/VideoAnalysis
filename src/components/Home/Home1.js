@@ -171,9 +171,32 @@ class Home1 extends Component{
                                 <div className="row aos-init aos-animate" data-aos="zoom-in">
                                     <div className="col-lg-9 text-center text-lg-left">
                                         <h3>Annotate</h3>
-                                        <p> </p>
+                                        <div className="row">
+                                            <div
+                                                className="col-md-3 col-lg-5 d-flex align-items-stretch mb-5 mb-lg-0 aos-init aos-animate"
+                                                data-aos="zoom-in" data-aos-delay="100">
+                                                <div className="icon-box icon-box-cyan">
+                                                    <div className="icon"><i className="bx bx-file"></i></div>
+                                                    <h4 className="title">Yet to be Annotated Videos</h4>
+                                                    <p className="description">xxxxxxxxxxxxxxx</p>
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                className="col-md-3 col-lg-5 d-flex align-items-stretch mb-5 mb-lg-0 aos-init aos-animate"
+                                                data-aos="zoom-in" data-aos-delay="200">
+                                                <div className="icon-box icon-box-green">
+                                                    <div className="icon"><i className="bx bx-tachometer"></i></div>
+                                                    <h4 className="title">Annotation Completed Videos</h4>
+                                                    <p className="description">xxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                                                </div>
+                                            </div>
+
+                                        <br/><br/>
+                                        </div>
                                     </div>
                                     <div className="col-lg-3 cta-btn-container text-center">
+                                        <button className="videonavmainbtn"><Link to="/annotate"  style={{  textDecoration: 'none' }}>Go to Page</Link></button>
                                         <button id="button4">Watch Demo</button>
                                     </div>
                                 </div>

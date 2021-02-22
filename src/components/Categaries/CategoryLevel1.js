@@ -53,7 +53,11 @@ class CategoryLevel1 extends Component{
 
 
     }
-    onSubmit123(id){
+    onDeleteClick(id){
+        console.log("id:"+id);
+        axios.delete("http://127.0.0.1:8000/VideoAnalysis/Categories/" + id+ "/").then((response) => {
+            window.location.replace("/categoriesm")
+        });
 
     }
 
@@ -103,7 +107,7 @@ class CategoryLevel1 extends Component{
                                     <div className="card-header text-black">
                                 <tr className="row">{l1cat.name}
                                 <button className="btn-primary" id="cardbtn">Update</button>
-                                <button className="btn-primary" id="cardbtn">Delete</button></tr>
+                                <button className="btn-primary" id="cardbtn" onClick={() => this.onDeleteClick(l1cat.id)}> Delete </button></tr>
                                     </div></div>
                             </div>
                         ))}

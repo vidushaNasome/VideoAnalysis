@@ -41,10 +41,14 @@ class Category extends Component{
                     <div align="center">
 
                         <div className="col-md-4">
-                            <div className="card text-center font-weight-bold">
-                                <div className="card-header text-black">
+                            <div>
+                                <div>
                             {cat.map((l1cat) => (
+                                <div className="col-md-auto">
+                                    <div className="card text-center font-weight-bold">
+                                        <div className="card-header text-black">
                                 <div className="user">{l1cat.name}</div>
+                                        </div></div></div>
                             ))}</div></div>
                         </div>
 
