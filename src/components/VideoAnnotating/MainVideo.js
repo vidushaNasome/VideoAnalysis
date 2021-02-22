@@ -19,6 +19,17 @@ class MainVideo extends Component {
 
 
     componentDidMount() {
+
+        axios.get("http://127.0.0.1:8000/VideoAnalysis/createfolder?uniquename="+this.state.id)
+            .then(response => {
+                alert("Successfully created the Unique Child Folder. You can start Annotating.")
+
+            })
+            .catch(function (error) {
+                console.log(error);
+
+
+            })
         //alert(qs.parse(this.props.location.search, { ignoreQueryPrefix: true })._k);
        /* axios.get('https://backend-280306.uc.r.appspot.com/api/categories/' +qs.parse(this.props.location.search, { ignoreQueryPrefix: true })._k)
             .then(response => {

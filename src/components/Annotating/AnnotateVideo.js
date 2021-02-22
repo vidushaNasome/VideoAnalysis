@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import VideoPlayer from "react-video-js-player";
 import { Link } from 'react-router-dom';
 import './style.css';
+import axios from "axios";
 
 
 class AnnotateVideo extends Component {
@@ -50,6 +51,7 @@ class AnnotateVideo extends Component {
     onVideoEnd(){
         console.log("Video ended");
     }
+
     render() {
         let {name} = this.state;
         let {id} = this.state;
@@ -74,7 +76,7 @@ class AnnotateVideo extends Component {
                         />
                         <div><br/>
                             Chlid Specification
-                            <h4 className="videonavmainbtn" style={{  textDecoration: 'none' }}> <Link to={"/annotateVideo/id?_k=" +id }> Annotate </Link></h4>
+                            <button className="videonavmainbtn" style={{  textDecoration: 'none' }}> <Link to={"/annotateVideo/id?_k=" +id }> Annotate </Link></button>
                         </div><br/><br/>
                         </div>
                     </div>
@@ -86,6 +88,8 @@ class AnnotateVideo extends Component {
     gotoAnnotation() {
 
     }
+
+
 }
 
 export default AnnotateVideo;

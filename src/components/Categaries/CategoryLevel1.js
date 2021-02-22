@@ -107,7 +107,7 @@ class CategoryLevel1 extends Component{
                                     <div className="card-header text-black">
                                 <tr className="row">{l1cat.name}
                                 <button className="btn-primary" id="cardbtn">Update</button>
-                                <button className="btn-primary" id="cardbtn" onClick={() => this.onDeleteClick(l1cat.id)}> Delete </button></tr>
+                                <button className="btn-danger"  onClick={() => this.onDeleteClick(l1cat.id)}> Delete </button></tr>
                                     </div></div>
                             </div>
                         ))}
