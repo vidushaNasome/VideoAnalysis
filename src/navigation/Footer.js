@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './style.css';
+/*The method needs to check with the format*/
 
 class Footer extends Component {
 
