@@ -12,8 +12,13 @@ class MainVideo extends Component {
 
         this.state={
             id:qs.parse(this.props.location.search, { ignoreQueryPrefix: true })._k,
-            mainCategories: []
+            mainCategories: [],
+            level1cat:''
         }
+        if (this.state.id===""){
+            this.state.id=localStorage.getItem("videoid")
+        }
+        this.onAnnotationBar=this.onAnnotationBar.bind(this);
     }
 
 
@@ -23,6 +28,7 @@ class MainVideo extends Component {
         axios.get("http://127.0.0.1:8000/VideoAnalysis/createfolder?uniquename="+this.state.id)
             .then(response => {
                 alert("Successfully created the Unique Child Folder. You can start Annotating.")
+                localStorage.setItem("videoid",this.state.id)
 
             })
             .catch(function (error) {
@@ -58,6 +64,11 @@ class MainVideo extends Component {
 
             })
     }
+    handleInputChange(event){
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
 
     onPlayerReady(player){
         console.log("Player is ready: ", player);
@@ -86,6 +97,20 @@ class MainVideo extends Component {
 
     onVideoEnd(){
         console.log("Video ended");
+    }
+
+    onAnnotationBar(e){
+        e.preventDefault();
+        //this.nameDisplay=this.state.level1cat;
+        let idForSelected = this.menu.value.valueOf();
+        this.id=this.state.id;
+        //let nameForSelected = this.menu.value.
+        console.log(idForSelected);
+       // alert("dislay"+res);
+
+        //window.open('/Level1/id?_k=' +this.id+'_id'+idForSelected,<Level1Annotations/>,'height=600,width=600');
+        window.open('/level1/id?k='+this.id+'idcat_'+idForSelected,'','height=600,width=600');
+
     }
 
 
@@ -122,10 +147,10 @@ class MainVideo extends Component {
                 <br/><br/>
                     <div> <br/><br/><h3>Select Level 1 Category</h3></div>
                     <div align="left">
-                        <Form className="row">
+                        <Form className="row" onSubmit={this.onAnnotationBar}>
                             <Form.Group>
                                 <Form.Label>Select Level 1 Category </Form.Label>
-                                <select id="selectmain" variant="primary">
+                                <select id="level1cat" variant="primary" name="level1cat" ref = {(input)=> this.menu = input}>
                                     {mainCategoriesList}
                                 </select>
                             </Form.Group>

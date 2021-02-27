@@ -3,6 +3,8 @@ import {Link} from "react-router-dom";
 import './style.css';
 import { Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import axios from "axios";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 class CategoryLevel1 extends Component{
     constructor() {
@@ -30,6 +32,22 @@ class CategoryLevel1 extends Component{
 
             })
     }
+   /* submitDelete = () => {
+        confirmAlert({
+            title: 'Confirm to submit',
+            message: 'Are you sure to do this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => alert('Click Yes')
+                },
+                {
+                    label: 'No',
+                    onClick: () => alert('Click No')
+                }
+            ]
+        });
+    };*/
 
     handleInputChange(event){
         this.setState({
@@ -55,9 +73,23 @@ class CategoryLevel1 extends Component{
     }
     onDeleteClick(id){
         console.log("id:"+id);
-        axios.delete("http://127.0.0.1:8000/VideoAnalysis/Categories/" + id+ "/").then((response) => {
-            window.location.replace("/categoriesm")
+        confirmAlert({
+            title: 'Confirm to Delete Level 1 Category',
+            message: 'Are you Sure you want to delete this Category?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => axios.delete("http://127.0.0.1:8000/VideoAnalysis/Categories/" + id+ "/").then((response) => {
+                                    window.location.replace("/categoriesm")
+                    })
+                },
+                {
+                    label: 'No',
+
+                }
+            ]
         });
+
 
     }
 

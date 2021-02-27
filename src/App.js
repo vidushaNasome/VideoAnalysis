@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.css';
 import NavigationBar from "./navigation/NavigationBar";
 import {BrowserRouter as Router,Route} from 'react-router-dom';
-
 import Switch from "react-bootstrap/Switch";
 import Analyze from "./components/Annotating/Analyze";
 import CategoryLevel1 from "./components/Categaries/CategoryLevel1";
@@ -17,6 +16,7 @@ import Footer from "./navigation/Footer";
 import Category from "./components/Categaries/Category";
 import Annotatemain from "./components/Annotating/Annotatemain";
 import MainVideo from "./components/VideoAnnotating/MainVideo";
+import Level1Annotations from "./components/VideoAnnotating/Level1Annotations";
 
 class App extends Component {
 
@@ -59,17 +59,15 @@ class App extends Component {
                         <Switch>
                             <Route  path="/" exact  component={Home}/>
                             <Route  path="/user/"   component={Home}/>
-
                             <Route  path="/annotate" exact component={Annotatemain}/>
                             <Route  path="/annotateNotComplete" exact  component={Analyze}/>
                             <Route  path="/annotateComplete" exact  component={Complete}/>
+                            <Route  path="/level1"  component={Level1Annotations}/>
                             <Route  path="/annotateVideo"  component={MainVideo}/>
-
                             <Route  path="/categories" exact component={Category} />
                             <Route  path="/categoriesm" exact component={CategoryLevel1} />
                             <Route  path="/categoriessub" exact  component={CategoriesLevel2} />
                             <Route  path="/categorieslevel" exact component={Categorieslevel} />
-
                             <Route  path="/searchandretrive" exact  component={SearchAndRetrieve} />
 
                         </Switch>
