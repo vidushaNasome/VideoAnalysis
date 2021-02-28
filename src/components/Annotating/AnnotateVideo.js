@@ -62,7 +62,7 @@ class AnnotateVideo extends Component {
                         <div>
                         <VideoPlayer
                             controls={true}
-                            src={this.state.video.src}
+                            src={name}
                             poster={this.state.video.poster}
                             width="400px"
                             height="250px"

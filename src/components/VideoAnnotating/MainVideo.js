@@ -4,6 +4,7 @@ import qs from "query-string";
 import './style.css';
 import VideoPlayer from "react-video-js-player";
 import {Button, Form} from "react-bootstrap";
+import userimg from "../../Images/user.png";
 
 class MainVideo extends Component {
 
@@ -13,7 +14,8 @@ class MainVideo extends Component {
         this.state={
             id:qs.parse(this.props.location.search, { ignoreQueryPrefix: true })._k,
             mainCategories: [],
-            level1cat:''
+            level1cat:'',
+            LoadedFrames:[],
         }
         if (this.state.id===""){
             this.state.id=localStorage.getItem("videoid")
@@ -101,21 +103,21 @@ class MainVideo extends Component {
 
     onAnnotationBar(e){
         e.preventDefault();
-        //this.nameDisplay=this.state.level1cat;
         let idForSelected = this.menu.value.valueOf();
         this.id=this.state.id;
-        //let nameForSelected = this.menu.value.
-        console.log(idForSelected);
-       // alert("dislay"+res);
 
-        //window.open('/Level1/id?_k=' +this.id+'_id'+idForSelected,<Level1Annotations/>,'height=600,width=600');
-        window.open('/level1/id?k='+this.id+'idcat_'+idForSelected,'','height=600,width=600');
+        //this.setState({LoadedFrames:  });
+        this.setState({
+            LoadedFrames: this.state.LoadedFrames.concat(idForSelected)
+        })
+        window.open('/level1/id?k='+this.id+'idcat_'+idForSelected,'','height=800,width=800');
 
     }
 
 
     render() {
         let {id} = this.state;
+        let {LoadedFrames} = this.state;
         const { mainCategories } = this.state;
         let mainCategoriesList = mainCategories.length > 0
             && mainCategories.map((item, i) => {
@@ -159,6 +161,20 @@ class MainVideo extends Component {
                             </Button>
                         </Form>
                         <br/><br/>
+                    </div>
+
+
+                    <div className="">
+                        <h1 align="center"> Annotations Specification </h1>
+                        Unique Folder ID: Childvideo/{id}
+                        {/*LoadedFrames.map((l1cat) => (
+                            <div className="col-md-4">
+                                <div className="card text-center font-weight-bold">
+                                    <div className="card-header text-black">
+                                        {l1cat}
+                                    </div></div>
+                            </div>
+                        ))*/}
                     </div>
                     <br/><br/><br/>
 

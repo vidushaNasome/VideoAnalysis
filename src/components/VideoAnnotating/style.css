@@ -31,4 +31,8 @@
 .videonavmainbtn a{
     color: white;
 }
-
+.annotation{
+    background-color: #505868;
+    min-height: 150px;
+    border-radius: 10px;
+}

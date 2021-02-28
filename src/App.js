@@ -17,6 +17,7 @@ import Category from "./components/Categaries/Category";
 import Annotatemain from "./components/Annotating/Annotatemain";
 import MainVideo from "./components/VideoAnnotating/MainVideo";
 import Level1Annotations from "./components/VideoAnnotating/Level1Annotations";
+//import BrowserHistory from'react-router';
 
 class App extends Component {
 
@@ -51,6 +52,7 @@ class App extends Component {
     }
 
     render() {
+        //localStorage.clear();
         return (
             <div>
                 <div>
