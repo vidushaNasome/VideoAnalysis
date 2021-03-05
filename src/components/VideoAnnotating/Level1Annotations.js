@@ -6,6 +6,9 @@ import {Button, Form} from "react-bootstrap";
 import AnnotationBar from "./AnnotationBar";
 import { withRouter } from 'react-router'
 import {confirmAlert} from "react-confirm-alert";
+import video1 from '../../Video_Store/ChildVideo1.mp4'
+import VideoTrimmer from "./VideoTrimmer";
+
 
 class Level1Annotations extends Component {
     constructor(props) {
@@ -13,15 +16,14 @@ class Level1Annotations extends Component {
         this.state={
             id:qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).k,
             mainCategories: {},
-            idv:''
+            idv:'',
+            videourl:video1,
         }
 
     }
 
     componentDidMount() {
-
         //window.addEventListener('beforeunload', this.keepOnPage);
-
         this.id=this.state.id;
         let sentence = this.id;
         sentence.split("_");
@@ -37,9 +39,6 @@ class Level1Annotations extends Component {
 
             })
         sessionStorage.setItem(sentence,sentence);
-
-
-
     }
     componentWillUnmount() {
         confirmAlert({
@@ -57,29 +56,12 @@ class Level1Annotations extends Component {
                     }
                 ]
             });
-
-
-
-        //window.removeEventListener('beforeunload', this.keepOnPage);
-       // keepOnPage();
-        //window.close();
-
     }
-
-    /*keepOnPage() {
-
-        alert("checking 123");
-        let message = 'Warning!\n\nNavigating away from this page will delete your text if you haven\'t already saved it.';
-        e.returnValue = message;
-        return message;
-
-
-    }*/
-
 
     render() {
         let {idv} = this.state;
         let {mainCategories} = this.state;
+        let {videourl} = this.state;
         return (
             <div>
                 <div><br/><br/><br/><br/>
@@ -88,12 +70,9 @@ class Level1Annotations extends Component {
                             <h6 align="center" id="headingSub">Video ID : {idv} <br/> Level-1-Category : {mainCategories.name} </h6>
                         </div>
                         <div align="center">
-                            <VideoPlayer
-                                controls={true}
-                                width="1100"
-                                height="450px"
-                            />
+                        <VideoTrimmer/>
                         </div>
+
                         <br/>
                         <div><h6>Annotation Bar</h6></div>
                         <div align="left">
