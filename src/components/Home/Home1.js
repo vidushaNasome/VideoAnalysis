@@ -4,8 +4,8 @@ import photo1 from "../../Images/photo3.jpg";
 import VideoPlayer from 'react-video-js-player';
 import {Link} from "react-router-dom";
 import {BrowserRouter as Router,Route} from "react-router-dom";
-import Analyze from "../Annotating/Analyze";
-import Complete from "../Annotating/Complete";
+import Analyze from "../AnnotatingDisplay/Analyze";
+import Complete from "../AnnotatingDisplay/Complete";
 import Switch from "react-bootstrap/Switch";
 import ModalVideo from 'react-modal-video'
 import {Button,ButtonToolbar} from "react-bootstrap";

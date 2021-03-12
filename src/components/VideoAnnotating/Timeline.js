@@ -1,47 +1,69 @@
-import React from 'react'
-import { endOfToday, set } from 'date-fns'
-import TimeRange from 'react-timeline-range-slider'
+import React, {Component} from 'react';
+import TimeRangeSlider from 'react-time-range-slider';
 
-const now = new Date()
-const getTodayAtSpecificHour = (hour = 12) =>
-    set(now, { hours: hour, minutes: 0, seconds: 0, milliseconds: 0 })
+class Timeline extends Component {
 
-const selectedStart = getTodayAtSpecificHour()
-const selectedEnd = getTodayAtSpecificHour(14)
+    constructor(props) {
+        super(props);
+        this.featureRef = React.createRef();
+        this.changeStartHandler = this.changeStartHandler.bind(this);
+        this.timeChangeHandler = this.timeChangeHandler.bind(this);
+        this.changeCompleteHandler = this.changeCompleteHandler.bind(this);
 
-const startTime = getTodayAtSpecificHour(7)
-const endTime = endOfToday()
+        this.state = {
+            value: {
+                start: "00:00:00",
+                end: "23:59:00"
+            },
+            max:'',
+            min:'',
+        }
 
-const disabledIntervals = [
-    { start: getTodayAtSpecificHour(16), end: getTodayAtSpecificHour(17) },
-    { start: getTodayAtSpecificHour(7), end: getTodayAtSpecificHour(12) },
-    { start: getTodayAtSpecificHour(20), end: getTodayAtSpecificHour(24) }
-]
-
-class Timeline extends React.Component {
-    state = {
-        error: false,
-        selectedInterval: [selectedStart, selectedEnd],
     }
 
-    errorHandler = ({ error }) => this.setState({ error })
+    changeStartHandler(time){
+        console.log("Start Handler Called", time);
+    }
 
-    onChangeCallback = selectedInterval => this.setState({ selectedInterval })
+    timeChangeHandler(time){
+
+
+        this.setState({
+            value: time
+        });
+        console.log("wwwwwwwwww"+this.state.value)
+    }
+
+    changeCompleteHandler(time){
+        console.log("Complete Handler Called", time);
+    }
+
 
     render() {
-        const { selectedInterval, error } = this.state
+        const {value} = this.state;
         return (
-            <TimeRange
-                error={error}
-                ticksNumber={36}
-                selectedInterval={selectedInterval}
-                timelineInterval={[startTime, endTime]}
-                onUpdateCallback={this.errorHandler}
-                onChangeCallback={this.onChangeCallback}
-                disabledIntervals={disabledIntervals}
-            />
-        )
+            <div>
+                <br/>
+                Selected Start Time : {value.start}  <br/>
+
+                Selected Start Time : {value.end}   <br/>
+
+                <TimeRangeSlider
+                    disabled={false}
+                    format={24}
+                    maxValue={"23:59:00"}
+                    minValue={"00:00:00"}
+                    name={"time_range"}
+                    onChangeStart={this.changeStartHandler}
+                    onChangeComplete={this.changeCompleteHandler}
+                    onChange={this.timeChangeHandler}
+                    step={15}
+                    value={this.state.value}/>
+            </div>
+        );
     }
 }
 
-export default Timeline
+export default Timeline;
+
+

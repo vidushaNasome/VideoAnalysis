@@ -29,7 +29,7 @@ class MainVideo extends Component {
 
         axios.get("http://127.0.0.1:8000/VideoAnalysis/createfolder?uniquename="+this.state.id)
             .then(response => {
-                alert("Successfully created the Unique Child Folder. You can start Annotating.")
+                alert("Successfully created the Unique Child Folder. You can start AnnotatingDisplay.")
                 localStorage.setItem("videoid",this.state.id)
 
             })
@@ -157,7 +157,7 @@ class MainVideo extends Component {
                                 </select>
                             </Form.Group>
                             <Button id="bt" variant="primary" type="submit">
-                                Create Annotation Bar
+                                Start Annotating
                             </Button>
                         </Form>
                         <br/><br/>

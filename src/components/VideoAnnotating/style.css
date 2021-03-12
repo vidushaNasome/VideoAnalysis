@@ -36,3 +36,60 @@
     min-height: 150px;
     border-radius: 10px;
 }
+.PlayerWrapper{
+    width:100%;
+    position:relative;
+}
+.ControlsWrapper{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:rgb(0,0,0);
+    display:flex;
+    flexDirection:column;
+    justifyContent:space-between;
+    zIndex:1,
+}
+#trimpoints{
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 4px;
+    transition: 0.5s;
+    margin: 10px;
+    color: #fff;
+    background: #009cea;
+    border-color: white;
+}
+#trimVideo{
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 4px;
+    transition: 0.5s;
+    margin: 10px;
+    color: #fff;
+    background: #505868;
+    border-color: white;
+}
+.trimmedResults{
+    margin-left: 7%;
+}
+
+.trimmedResults2{
+    max-width: 50%;
+}
+#bt{
+    margin-left: 2%;
+}
+#level1cat{
+
+}

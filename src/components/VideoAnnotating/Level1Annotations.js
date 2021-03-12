@@ -9,6 +9,11 @@ import {confirmAlert} from "react-confirm-alert";
 import video1 from '../../Video_Store/ChildVideo1.mp4'
 import VideoTrimmer from "./VideoTrimmer";
 
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+
+
+
 
 class Level1Annotations extends Component {
     constructor(props) {
@@ -66,20 +71,14 @@ class Level1Annotations extends Component {
             <div>
                 <div><br/><br/><br/><br/>
                     <div id="main">
-                        <div>
-                            <h6 align="center" id="headingSub">Video ID : {idv} <br/> Level-1-Category : {mainCategories.name} </h6>
-                        </div>
+                        <Typography variant="h6"> Video ID : {idv} <br/> Level-1-Category : {mainCategories.name} </Typography>
                         <div align="center">
-                        <VideoTrimmer/>
+                            <VideoTrimmer childId = {idv} />
+
                         </div>
 
                         <br/>
-                        <div><h6>Annotation Bar</h6></div>
-                        <div align="left">
-                            <AnnotationBar/>
-                            <br/><br/>
-                        </div>
-                        <br/><br/><br/>
+
 
                     </div>
                 </div>
