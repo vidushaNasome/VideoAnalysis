@@ -73,7 +73,7 @@ class Level1Annotations extends Component {
                     <div id="main">
                         <Typography variant="h6"> Video ID : {idv} <br/> Level-1-Category : {mainCategories.name} </Typography>
                         <div align="center">
-                            <VideoTrimmer childId = {idv} />
+                            <VideoTrimmer childId = {idv} level={'1'} selectcategory={mainCategories.id}/>
 
                         </div>
 

@@ -20,6 +20,8 @@ class VideoTrimmer extends Component {
     static get propTypes() {
         return {
             childId: PropTypes.number,
+            level: PropTypes.number,
+            selectcategory: PropTypes.number
 
         }
     }
@@ -143,6 +145,8 @@ class VideoTrimmer extends Component {
         const formData = new FormData();
         formData.append('childid',this.props.childId)
         formData.append('description',this.state.description)
+        formData.append('level','1')
+        formData.append('category','16')
         formData.append('video',this.state.selectedvideo)
 
         return  axios.post('http://127.0.0.1:8000/VideoAnalysis/Videoupload/', formData,{
@@ -178,7 +182,7 @@ class VideoTrimmer extends Component {
                         <Container>
                             <div className="PlayerWrapper">
                         <ReactPlayer
-                            url={video1}
+                            url="http://127.0.0.1:8000/media/retrievingData/childid1.mp4"
                             controls={true}
                             ref={this.player}
                             playerOptions={{

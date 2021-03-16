@@ -5,6 +5,8 @@ import './style.css';
 import VideoPlayer from "react-video-js-player";
 import {Button, Form} from "react-bootstrap";
 import userimg from "../../Images/user.png";
+import video1 from "../../Video_Store/ChildVideo1.mp4";
+import ReactPlayer from "react-player";
 
 class MainVideo extends Component {
 
@@ -16,6 +18,7 @@ class MainVideo extends Component {
             mainCategories: [],
             level1cat:'',
             LoadedFrames:[],
+            LoadedAnnotatedDetails:[],
         }
         if (this.state.id===""){
             this.state.id=localStorage.getItem("videoid")
@@ -63,6 +66,20 @@ class MainVideo extends Component {
             } )
             .catch(function (error) {
                 console.log(error);
+
+            })
+
+        //categories
+        axios.get("http://127.0.0.1:8000/VideoAnalysis/Videoupload?id=6")
+            .then(response => {
+                this.setState({LoadedAnnotatedDetails: response.data});
+                //console.log("check"+this.state.LoadedAnnotatedDetails)
+               // alert('checking')
+
+            })
+            .catch(function (error) {
+                console.log(error);
+
 
             })
     }
@@ -117,7 +134,7 @@ class MainVideo extends Component {
 
     render() {
         let {id} = this.state;
-        let {LoadedFrames} = this.state;
+        let {LoadedAnnotatedDetails} = this.state;
         const { mainCategories } = this.state;
         let mainCategoriesList = mainCategories.length > 0
             && mainCategories.map((item, i) => {
@@ -167,19 +184,41 @@ class MainVideo extends Component {
                     <div className="">
                         <h1 align="center"> Annotations Specification </h1>
                         Unique Folder ID: Childvideo/{id}
-                        {/*LoadedFrames.map((l1cat) => (
-                            <div className="col-md-4">
-                                <div className="card text-center font-weight-bold">
-                                    <div className="card-header text-black">
-                                        {l1cat}
-                                    </div></div>
+                        <div align="center">
+                            <div className="catelevel1dis">
+                                Level 1 Annotations
+                                {LoadedAnnotatedDetails.map((details) => (
+                                    <div className="col-md-6">
+                                        <div className="card text-center font-weight-bold alert-primary">
+                                            <div className="card-header text-black">
+                                                <div className="row">
+                                                    Child Video ID: {details.childid} <br/>
+                                                    Annotated Level : {details.level} <br/>
+                                                    Annotated Category ID: {details.category_id} <br/>
+                                                    Added Description : {details.description} <br/><br/>
+                                                    {details.video}
+                                                    <ReactPlayer
+                                                        url={details.video}
+                                                        controls={true}
+                                                        type="video/mp4"
+                                                        width="600px"
+                                                        height="200px"
+                                                    />
+
+                                                   </div> <br/>
+                                            </div>
+                                            <button className="btn-primary"> Add Level 2 Annotations </button> <br/>
+                                            <button className="btn-danger"> Delete </button>
+                                        </div><br/><br/>
+                                    </div>
+                                ))}
+                                <br/>
                             </div>
-                        ))*/}
                     </div>
                     <br/><br/><br/>
 
                 </div>
-            </div>
+                </div></div>
         );
 
 
