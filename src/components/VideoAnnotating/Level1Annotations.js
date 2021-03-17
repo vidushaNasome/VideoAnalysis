@@ -1,15 +1,8 @@
 import React, {Component} from 'react';
 import axios from "axios";
 import qs from "query-string";
-import VideoPlayer from "react-video-js-player";
-import {Button, Form} from "react-bootstrap";
-import AnnotationBar from "./AnnotationBar";
-import { withRouter } from 'react-router'
 import {confirmAlert} from "react-confirm-alert";
-import video1 from '../../Video_Store/ChildVideo1.mp4'
 import VideoTrimmer from "./VideoTrimmer";
-
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
 
@@ -22,7 +15,8 @@ class Level1Annotations extends Component {
             id:qs.parse(this.props.location.search, { ignoreQueryPrefix: true }).k,
             mainCategories: {},
             idv:'',
-            videourl:video1,
+            url:'',
+            name:'',
         }
 
     }
@@ -44,6 +38,22 @@ class Level1Annotations extends Component {
 
             })
         sessionStorage.setItem(sentence,sentence);
+
+        //Retrieve video data - uploaded videos
+        axios.get('http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/' + this.state.idv + '/')
+            .then(response => {
+                this.setState({
+                        url: response.data.video,
+                        name:response.data.name,
+                    }
+                )
+
+            })
+            .catch(function (error) {
+                console.log(error)
+
+            })
+
     }
     componentWillUnmount() {
         confirmAlert({
@@ -66,14 +76,15 @@ class Level1Annotations extends Component {
     render() {
         let {idv} = this.state;
         let {mainCategories} = this.state;
-        let {videourl} = this.state;
+        let {url} = this.state;
+        let {name} = this.state;
         return (
             <div>
                 <div><br/><br/><br/><br/>
                     <div id="main">
                         <Typography variant="h6"> Video ID : {idv} <br/> Level-1-Category : {mainCategories.name} </Typography>
                         <div align="center">
-                            <VideoTrimmer childId = {idv} level={'1'} selectcategory={mainCategories.id}/>
+                            <VideoTrimmer childId = {idv} name={name} level={'1'} selectcategory={mainCategories.id} url={"http://127.0.0.1:8000/media/retreivingData/childid1.mp4"}/>
 
                         </div>
 

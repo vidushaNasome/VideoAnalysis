@@ -21,7 +21,9 @@ class VideoTrimmer extends Component {
         return {
             childId: PropTypes.number,
             level: PropTypes.number,
-            selectcategory: PropTypes.number
+            selectcategory: PropTypes.number,
+            url:PropTypes.string,
+            name:PropTypes.string,
 
         }
     }
@@ -41,9 +43,11 @@ class VideoTrimmer extends Component {
             description:'',
             childId: this.props.childId,
             selectedvideo:null,
+            url:this.props.url,
+            name:this.props.name,
 
         }
-
+        alert(this.props.url)
         this.onChange = this.onChange.bind(this);
         this.settimeStart = this.settimeStart.bind(this);
         this.settimeEnd = this.settimeEnd.bind(this);
@@ -61,7 +65,7 @@ class VideoTrimmer extends Component {
     async convertToTrimmed() {
         // Write the file to memory
         alert("Trimming Video..........");
-        await ffmpeg.FS('writeFile', 'test.mp4', await fetchFile(this.state.video));
+        await ffmpeg.FS('writeFile', 'test.mp4', await fetchFile(this.state.url));
 
         // Run the FFMpeg command
         //-i input.mp4 -ss 00:00:05 -c copy -to 00:00:07 sliced-output.mp4
@@ -167,8 +171,8 @@ class VideoTrimmer extends Component {
     }
 
     render() {
-        const {ready} = this.state;
-        const {selectedvideo} = this.state;
+        const {url} = this.state;
+        const {name} = this.state;
         const {video} = this.state;
         const {gif} = this.state;
         const {markedStartTime} = this.state;
@@ -182,12 +186,10 @@ class VideoTrimmer extends Component {
                         <Container>
                             <div className="PlayerWrapper">
                         <ReactPlayer
-                            url="http://127.0.0.1:8000/media/retrievingData/childid1.mp4"
+                            url={url}
                             controls={true}
                             ref={this.player}
-                            playerOptions={{
-                                start: 10
-                            }}
+
                         />
                                 <div className="ControlWrapper">
                                     <Grid container direction="row" alignItems="center" justify="space-between" style={{padding:16}}>

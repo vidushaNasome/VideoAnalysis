@@ -2,10 +2,7 @@ import React, {Component} from 'react';
 import axios from "axios";
 import qs from "query-string";
 import './style.css';
-import VideoPlayer from "react-video-js-player";
 import {Button, Form} from "react-bootstrap";
-import userimg from "../../Images/user.png";
-import video1 from "../../Video_Store/ChildVideo1.mp4";
 import ReactPlayer from "react-player";
 
 class MainVideo extends Component {
@@ -15,10 +12,13 @@ class MainVideo extends Component {
 
         this.state={
             id:qs.parse(this.props.location.search, { ignoreQueryPrefix: true })._k,
+            url:'',
+            name:'',
             mainCategories: [],
             level1cat:'',
             LoadedFrames:[],
             LoadedAnnotatedDetails:[],
+            loadedvideo:{}
         }
         if (this.state.id===""){
             this.state.id=localStorage.getItem("videoid")
@@ -41,25 +41,22 @@ class MainVideo extends Component {
 
 
             })
-        //alert(qs.parse(this.props.location.search, { ignoreQueryPrefix: true })._k);
-       /* axios.get('https://backend-280306.uc.r.appspot.com/api/categories/' +qs.parse(this.props.location.search, { ignoreQueryPrefix: true })._k)
+        //Retrieve video data - uploaded videos
+        axios.get('http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/' + this.state.id + '/')
             .then(response => {
-
                 this.setState({
-                    id: response.data.id,
-                    cName: response.data.cName,
-                    cType: response.data.cType,
-                    cDate: response.data.cDate
-
-                })
-
+                    url: response.data.video,
+                    name:response.data.name,
+                }
+                )
 
             })
             .catch(function (error) {
                 console.log(error)
 
-            })*/
+            })
 
+        //categories
         axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/")
             .then(response => {
                 this.setState({mainCategories: response.data});
@@ -69,8 +66,8 @@ class MainVideo extends Component {
 
             })
 
-        //categories
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/Videoupload?id=6")
+        //loaded details
+        axios.get("http://127.0.0.1:8000/VideoAnalysis/Videoupload?id="+ this.state.id)
             .then(response => {
                 this.setState({LoadedAnnotatedDetails: response.data});
                 //console.log("check"+this.state.LoadedAnnotatedDetails)
@@ -89,34 +86,6 @@ class MainVideo extends Component {
         })
     }
 
-    onPlayerReady(player){
-        console.log("Player is ready: ", player);
-        this.player = player;
-    }
-
-    onVideoPlay(duration){
-        console.log("Video played at: ", duration);
-    }
-
-    onVideoPause(duration){
-        console.log("Video paused at: ", duration);
-    }
-
-    onVideoTimeUpdate(duration){
-        console.log("Time updated: ", duration);
-    }
-
-    onVideoSeeking(duration){
-        console.log("Video seeking: ", duration);
-    }
-
-    onVideoSeeked(from, to){
-        console.log(`Video seeked from ${from} to ${to}`);
-    }
-
-    onVideoEnd(){
-        console.log("Video ended");
-    }
 
     onAnnotationBar(e){
         e.preventDefault();
@@ -134,6 +103,8 @@ class MainVideo extends Component {
 
     render() {
         let {id} = this.state;
+        let {url} = this.state;
+        let {name} = this.state;
         let {LoadedAnnotatedDetails} = this.state;
         const { mainCategories } = this.state;
         let mainCategoriesList = mainCategories.length > 0
@@ -148,18 +119,12 @@ class MainVideo extends Component {
                 <div id="main">
                     <div id="right"><br/><br/> <h3>Child Specification</h3></div>
                     <div><br/><br/>
-                    <h3>Child's Video</h3><h4> video id : {id} </h4>
-                        <VideoPlayer
+                    <h3>Child's Video</h3><h4> Video ID : {id} <br/> Video url: {url} <br/> Name: {name} </h4>
+                        <ReactPlayer
                             controls={true}
                             width="800px"
                             height="450px"
-                            onReady={this.onPlayerReady.bind(this)}
-                            onPlay={this.onVideoPlay.bind(this)}
-                            onPause={this.onVideoPause.bind(this)}
-                            onTimeUpdate={this.onVideoTimeUpdate.bind(this)}
-                            onSeeking={this.onVideoSeeking.bind(this)}
-                            onSeeked={this.onVideoSeeked.bind(this)}
-                            onEnd={this.onVideoEnd.bind(this)}
+                            url={url}
                         />
 
                 </div>

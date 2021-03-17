@@ -1,78 +1,55 @@
 import React, {Component} from 'react';
-import VideoPlayer from "react-video-js-player";
+import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 import './style.css';
 import axios from "axios";
+import PropTypes from "prop-types";
 
 
 class AnnotateVideo extends Component {
 
+    static get propTypes() {
+        return {
+            id: PropTypes.number,
+            name: PropTypes.string,
+            url: PropTypes.string
+
+        }
+    }
+
     constructor(props) {
         super(props);
         this.state = {
-            video: {
-                src: "http://www.example.com/path/to/video.mp4",
-                poster:'',
-
-            },
-            name:'',
-            id:'',
+            url:this.props.url,
+            name:this.props.name,
+            id:this.props.id,
         }
 
-        this.state.name=this.props.name;
+        //alert(this.state.url)
+
+       /* this.state.name=this.props.name;
         this.state.id=this.props.id;
-    }
+        this.state.url=this.props.url;*/
 
-    onPlayerReady(player){
-        console.log("Player is ready: ", player);
-        this.player = player;
-    }
 
-    onVideoPlay(duration){
-        console.log("Video played at: ", duration);
-    }
 
-    onVideoPause(duration){
-        console.log("Video paused at: ", duration);
-    }
-
-    onVideoTimeUpdate(duration){
-        console.log("Time updated: ", duration);
-    }
-
-    onVideoSeeking(duration){
-        console.log("Video seeking: ", duration);
-    }
-
-    onVideoSeeked(from, to){
-        console.log(`Video seeked from ${from} to ${to}`);
-    }
-
-    onVideoEnd(){
-        console.log("Video ended");
     }
 
     render() {
         let {name} = this.state;
         let {id} = this.state;
+        let {url} = this.state;
         return (
             <div>
                 Video id:{id} Video Name:{name}
                     <div>
                         <div>
-                        <VideoPlayer
+                        <ReactPlayer
                             controls={true}
-                            src={name}
-                            poster={this.state.video.poster}
+                            url={url}
+                            poster={this.state.name}
                             width="400px"
                             height="250px"
-                            onReady={this.onPlayerReady.bind(this)}
-                            onPlay={this.onVideoPlay.bind(this)}
-                            onPause={this.onVideoPause.bind(this)}
-                            onTimeUpdate={this.onVideoTimeUpdate.bind(this)}
-                            onSeeking={this.onVideoSeeking.bind(this)}
-                            onSeeked={this.onVideoSeeked.bind(this)}
-                            onEnd={this.onVideoEnd.bind(this)}
                         />
                         <div><br/>
                             Chlid Specification
