@@ -17,21 +17,22 @@ const ffmpeg = createFFmpeg({log: true});
 
 class VideoTrimmer extends Component {
 
-    static get propTypes() {
+   static get propTypes() {
         return {
             childId: PropTypes.number,
             level: PropTypes.number,
             selectcategory: PropTypes.number,
             url:PropTypes.string,
             name:PropTypes.string,
-
         }
     }
+
 
     constructor(props) {
         super(props);
         this.player = React.createRef();
         //this.myinput = React.createRef();
+        console.log(this.props);
 
         this.state = {
             ready: false,
@@ -43,18 +44,56 @@ class VideoTrimmer extends Component {
             description:'',
             childId: this.props.childId,
             selectedvideo:null,
-            url:this.props.url,
+            vurl:this.props.url,
             name:this.props.name,
+            selectedcategory:this.props.selectcategory,
 
         }
-        alert(this.props.url)
+        //alert("prop types"+this.props.childId)
         this.onChange = this.onChange.bind(this);
         this.settimeStart = this.settimeStart.bind(this);
         this.settimeEnd = this.settimeEnd.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this)
-        this.uploadFile = this.uploadFile.bind(this)
+        this.onSubmit = this.onSubmit.bind(this);
+        this.uploadFile = this.uploadFile.bind(this);
+        this.loadvideo = this.loadvideo.bind(this)
 
+    }
+    componentDidMount() {
+        //alert(this.state.childId)
+        this.loadvideo();
+        /*const idtoInt = 'http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/' + parseInt(this.state.childId)
+        axios.get(idtoInt)
+            .then(response => {
+                    this.setState({
+                            vurl: response.data.video,
+                            name:response.data.name,
+                        }
+                    )
+                console.log("displaying data"+response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+
+            })*/
+
+    }
+    loadvideo(){
+       /* const idtoInt = 'http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/' + parseInt(this.state.childId)
+        axios.get(idtoInt)
+            .then(response => {
+                this.setState({
+                        vurl: response.data.video,
+                        name:response.data.name,
+                    }
+                )
+                console.log("displaying data"+response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+
+            })*/
+        //this.props.history.push('/level1/id?k='+sessionStorage.getItem(this.state.id))
     }
 
     async loadx(){
@@ -65,7 +104,7 @@ class VideoTrimmer extends Component {
     async convertToTrimmed() {
         // Write the file to memory
         alert("Trimming Video..........");
-        await ffmpeg.FS('writeFile', 'test.mp4', await fetchFile(this.state.url));
+        await ffmpeg.FS('writeFile', 'test.mp4', await fetchFile(this.state.vurl));
 
         // Run the FFMpeg command
         //-i input.mp4 -ss 00:00:05 -c copy -to 00:00:07 sliced-output.mp4
@@ -146,11 +185,12 @@ class VideoTrimmer extends Component {
     }
     //async axios
    uploadFile(file){
+
         const formData = new FormData();
         formData.append('childid',this.props.childId)
         formData.append('description',this.state.description)
-        formData.append('level','1')
-        formData.append('category','16')
+        formData.append('level',this.props.level)
+        formData.append('category',this.props.selectcategory)
         formData.append('video',this.state.selectedvideo)
 
         return  axios.post('http://127.0.0.1:8000/VideoAnalysis/Videoupload/', formData,{
@@ -171,22 +211,29 @@ class VideoTrimmer extends Component {
     }
 
     render() {
-        const {url} = this.state;
+        const {vurl} = this.state;
+        const {childId} = this.state;
         const {name} = this.state;
         const {video} = this.state;
         const {gif} = this.state;
         const {markedStartTime} = this.state;
-        const {markedEndTime} = this.state;
+        const {markedEndTime} = this.state
+        const {selectedcategory} = this.state;
         return  (
                 <div className="App">
+                    ID: {childId}<br/>
+                    Child Name: {name}<br/>
+                    Selected Category ID: {selectedcategory}<br/>
+                    Video url: {vurl}<br/>
                     <br/><br/><br/>
                     <br/><br/>
                     {
                         video &&
                         <Container>
                             <div className="PlayerWrapper">
+                                 <br/>
                         <ReactPlayer
-                            url={url}
+                            url={vurl}
                             controls={true}
                             ref={this.player}
 
@@ -198,7 +245,6 @@ class VideoTrimmer extends Component {
                                             </button>
                                             <button onClick={this.settimeEnd} id="trimpoints">Mark Trim End Point
                                             </button>
-
                                             <div className="Trim Timming">
                                                 Selected Times for Trimming Videos<br/>
                                                 Selected Trim Start:{markedStartTime} <br/>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Button, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import {confirmAlert} from "react-confirm-alert";
 
 class CategoriesLevel2 extends Component{
 
@@ -10,7 +11,8 @@ class CategoriesLevel2 extends Component{
         this.state = {
             id: '',
             name: '',
-            mainCategories: []
+            mainCategories: [],
+            cat2:[]
 
         }
         this.onSubmit=this.onSubmit.bind(this);
@@ -25,13 +27,17 @@ class CategoriesLevel2 extends Component{
                 console.log(error);
 
             })
-        /*this.setState({
-            mainCategories: [
-                {id: 1, name: 'Child Playing with mother'},
-                {id: 2, name: 'xxxxx'},
-                {id: 3, name: 'yyyyy'}
-            ]
-        });*/
+        axios.get("http://127.0.0.1:8000/VideoAnalysis/CategoriesTwo/")
+            .then(response => {
+                this.setState({cat2: response.data});
+                console.log(this.props)
+
+            })
+            .catch(function (error) {
+                console.log(error);
+
+
+            })
 
     }
 
@@ -44,15 +50,52 @@ class CategoriesLevel2 extends Component{
 
     onSubmit(e){
         e.preventDefault();
+        this.name=this.state.name;
+        //this.catid = this.state.catid;
+        let res = this.l1categoryid.value;
+        //alert(res)
+        axios.post('http://127.0.0.1:8000/VideoAnalysis/CategoriesTwo/', {
+            name: this.name,
+            category_level1: res
+
+        })
+            .then(function (response) {
+                console.log(response);
+                window.location.reload();
+
+            })
+
+
 
     }
     onSubmit123(id){
 
     }
+    onDeleteClick(id){
+        console.log("id:"+id);
+        confirmAlert({
+            title: 'Confirm to Delete Level 2 Category',
+            message: 'Are you Sure you want to delete this Category?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => axios.delete("http://127.0.0.1:8000/VideoAnalysis/CategoriesTwo/" + id+ "/").then((response) => {
+                        window.location.replace("/categoriessub")
+                    })
+                },
+                {
+                    label: 'No',
+
+                }
+            ]
+        });
+
+
+    }
 
     render() {
         const { tt } = this.state;
-
+        const {cat2}=this.state;
         const { mainCategories } = this.state;
 
         let mainCategoriesList = mainCategories.length > 0
@@ -74,17 +117,23 @@ class CategoriesLevel2 extends Component{
                         <h3 align="center" id="headingSub">Add Level 2 Categories</h3>
                     </div>
                     <div align="center">
-                        <Form className="categoryclass">
+                        <Form className="categoryclass" onSubmit={this.onSubmit}>
                             <Form.Group>
                                <Form.Label>Select Level 1 Category </Form.Label>
-                               <select id="selectmain" variant="primary">
+                               <select id="selectmain" variant="primary" ref = {(input)=> this.l1categoryid = input}>
+                                   <option value="N/A">N/A</option>>
                                    {mainCategoriesList}
                                </select>
                            </Form.Group>
 
                             <Form.Group>
                                 <Form.Label>Level 2 Category</Form.Label>
-                                <Form.Control type="text" placeholder="Type Sub Category" />
+                                <Form.Control type="text"
+                                              placeholder="Type Level 2 Category"
+                                              name="name"
+                                              onChange={this.handleInputChange}
+                                              value={this.state.name}
+                                />
                             </Form.Group>
                             <Button id="btnSubmit" variant="primary" type="submit">
                                 Add Category
@@ -97,12 +146,32 @@ class CategoriesLevel2 extends Component{
                 <div id="addmaincat">
                     <div>
                         <br/>
-                        <h3 align="center" id="headingSub">View Sub Categories</h3>
+                        <h3 align="center" id="headingSub">Level 2 Categories</h3>
                     </div>
                     <div align="center">
-                        <p>(View Sub Categories)</p>
-                        <br/><br/>
+                        <p>View Level-2-Categories</p>
+                        <div className="catelevel1dis">
+                            {cat2.map((l1cat) => (
+                                <div className="col-md-4">
+                                    <div className="card text-center font-weight-bold">
+                                        <div className="card-header text-black">
+                                            Level-1-Catgeory:{l1cat.category_level1} <br/>
+                                            Level-2-Category:{l1cat.name}
+                                            <button className="btn-primary" id="cardbtn">Update</button>
+                                            <button className="btn-danger"  onClick={() => this.onDeleteClick(l1cat.id)}> Delete </button>
+                                        </div></div>
+                                </div>
+                            ))}
+                            <br/><br/>
+                        </div>
                     </div>
+                </div>
+
+                <div align="center">
+
+
+
+                    <br/><br/>
                 </div>
 
 

@@ -4,6 +4,7 @@ import qs from "query-string";
 import {confirmAlert} from "react-confirm-alert";
 import VideoTrimmer from "./VideoTrimmer";
 import Typography from "@material-ui/core/Typography";
+import {Button} from "react-bootstrap";
 
 
 
@@ -17,7 +18,10 @@ class Level1Annotations extends Component {
             idv:'',
             url:'',
             name:'',
+            trimstate:'Stop',
         }
+
+        this.trimmer = this.trimmer.bind(this)
 
     }
 
@@ -27,8 +31,10 @@ class Level1Annotations extends Component {
         let sentence = this.id;
         sentence.split("_");
         const [idv, idcat] = sentence.split('_');
+
         const editedText = idv.slice(0, -5)
         this.setState({idv: editedText});
+        //alert("edited text"+ editedText)
         axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/"+idcat+'/')
             .then(response => {
                 this.setState({mainCategories: response.data});
@@ -40,7 +46,8 @@ class Level1Annotations extends Component {
         sessionStorage.setItem(sentence,sentence);
 
         //Retrieve video data - uploaded videos
-        axios.get('http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/' + this.state.idv + '/')
+        //alert('http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/'+editedText)
+        axios.get('http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/' + editedText )
             .then(response => {
                 this.setState({
                         url: response.data.video,
@@ -72,19 +79,39 @@ class Level1Annotations extends Component {
                 ]
             });
     }
+    trimmer(){
+        this.setState({
+                trimstate: 'start'
+            }
+        )
+
+    }
 
     render() {
         let {idv} = this.state;
         let {mainCategories} = this.state;
         let {url} = this.state;
         let {name} = this.state;
+        let {trimstate}=this.state;
         return (
             <div>
                 <div><br/><br/><br/><br/>
                     <div id="main">
                         <Typography variant="h6"> Video ID : {idv} <br/> Level-1-Category : {mainCategories.name} </Typography>
+                        <br/><br/>
                         <div align="center">
-                            <VideoTrimmer childId = {idv} name={name} level={'1'} selectcategory={mainCategories.id} url={"http://127.0.0.1:8000/media/retreivingData/childid1.mp4"}/>
+                            <button  onClick={this.trimmer} className="btn-dark">
+                                Open Trimmer
+                            </button><br/><br/>
+                            {trimstate==='start' ?
+                                <div>
+                                    <VideoTrimmer childId = {idv} name={name} level={1} selectcategory={mainCategories.id} url={url} />
+
+                                </div>
+                                : null}
+
+                        </div>
+
 
                         </div>
 
@@ -96,7 +123,7 @@ class Level1Annotations extends Component {
 
 
 
-            </div>
+
         );
     }
 }

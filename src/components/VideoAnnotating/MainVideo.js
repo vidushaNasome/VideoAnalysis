@@ -120,11 +120,11 @@ class MainVideo extends Component {
                     <div id="right"><br/><br/> <h3>Child Specification</h3></div>
                     <div><br/><br/>
                     <h3>Child's Video</h3><h4> Video ID : {id} <br/> Video url: {url} <br/> Name: {name} </h4>
-                        <ReactPlayer
+                        <video
                             controls={true}
                             width="800px"
                             height="450px"
-                            url={url}
+                            src={url}
                         />
 
                 </div>

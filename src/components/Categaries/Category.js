@@ -9,7 +9,9 @@ class Category extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            cat: []
+            cat: [],
+            cat2:[],
+            cat3:[],
         }
     }
 
@@ -25,10 +27,34 @@ class Category extends Component{
 
 
             })
+        axios.get("http://127.0.0.1:8000/VideoAnalysis/CategoriesTwo/")
+            .then(response => {
+                this.setState({cat2: response.data});
+                console.log(this.props)
+
+            })
+            .catch(function (error) {
+                console.log(error);
+
+
+            })
+        axios.get("http://127.0.0.1:8000/VideoAnalysis/CategoriesThree/")
+            .then(response => {
+                this.setState({cat3: response.data});
+                console.log(this.props)
+
+            })
+            .catch(function (error) {
+                console.log(error);
+
+
+            })
     }
 
     render() {
         const {cat}=this.state;
+        const {cat2}=this.state;
+        const {cat3}=this.state;
         return (
             <div>
                 <br/>   <br/>   <br/>   <br/>   <br/>
@@ -47,8 +73,38 @@ class Category extends Component{
                                 <div className="col-md-auto">
                                     <div className="card text-center font-weight-bold">
                                         <div className="card-header text-black">
-                                <div className="user">{l1cat.name}</div>
-                                        </div></div></div>
+                                <div className="user">Level 1 Category: {l1cat.name}<br/></div>
+
+                                <div>{cat2.map((l2cat) => (
+                                                    <div>{l1cat.id === l2cat.category_level1 ?
+                                                    <div className="col-md-auto">
+                                                        <div className="card text-center font-weight-bold">
+                                                            <div className="card-header text-primary">
+                                                    <div className="user">Level 2 Category: {l2cat.name}<br/>
+                                                        <div>
+                                                            {cat3.map((l3cat) => (
+                                                                <div>{l1cat.id === l3cat.category_level1 && l2cat.id === l3cat.category_level2?
+                                                                    <div className="col-md-auto">
+                                                                        <div className="card text-center font-weight-bold">
+                                                                            <div className="card-header text-warning">
+                                                                                <div className="user">Level 3 Category: {l3cat.name}<br/>
+                                                                                    <div>
+                                                                                    </div>
+
+
+                                                                                </div></div></div></div>
+                                                                    :null}</div>
+
+                                                            ))}
+
+                                                        </div>
+
+
+                                                    </div></div></div><br/><br/></div>
+                                                    :null}</div>
+
+                                ))}</div>
+                                        </div></div><br/><br/></div>
                             ))}</div></div>
                         </div>
 
