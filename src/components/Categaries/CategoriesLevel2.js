@@ -121,7 +121,7 @@ class CategoriesLevel2 extends Component{
                             <Form.Group>
                                <Form.Label>Select Level 1 Category </Form.Label>
                                <select id="selectmain" variant="primary" ref = {(input)=> this.l1categoryid = input}>
-                                   <option value="N/A">N/A</option>>
+                                  >
                                    {mainCategoriesList}
                                </select>
                            </Form.Group>
@@ -155,8 +155,8 @@ class CategoriesLevel2 extends Component{
                                 <div className="col-md-4">
                                     <div className="card text-center font-weight-bold">
                                         <div className="card-header text-black">
-                                            Level-1-Catgeory:{l1cat.category_level1} <br/>
-                                            Level-2-Category:{l1cat.name}
+                                            Level-1-Catgeory: ID: {l1cat.category_level1}  <br/>
+                                            Level-2-Category:{l1cat.name}<br/>
                                             <button className="btn-primary" id="cardbtn">Update</button>
                                             <button className="btn-danger"  onClick={() => this.onDeleteClick(l1cat.id)}> Delete </button>
                                         </div></div>

@@ -8,7 +8,7 @@ import CategoryLevel1 from "./components/Categaries/CategoryLevel1";
 import SearchAndRetrieve from "./components/SearchAndRetrieve";
 import Home from "./components/Home/Home";
 import CategoriesLevel2 from "./components/Categaries/CategoriesLevel2";
-import Categorieslevel from "./components/Categaries/CategoriesLevel3";
+import Categorieslevel3 from "./components/Categaries/CategoriesLevel3";
 import Complete from "./components/AnnotatingDisplay/Complete";
 //import { Redirect } from 'react-router-dom'
 import Home1 from "./components/Home/Home1";
@@ -69,7 +69,7 @@ class App extends Component {
                             <Route  path="/categories" exact component={Category} />
                             <Route  path="/categoriesm" exact component={CategoryLevel1} />
                             <Route  path="/categoriessub" exact  component={CategoriesLevel2} />
-                            <Route  path="/categorieslevel" exact component={Categorieslevel} />
+                            <Route  path="/categorieslevel" exact component={Categorieslevel3} />
                             <Route  path="/searchandretrive" exact  component={SearchAndRetrieve} />
 
                         </Switch>

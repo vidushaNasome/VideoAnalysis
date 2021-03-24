@@ -117,7 +117,10 @@ class MainVideo extends Component {
             <div><br/>
                 <br/><h1> Video Annotating </h1>
                 <div id="main">
-                    <div id="right"><br/><br/> <h3>Child Specification</h3></div>
+                    <div id="right"><br/><br/>
+                    <h3>Child Specification</h3>
+                        <button className="btn-dark"> Mark Annotation Complete </button>
+                    </div>
                     <div><br/><br/>
                     <h3>Child's Video</h3><h4> Video ID : {id} <br/> Video url: {url} <br/> Name: {name} </h4>
                         <video
