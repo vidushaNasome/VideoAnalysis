@@ -3,7 +3,7 @@ import {Modal,Button,Row, Col,Form} from 'react-bootstrap';
 import VideoPlayer from "react-video-js-player";
 import {Link} from "react-router-dom";
 
-export class AddVideoModel extends Component{
+export class AddVideoModelAnnotate extends Component{
     constructor(props) {
         super(props);
 
@@ -54,7 +54,7 @@ export class AddVideoModel extends Component{
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Managing Categories Demo Video
+                        Add Annotations -  Demo Video
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -80,7 +80,7 @@ export class AddVideoModel extends Component{
                    </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button><Link to="/categories" id="nn" style={{  textDecoration: 'none' }}>Go to Category</Link></Button>
+                    <Button><Link to="/annotate" id="nn" style={{  textDecoration: 'none' }}>Go to Annotate Main Page</Link></Button>
                     <Button onClick={this.props.onHide}>Close</Button>
                 </Modal.Footer>
             </Modal>

@@ -14,6 +14,12 @@ import PropTypes from 'prop-types';
 
 const ffmpeg = createFFmpeg({log: true});
 
+/*Video trimming using ffempg. Its a open source library, react provides a package as well.
+* Do not remove video1 , which is retrieving from Video_Store
+* It is an essential
+*
+*
+* */
 
 class VideoTrimmer extends Component {
 
@@ -39,14 +45,15 @@ class VideoTrimmer extends Component {
             video: video1,
             gif: '',
             currentTime: 0,
-            markedStartTime:'00:00:00',
-            markedEndTime:'00:00:00',
+            markedStartTime:'00:00',
+            markedEndTime:'00:00',
             description:'',
             childId: this.props.childId,
             selectedvideo:null,
             vurl:this.props.url,
             name:this.props.name,
             selectedcategory:this.props.selectcategory,
+            time:'',
 
         }
         //alert("prop types"+this.props.childId)
@@ -56,7 +63,8 @@ class VideoTrimmer extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.uploadFile = this.uploadFile.bind(this);
-        this.loadvideo = this.loadvideo.bind(this)
+        this.loadvideo = this.loadvideo.bind(this);
+        this.handleInput = this.handleInput.bind(this);
 
     }
     componentDidMount() {
@@ -103,7 +111,7 @@ class VideoTrimmer extends Component {
 
     async convertToTrimmed() {
         // Write the file to memory
-        alert("Trimming Video..........");
+        alert("Trimming Video........... \n This may take few seconds or minutes depending the size of the given trimming video.\n Once it is complete,the trimmed video will be loaded to below in the page.");
         await ffmpeg.FS('writeFile', 'test.mp4', await fetchFile(this.state.vurl));
 
         // Run the FFMpeg command
@@ -162,13 +170,30 @@ class VideoTrimmer extends Component {
     };
 
     settimeStart(){
+
+        if(this.state.time!=='') {
+            this.setState({markedStartTime: this.state.time});
+            this.setState({time: ''});
+
+        }
+        else{
         const timeStart = this.format(this.player.current.getCurrentTime());
         this.setState({markedStartTime: timeStart});
+        }
 
     }
     settimeEnd(){
-        const timeEnd = this.format(this.player.current.getCurrentTime());
-        this.setState({markedEndTime: timeEnd});
+
+
+        if(this.state.time!=='') {
+            this.setState({markedEndTime: this.state.time});
+            this.setState({time: ''});
+
+        }
+        else{
+            const timeEnd = this.format(this.player.current.getCurrentTime());
+            this.setState({markedEndTime: timeEnd});
+        }
 
     }
 
@@ -177,6 +202,13 @@ class VideoTrimmer extends Component {
             description: event.target.value
         })
     }
+
+    handleInput(event){
+        this.setState({
+            time: event.target.value
+        })
+    }
+
 
     onSubmit(e){
        e.preventDefault()
@@ -202,7 +234,7 @@ class VideoTrimmer extends Component {
             .then(function (response) {
             //console.log(response);
             //window.location.reload();
-            alert('Successfully Saved the Data')
+            alert('Successfully Saved the Data.\n Click *Load Annotated Videos* Button to view the Results.')
                 window.close()
         })
             .catch((error) => {
@@ -241,6 +273,16 @@ class VideoTrimmer extends Component {
                                 <div className="ControlWrapper">
                                     <Grid container direction="row" alignItems="center" justify="space-between" style={{padding:16}}>
                                         <Grid item>
+                                            Manual Enter Time:
+                                            <input type="text"
+                                                   id="time"
+                                                   name="time"
+                                                   placeholder="00:00"
+
+                                                   value={this.state.time}
+                                                   onChange={this.handleInput}
+
+                                            /><br/>
                                             <button onClick={this.settimeStart} id="trimpoints">Mark Trim Start Point
                                             </button>
                                             <button onClick={this.settimeEnd} id="trimpoints">Mark Trim End Point

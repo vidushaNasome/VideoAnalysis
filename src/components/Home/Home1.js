@@ -10,6 +10,7 @@ import Switch from "react-bootstrap/Switch";
 import ModalVideo from 'react-modal-video'
 import {Button,ButtonToolbar} from "react-bootstrap";
 import {AddVideoModel} from "../videos/AddVideoModel";
+import {AddVideoModelAnnotate} from "../videos/AddVideoModelAnnotate";
 
 class Home1 extends Component{
 
@@ -17,6 +18,7 @@ class Home1 extends Component{
         super()
         this.state = {
             addModalShow:false,
+            addModalShowAnnotate:false,
             video: {
                 src: "http://www.example.com/path/to/video.mp4",
 
@@ -58,6 +60,7 @@ class Home1 extends Component{
     render() {
 
         let addModalClose=()=>this.setState({addModalShow:false})
+        let addModalCloseAnnotate=()=>this.setState({addModalShowAnnotate:false})
         return(
             <div className="container">
                 <div>
@@ -178,7 +181,7 @@ class Home1 extends Component{
                                                 <div className="icon-box icon-box-cyan">
                                                     <div className="icon"><i className="bx bx-file"></i></div>
                                                     <h4 className="title">Yet to be Annotated Videos</h4>
-                                                    <p className="description">xxxxxxxxxxxxxxx</p>
+                                                    <p className="description"></p>
                                                 </div>
                                             </div>
 
@@ -188,7 +191,7 @@ class Home1 extends Component{
                                                 <div className="icon-box icon-box-green">
                                                     <div className="icon"><i className="bx bx-tachometer"></i></div>
                                                     <h4 className="title">Annotation Completed Videos</h4>
-                                                    <p className="description">xxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                                                    <p className="description"></p>
                                                 </div>
                                             </div>
 
@@ -197,9 +200,14 @@ class Home1 extends Component{
                                     </div>
                                     <div className="col-lg-3 cta-btn-container text-center">
                                         <button className="videonavmainbtn"><Link to="/annotate"  style={{  textDecoration: 'none' }}>Go to Page</Link></button>
-                                        <button id="button4">Watch Demo</button>
+                                        <button id="button4" onClick={()=>this.setState({addModalShowAnnotate:true})}>Watch Demo</button>
+                                        <AddVideoModelAnnotate
+                                            show={this.state.addModalShowAnnotate}
+                                            onHide={addModalCloseAnnotate}
+                                        />
                                     </div>
                                 </div>
+                                    <br/><br/>
                               </div>
                             </div>
                         </div>

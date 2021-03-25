@@ -4,6 +4,7 @@ import qs from "query-string";
 import './style.css';
 import {Button, Form} from "react-bootstrap";
 import ReactPlayer from "react-player";
+import ViewAnnotations from "./ViewAnnotations";
 
 class MainVideo extends Component {
 
@@ -18,12 +19,16 @@ class MainVideo extends Component {
             level1cat:'',
             LoadedFrames:[],
             LoadedAnnotatedDetails:[],
-            loadedvideo:{}
+            loadedvideo:{},
+            xvariable:'',
+            open:false,
         }
         if (this.state.id===""){
             this.state.id=localStorage.getItem("videoid")
         }
         this.onAnnotationBar=this.onAnnotationBar.bind(this);
+        this.open_Annotated_Video=this.open_Annotated_Video.bind(this);
+        this.open_Annotated_Video_close=this.open_Annotated_Video_close.bind(this);
     }
 
 
@@ -56,7 +61,7 @@ class MainVideo extends Component {
 
             })
 
-        //categories
+        //Retrieve level 1 categories
         axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/")
             .then(response => {
                 this.setState({mainCategories: response.data});
@@ -66,19 +71,7 @@ class MainVideo extends Component {
 
             })
 
-        //loaded details
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/Videoupload?id="+ this.state.id)
-            .then(response => {
-                this.setState({LoadedAnnotatedDetails: response.data});
-                //console.log("check"+this.state.LoadedAnnotatedDetails)
-               // alert('checking')
 
-            })
-            .catch(function (error) {
-                console.log(error);
-
-
-            })
     }
     handleInputChange(event){
         this.setState({
@@ -89,6 +82,7 @@ class MainVideo extends Component {
 
     onAnnotationBar(e){
         e.preventDefault();
+        //alert("xxx");
         let idForSelected = this.menu.value.valueOf();
         this.id=this.state.id;
 
@@ -99,13 +93,18 @@ class MainVideo extends Component {
         window.open('/level1/id?k='+this.id+'idcat_'+idForSelected,'','height=800,width=800');
 
     }
-
-
+    open_Annotated_Video(){
+        this.setState({open:true})
+    }
+    open_Annotated_Video_close(){
+        this.setState({open:false})
+    }
     render() {
         let {id} = this.state;
         let {url} = this.state;
         let {name} = this.state;
-        let {LoadedAnnotatedDetails} = this.state;
+        let {open} = this.state;
+
         const { mainCategories } = this.state;
         let mainCategoriesList = mainCategories.length > 0
             && mainCategories.map((item, i) => {
@@ -153,35 +152,12 @@ class MainVideo extends Component {
                         <h1 align="center"> Annotations Specification </h1>
                         Unique Folder ID: Childvideo/{id}
                         <div align="center">
-                            <div className="catelevel1dis">
-                                Level 1 Annotations
-                                {LoadedAnnotatedDetails.map((details) => (
-                                    <div className="col-md-6">
-                                        <div className="card text-center font-weight-bold alert-primary">
-                                            <div className="card-header text-black">
-                                                <div className="row">
-                                                    Child Video ID: {details.childid} <br/>
-                                                    Annotated Level : {details.level} <br/>
-                                                    Annotated Category ID: {details.category_id} <br/>
-                                                    Added Description : {details.description} <br/><br/>
-                                                    {details.video}
-                                                    <ReactPlayer
-                                                        url={details.video}
-                                                        controls={true}
-                                                        type="video/mp4"
-                                                        width="600px"
-                                                        height="200px"
-                                                    />
 
-                                                   </div> <br/>
-                                            </div>
-                                            <button className="btn-primary"> Add Level 2 Annotations </button> <br/>
-                                            <button className="btn-danger"> Delete </button>
-                                        </div><br/><br/>
-                                    </div>
-                                ))}
-                                <br/>
-                            </div>
+                            <button className="openann" onClick={this.open_Annotated_Video}>Load Annotated Videos</button>
+                            <button className="openann" onClick={this.open_Annotated_Video_close}>Close Annotated Page</button>
+
+                            {open ? <ViewAnnotations id={id}/>:null}
+
                     </div>
                     <br/><br/><br/>
 
