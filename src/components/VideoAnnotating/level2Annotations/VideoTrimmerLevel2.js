@@ -1,28 +1,28 @@
 import React, {Component} from 'react';
 import {createFFmpeg, fetchFile} from '@ffmpeg/ffmpeg';
-import video1 from '../../Video_Store/ChildVideo1.mp4';
+import video1 from '../../../Video_Store/ChildVideo1.mp4';
 import ReactPlayer from 'react-player';
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import './style.css';
+import '.././style.css';
 import {confirmAlert} from "react-confirm-alert";
 import axios from "axios";
 import {Form} from "react-bootstrap";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from 'prop-types';
-import {videoUpload} from "../../configs/config";
+import {categoriesLevel2API, videoUpload} from "../../../configs/config";
 
 const ffmpeg = createFFmpeg({log: true});
 
 /*Video trimming using ffempg. Its a open source library, react provides a package as well.
 * Do not remove video1 , which is retrieving from Video_Store
-* It is an essential
+* It is an essential component.
 *
 *
 * */
 
-class VideoTrimmer extends Component {
+class VideoTrimmerLevel2 extends Component {
 
    static get propTypes() {
         return {
@@ -30,7 +30,7 @@ class VideoTrimmer extends Component {
             level: PropTypes.number,
             selectcategory: PropTypes.number,
             url:PropTypes.string,
-            name:PropTypes.string,
+            videoId:PropTypes.number,
         }
     }
 
@@ -55,6 +55,7 @@ class VideoTrimmer extends Component {
             name:this.props.name,
             selectedcategory:this.props.selectcategory,
             time:'',
+            c_name:'',
 
         }
         //alert("prop types"+this.props.childId)
@@ -69,14 +70,12 @@ class VideoTrimmer extends Component {
 
     }
     componentDidMount() {
-        //alert(this.state.childId)
-        this.loadvideo();
-        /*const idtoInt = 'http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/' + parseInt(this.state.childId)
-        axios.get(idtoInt)
+
+        axios.get(categoriesLevel2API+this.state.selectedcategory)
             .then(response => {
                     this.setState({
-                            vurl: response.data.video,
-                            name:response.data.name,
+                            c_id: response.data.id,
+                            c_name:response.data.name,
                         }
                     )
                 console.log("displaying data"+response.data)
@@ -84,25 +83,11 @@ class VideoTrimmer extends Component {
             .catch(function (error) {
                 console.log(error)
 
-            })*/
+            })
 
     }
     loadvideo(){
-       /* const idtoInt = 'http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/' + parseInt(this.state.childId)
-        axios.get(idtoInt)
-            .then(response => {
-                this.setState({
-                        vurl: response.data.video,
-                        name:response.data.name,
-                    }
-                )
-                console.log("displaying data"+response.data)
-            })
-            .catch(function (error) {
-                console.log(error)
 
-            })*/
-        //this.props.history.push('/level1/id?k='+sessionStorage.getItem(this.state.id))
     }
 
     async loadx(){
@@ -246,17 +231,18 @@ class VideoTrimmer extends Component {
     render() {
         const {vurl} = this.state;
         const {childId} = this.state;
-        const {name} = this.state;
+        const {videoId} = this.state;
         const {video} = this.state;
         const {gif} = this.state;
         const {markedStartTime} = this.state;
         const {markedEndTime} = this.state
         const {selectedcategory} = this.state;
+        const {c_name} = this.state;
         return  (
                 <div className="App">
-                    ID: {childId}<br/>
-                    Child Name: {name}<br/>
-                    Selected Category ID: {selectedcategory}<br/>
+                    Video ID (Unique Child Video) : {childId} <br/>
+                    Video ID (Annotated Video 1 ID) : {videoId}<br/>
+                    Selected Category ID and Name : {selectedcategory}:{c_name}<br/>
                     Video url: {vurl}<br/>
                     <br/><br/><br/>
                     <br/><br/>
@@ -335,4 +321,4 @@ class VideoTrimmer extends Component {
             )
     }
 }
-export default VideoTrimmer;
+export default VideoTrimmerLevel2;

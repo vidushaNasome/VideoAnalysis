@@ -5,6 +5,7 @@ import { Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootst
 import axios from "axios";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import {categoriesAPI} from '../../configs/config';
 
 class CategoryLevel1 extends Component{
     constructor() {
@@ -20,7 +21,7 @@ class CategoryLevel1 extends Component{
     }
     componentDidMount() {
 
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/")
+        axios.get(categoriesAPI)
             .then(response => {
                 this.setState({cat: response.data});
                 console.log(this.props)
@@ -59,7 +60,7 @@ class CategoryLevel1 extends Component{
     onSubmit(e){
         e.preventDefault();
         this.name=this.state.name;
-        axios.post('http://127.0.0.1:8000/VideoAnalysis/Categories/', {
+        axios.post(categoriesAPI, {
             name: this.name
 
         })
@@ -79,7 +80,7 @@ class CategoryLevel1 extends Component{
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => axios.delete("http://127.0.0.1:8000/VideoAnalysis/Categories/" + id+ "/").then((response) => {
+                    onClick: () => axios.delete( categoriesAPI+ id+ "/").then((response) => {
                                     window.location.replace("/categoriesm")
                     })
                 },

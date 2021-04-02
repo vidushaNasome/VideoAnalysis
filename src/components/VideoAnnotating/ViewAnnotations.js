@@ -3,6 +3,7 @@ import ReactPlayer from "react-player";
 import qs from "query-string";
 import axios from "axios";
 import PropTypes from "prop-types";
+import {categoriesLevel2API,videoRetrievefromUpload,categoriesAPI,videoUpload} from "../../configs/config";
 
 class ViewAnnotations extends Component {
 
@@ -20,8 +21,9 @@ class ViewAnnotations extends Component {
 
             LoadedFrames:[],
             LoadedAnnotatedDetails:[],
-            xvariable:'',
+            categories:[],
             id:this.props.id,
+            Cat2:[],
 
         }
 
@@ -30,7 +32,7 @@ class ViewAnnotations extends Component {
 
     componentDidMount() {
         //loaded details for annotated videos
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/Videoupload?id="+ this.state.id)
+        axios.get(videoUpload+"?id="+ this.state.id)
             .then(response => {
                     this.setState({LoadedAnnotatedDetails: response.data});
                     // alert('display'+response.data)
@@ -47,59 +49,92 @@ class ViewAnnotations extends Component {
 
 
             })
-    }
-    retrieveCategory (id){
 
-        //let xvariable='';
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/"+id)
+        axios.get(categoriesAPI)
             .then(response => {
-                    this.setState({xvariable: response.data.name});
+                    this.setState({categories: response.data});
 
                 }
             )
             .catch(function (error) {
                 console.log(error);
             })
+        //Retrieve level 1 categories
+        axios.get(categoriesLevel2API)
+            .then(response => {
+                this.setState({Cat2: response.data});
+            } )
+            .catch(function (error) {
+                console.log(error);
 
-        return this.state.xvariable;
-
+            })
 
     }
 
+    loaLevel2Ann(id){
+        //alert('kk');
+        window.open('/level2/?k='+id,'','height=800,width=800');
+    }
+
+
     render() {
         let {LoadedAnnotatedDetails} = this.state;
+        let {categories}=this.state;
+        /*const {Cat2}=this.state;
+
+        let Cat2List = Cat2.length > 0
+            && Cat2.map((item, i) => {
+                return (
+                    <option key={i} value={item.id}>{item.name}</option>
+                )
+            }, this);*/
+        
         return (
             <div>
-
                 <div className="catelevel1dis">
-                    Level 1 Annotations
-                    {LoadedAnnotatedDetails.map((details) => (
+                    <h3>Level 1 Annotations</h3>
+                    {categories.map((c) => (
                         <div className="col-md-6">
-                            <div className="card text-center font-weight-bold alert-primary">
-                                <div className="card-header text-black">
-                                    <div className="row">
-                                        Child Video ID: {details.childid} <br/>
-                                        Annotated Level : {details.level} <br/>
-                                        Annotated Category ID: {details.category} <br/>
-                                        Annotated Category Name: {this.retrieveCategory(details.category)} <br/>
-                                        Added Description : {details.description} <br/><br/>
-                                        {details.video}
-                                        {<ReactPlayer
-                                            url={details.video}
-                                            controls={true}
-                                            type="video/mp4"
-                                            width="600px"
-                                            height="200px"
-                                        />}
+                            <h3> {c.name} </h3>
+                                       <div>
+                                           {LoadedAnnotatedDetails.map((details)=>(
+                                            <div>
+                                                {details.category === c.id ?
+                                                    <div>
+                                                        <div className="card text-center font-weight-bold alert-primary">
+                                                            <div className="card-header text-black">
+                                                                <div className="row">
+                                                                    Video ID : {details.id} <br/>
+                                                                Video ID (Unique Child's): {details.childid} <br/>
+                                                                Annotated Level : {details.level} <br/>
+                                                                Annotated Category ID and NAME: {details.category} - {c.name} <br/>
+                                                                    Added Description : {details.description} <br/><br/>
+                                                                    {details.video}
+                                                                    {<ReactPlayer
+                                                                        url={details.video}
+                                                                        controls={true}
+                                                                        type="video/mp4"
+                                                                        width="600px"
+                                                                        height="200px"
+                                                                    />}
+                                                                    <div>
+                                                                    <button className="btn-primary" onClick={() => this.loaLevel2Ann(details.id)}> Add Level 2 Annotations </button> <br/>
+                                                                    <button className="btn-danger"> Delete </button> <br/><br/>
+                                                                    </div>
+                                                    </div></div></div><br/></div>
 
-                                    </div> <br/>
-                                </div>
-                                <button className="btn-primary"> Add Level 2 Annotations </button> <br/>
-                                <button className="btn-danger"> Delete </button>
-                            </div><br/><br/>
-                        </div>
+                                                    : null
+
+                                                }
+                                            </div>
+                                        ))}</div>
+
+
+
+                                    </div>
+
                     ))}
-                    <br/>
+
                 </div>
                 
             </div>

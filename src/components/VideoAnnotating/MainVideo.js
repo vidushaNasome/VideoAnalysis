@@ -5,6 +5,9 @@ import './style.css';
 import {Button, Form} from "react-bootstrap";
 import ReactPlayer from "react-player";
 import ViewAnnotations from "./ViewAnnotations";
+import {createfolder,videoRetrievefromUpload,categoriesAPI} from "../../configs/config";
+import {AddVideoModel} from "../videos/AddVideoModel";
+import {MarkAnnotateCompleteModel} from "../markcomplete/MarkAnnotateCompleteModel";
 
 class MainVideo extends Component {
 
@@ -22,6 +25,7 @@ class MainVideo extends Component {
             loadedvideo:{},
             xvariable:'',
             open:false,
+            addModalShow:false,
         }
         if (this.state.id===""){
             this.state.id=localStorage.getItem("videoid")
@@ -35,7 +39,7 @@ class MainVideo extends Component {
 
     componentDidMount() {
 
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/createfolder?uniquename="+this.state.id)
+        axios.get(createfolder + "?uniquename="+this.state.id)
             .then(response => {
                 alert("Successfully created the Unique Child Folder. You can start AnnotatingDisplay.")
                 localStorage.setItem("videoid",this.state.id)
@@ -47,7 +51,7 @@ class MainVideo extends Component {
 
             })
         //Retrieve video data - uploaded videos
-        axios.get('http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/' + this.state.id + '/')
+        axios.get(videoRetrievefromUpload + this.state.id + '/')
             .then(response => {
                 this.setState({
                     url: response.data.video,
@@ -62,7 +66,7 @@ class MainVideo extends Component {
             })
 
         //Retrieve level 1 categories
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/")
+        axios.get(categoriesAPI)
             .then(response => {
                 this.setState({mainCategories: response.data});
             } )
@@ -105,6 +109,8 @@ class MainVideo extends Component {
         let {name} = this.state;
         let {open} = this.state;
 
+        let addModalClose=()=>this.setState({addModalShow:false})
+
         const { mainCategories } = this.state;
         let mainCategoriesList = mainCategories.length > 0
             && mainCategories.map((item, i) => {
@@ -118,7 +124,11 @@ class MainVideo extends Component {
                 <div id="main">
                     <div id="right"><br/><br/>
                     <h3>Child Specification</h3>
-                        <button className="btn-dark"> Mark Annotation Complete </button>
+                        <button className="btn-dark" onClick={()=>this.setState({addModalShow:true})}> Mark Annotation Complete </button>
+                        <MarkAnnotateCompleteModel
+                            show={this.state.addModalShow}
+                            onHide={addModalClose}
+                        />
                     </div>
                     <div><br/><br/>
                     <h3>Child's Video</h3><h4> Video ID : {id} <br/> Video url: {url} <br/> Name: {name} </h4>
@@ -156,7 +166,8 @@ class MainVideo extends Component {
                             <button className="openann" onClick={this.open_Annotated_Video}>Load Annotated Videos</button>
                             <button className="openann" onClick={this.open_Annotated_Video_close}>Close Annotated Page</button>
 
-                            {open ? <ViewAnnotations id={id}/>:null}
+                            {open ? <ViewAnnotations id={id}/>
+                            : null}
 
                     </div>
                     <br/><br/><br/>

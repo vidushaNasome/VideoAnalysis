@@ -3,6 +3,8 @@ import {Button, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {confirmAlert} from "react-confirm-alert";
+import {categoriesAPI} from '../../configs/config';
+import {categoriesLevel2API} from '../../configs/config';
 
 class CategoriesLevel2 extends Component{
 
@@ -19,7 +21,7 @@ class CategoriesLevel2 extends Component{
         this.handleInputChange=this.handleInputChange.bind(this);
     }
     componentDidMount() {
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/")
+        axios.get(categoriesAPI)
             .then(response => {
                 this.setState({mainCategories: response.data});
             } )
@@ -27,7 +29,7 @@ class CategoriesLevel2 extends Component{
                 console.log(error);
 
             })
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/CategoriesTwo/")
+        axios.get(categoriesLevel2API)
             .then(response => {
                 this.setState({cat2: response.data});
                 console.log(this.props)
@@ -54,7 +56,7 @@ class CategoriesLevel2 extends Component{
         //this.catid = this.state.catid;
         let res = this.l1categoryid.value;
         //alert(res)
-        axios.post('http://127.0.0.1:8000/VideoAnalysis/CategoriesTwo/', {
+        axios.post(categoriesLevel2API, {
             name: this.name,
             category_level1: res
 
@@ -79,7 +81,7 @@ class CategoriesLevel2 extends Component{
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => axios.delete("http://127.0.0.1:8000/VideoAnalysis/CategoriesTwo/" + id+ "/").then((response) => {
+                    onClick: () => axios.delete(categoriesLevel2API + id+ "/").then((response) => {
                         window.location.replace("/categoriessub")
                     })
                 },

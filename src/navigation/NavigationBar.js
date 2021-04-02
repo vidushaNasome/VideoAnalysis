@@ -32,18 +32,12 @@ function NavigationBar() {
 
         </Nav>
                 :<Nav className="fixed-top" id="navd">
-                    <h1 id="heading">CSAAT - Video Analysis </h1>
-                    <Nav.Item id="kk" >
-                        <a href={"https://CSAAT-WEB.com/user1"}> CSAAT Home </a>
-                    </Nav.Item>
+                    <h1 id="heading"><img src={logo} className="mr-3" alt=""/>CSAAT - Video Analysis </h1>>
+                    <br/>
+                    <Nav.Link id="kk" style={{  textDecoration: 'none' }} href="https://CSAAT-WEB.com/user/1"> CSAAT Home </Nav.Link>
+                    <Link to="/" exact id="nn" style={{ textDecoration: 'none' }}>Home</Link>
+                    <Link to="/searchandretrive" id="nn" style={{ textDecoration: 'none' }}>Search and Retrieve</Link>
 
-                    <Nav.Item>
-                        <Link to="/" exact id="nn" style={{ textDecoration: 'none' }}>Home</Link>
-                    </Nav.Item>
-
-                    <Nav.Item>
-                        <Link to="/searchandretrive" id="nn" style={{ textDecoration: 'none' }}>Search and Retrieve</Link>
-                    </Nav.Item>
 
                     {sessionStorage.getItem("Username") === null?
                         <div>

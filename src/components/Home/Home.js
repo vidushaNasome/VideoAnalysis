@@ -4,6 +4,7 @@ import photo1 from "../../Images/photo3.jpg";
 import {Link} from "react-router-dom";
 import Home1 from "./Home1";
 import userimg from "../../Images/user.png";
+import VideoPlayer from "react-video-js-player";
 
 class Home extends Component{
 
@@ -36,6 +37,50 @@ class Home extends Component{
                     <div>
 
                         <Home1/>
+                    </div>
+                    :<div>
+                    </div>}
+                {sessionStorage.getItem("Position") !== "Health Professional"?
+                    <div>
+                        <div className="container" id="categoriesHome">
+                            <div className="row">
+                                <div className="col-lg-6 aos-init aos-animate" data-aos="zoom-in">
+                                    <div className="content pt-4 pt-lg-0">
+                                        <VideoPlayer
+                                            controls={true}
+                                            src={'yy'}
+                                            width="500px"
+                                            height="300px"
+
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-lg-6 d-flex flex-column justify-contents-center aos-init aos-animate"
+                                     data-aos="fade-left">
+                                    <div className="content pt-4 pt-lg-0">
+                                        <h3>Learn more about CSAAT - Video Analysis Tool</h3>
+                                        <ul>
+                                            <li><i className="icofont-check-circled">How we collect Data?</i><br/>
+                                                The child’s video data will be collected by doing in room
+                                                activities done by according to the script written by professionals.
+                                                All the videos will be recorded with high quality and 360 degrees
+                                            </li><br/>
+                                            <li><i className="icofont-check-circled">Who will be Analyzing and Annotating it?</i><br/>
+                                                Health Professionals will only have access to annotate a video.
+                                            </li><br/>
+                                            <li><i className="icofont-check-circled">What will be the outcome?</i><br/>
+                                                Generate folder structure with videos annotations for a particular child's video.
+                                            </li><br/>
+                                            <li><i className="icofont-check-circled">What will be the Outcome of this overall project?</i><br/>
+                                                Detect and generate a report, whether the child has autism or not.
+                                            </li><br/>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                     :<div>
                     </div>}

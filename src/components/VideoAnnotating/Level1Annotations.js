@@ -5,6 +5,7 @@ import {confirmAlert} from "react-confirm-alert";
 import VideoTrimmer from "./VideoTrimmer";
 import Typography from "@material-ui/core/Typography";
 import {Button} from "react-bootstrap";
+import {videoRetrievefromUpload,categoriesAPI,videoUpload} from "../../configs/config";
 
 
 
@@ -35,7 +36,7 @@ class Level1Annotations extends Component {
         const editedText = idv.slice(0, -5)
         this.setState({idv: editedText});
         //alert("edited text"+ editedText)
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/"+idcat+'/')
+        axios.get(categoriesAPI +idcat+'/')
             .then(response => {
                 this.setState({mainCategories: response.data});
             } )
@@ -47,13 +48,14 @@ class Level1Annotations extends Component {
 
         //Retrieve video data - uploaded videos
         //alert('http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/'+editedText)
-        axios.get('http://127.0.0.1:8000/VideoAnalysis/uploadretrieve/' + editedText )
+        axios.get(videoRetrievefromUpload + editedText )
             .then(response => {
                 this.setState({
                         url: response.data.video,
                         name:response.data.name,
                     }
                 )
+                //alert(this.state.url+"hello aa level 1 ann.")
 
             })
             .catch(function (error) {

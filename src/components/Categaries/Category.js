@@ -3,6 +3,9 @@ import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import axios from "axios";
 import "./style.css";
+import {categoriesAPI} from '../../configs/config';
+import {categoriesLevel2API} from '../../configs/config';
+import {categoriesLevel3API} from '../../configs/config';
 
 class Category extends Component{
 
@@ -16,7 +19,7 @@ class Category extends Component{
     }
 
     componentDidMount() {
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/")
+        axios.get(categoriesAPI)
             .then(response => {
                 this.setState({cat: response.data});
                 console.log(this.props)
@@ -27,7 +30,7 @@ class Category extends Component{
 
 
             })
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/CategoriesTwo/")
+        axios.get(categoriesLevel2API)
             .then(response => {
                 this.setState({cat2: response.data});
                 console.log(this.props)
@@ -38,7 +41,7 @@ class Category extends Component{
 
 
             })
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/CategoriesThree/")
+        axios.get(categoriesLevel3API)
             .then(response => {
                 this.setState({cat3: response.data});
                 console.log(this.props)

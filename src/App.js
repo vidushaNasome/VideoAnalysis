@@ -17,6 +17,7 @@ import Category from "./components/Categaries/Category";
 import Annotatemain from "./components/AnnotatingDisplay/Annotatemain";
 import MainVideo from "./components/VideoAnnotating/MainVideo";
 import Level1Annotations from "./components/VideoAnnotating/Level1Annotations";
+import Level2Annotations from "./components/VideoAnnotating/level2Annotations/Level2Annotations";
 //import BrowserHistory from'react-router';
 
 class App extends Component {
@@ -65,6 +66,7 @@ class App extends Component {
                             <Route  path="/annotateNotComplete" exact  component={Analyze}/>
                             <Route  path="/annotateComplete" exact  component={Complete}/>
                             <Route  path="/level1"  component={Level1Annotations}/>
+                            <Route  path="/level2"  component={Level2Annotations}/>
                             <Route  path="/annotateVideo"  component={MainVideo}/>
                             <Route  path="/categories" exact component={Category} />
                             <Route  path="/categoriesm" exact component={CategoryLevel1} />

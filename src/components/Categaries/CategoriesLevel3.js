@@ -4,6 +4,9 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import {confirmAlert} from "react-confirm-alert";
 import {itIT} from "@material-ui/core/locale";
+import {categoriesAPI} from '../../configs/config';
+import {categoriesLevel2API} from '../../configs/config';
+import {categoriesLevel3API} from '../../configs/config';
 
 class CategoriesLevel3 extends Component{
 
@@ -31,7 +34,7 @@ class CategoriesLevel3 extends Component{
         this.selectlevel1=this.selectlevel1.bind(this);
     }
     componentDidMount() {
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/")
+        axios.get(categoriesAPI)
             .then(response => {
                 this.setState({mainCategories: response.data});
             } )
@@ -40,7 +43,7 @@ class CategoriesLevel3 extends Component{
 
             })
 
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/CategoriesThree/")
+        axios.get(categoriesLevel3API)
             .then(response => {
                 this.setState({cat2: response.data});
                 console.log(this.props)
@@ -68,7 +71,7 @@ class CategoriesLevel3 extends Component{
         //let res = this.l1categoryid.value;
         let res2 = this.l1categoryid2.value;
         //alert(res)
-        axios.post('http://127.0.0.1:8000/VideoAnalysis/CategoriesThree/', {
+        axios.post(categoriesLevel3API, {
             name: this.name,
             category_level1: this.state.res,
             category_level2: res2
@@ -89,7 +92,7 @@ class CategoriesLevel3 extends Component{
         //alert('hello '+res)
         this.setState({res: res});
 
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/Categories/"+res)
+        axios.get(categoriesAPI+res)
             .then(response => {
                 this.setState({select: response.data});
                 this.setState({selectedTrue: true});
@@ -100,7 +103,7 @@ class CategoriesLevel3 extends Component{
 
             })
 
-        axios.get("http://127.0.0.1:8000/VideoAnalysis/CategoriesTwo/?id="+res)
+        axios.get(categoriesLevel2API+"?id="+res)
             .then(response => {
                 this.setState({mainCategoriesLevel2: response.data});
             } )
@@ -120,7 +123,7 @@ class CategoriesLevel3 extends Component{
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => axios.delete("http://127.0.0.1:8000/VideoAnalysis/CategoriesThree/" + id+ "/").then((response) => {
+                    onClick: () => axios.delete(categoriesLevel3API + id+ "/").then((response) => {
                         window.location.replace("/categorieslevel")
                     })
                 },
