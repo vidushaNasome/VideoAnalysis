@@ -11,7 +11,7 @@ import axios from "axios";
 import {Form} from "react-bootstrap";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from 'prop-types';
-import {categoriesLevel2API, videoUpload} from "../../../configs/config";
+import {categoriesLevel2API, videoUpload,videoUploadLevelTwo} from "../../../configs/config";
 
 const ffmpeg = createFFmpeg({log: true});
 
@@ -50,6 +50,7 @@ class VideoTrimmerLevel2 extends Component {
             markedEndTime:'00:00',
             description:'',
             childId: this.props.childId,
+            videoId:this.props.videoId,
             selectedvideo:null,
             vurl:this.props.url,
             name:this.props.name,
@@ -204,14 +205,17 @@ class VideoTrimmerLevel2 extends Component {
     //async axios
    uploadFile(file){
 
+        console.log("details",this.props.childId,this.props.videoId,this.state.description,this.props.level,this.props.selectcategory);
+
         const formData = new FormData();
-        formData.append('childid',this.props.childId)
+        formData.append('childid',this.state.childId)
+        formData.append('childidLevel1',this.props.videoId)
         formData.append('description',this.state.description)
         formData.append('level',this.props.level)
         formData.append('category',this.props.selectcategory)
         formData.append('video',this.state.selectedvideo)
 
-        return  axios.post(videoUpload, formData,{
+        return  axios.post(videoUploadLevelTwo, formData,{
             headers: {
                // contentType: "multipart/form-data", // important
 
@@ -242,7 +246,7 @@ class VideoTrimmerLevel2 extends Component {
                 <div className="App">
                     Video ID (Unique Child Video) : {childId} <br/>
                     Video ID (Annotated Video 1 ID) : {videoId}<br/>
-                    Selected Category ID and Name : {selectedcategory}:{c_name}<br/>
+                    Selected Category ID and Name : {selectedcategory}-----{c_name}<br/>
                     Video url: {vurl}<br/>
                     <br/><br/><br/>
                     <br/><br/>

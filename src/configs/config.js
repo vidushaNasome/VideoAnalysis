@@ -15,6 +15,7 @@ const videoRetrievefromUpload = `${apiBaseUrl}VideoAnalysis/uploadretrieve/`;
 //Video Annotating
 const createfolder = `${apiBaseUrl}VideoAnalysis/createfolder`;
 const videoUpload = `${apiBaseUrl}VideoAnalysis/Videoupload/`;
+const videoUploadLevelTwo = `${apiBaseUrl}VideoAnalysis/VideouploadLeveltwo/`;
 
 
 export{
@@ -23,5 +24,6 @@ export{
     categoriesLevel3API,
     createfolder,
     videoRetrievefromUpload,
-    videoUpload
+    videoUpload,
+    videoUploadLevelTwo
 }

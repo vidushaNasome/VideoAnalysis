@@ -126,7 +126,7 @@ class Level2Annotations extends Component {
                             <br/><br/>
                             {trimstate==='start' ?
                                 <div>
-                                    <VideoTrimmerLevel2 childId = {videodet.childId} videoId={videodet.id} level={2} selectcategory={this.l1categoryid.value} url={videodet.video} />
+                                    <VideoTrimmerLevel2 childId = {videodet.childid} videoId={videodet.id} level={2} selectcategory={this.l1categoryid.value} url={videodet.video} />
 
                                 </div>
                                 : null}

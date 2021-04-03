@@ -4,6 +4,7 @@ import qs from "query-string";
 import axios from "axios";
 import PropTypes from "prop-types";
 import {categoriesLevel2API,videoRetrievefromUpload,categoriesAPI,videoUpload} from "../../configs/config";
+import ViewAnnotationsLevelTwo from "./level2Annotations/ViewAnnotationsLevelTwo";
 
 class ViewAnnotations extends Component {
 
@@ -24,9 +25,11 @@ class ViewAnnotations extends Component {
             categories:[],
             id:this.props.id,
             Cat2:[],
+            open:-90,
 
         }
-
+        this.open_Annotated_Video=this.open_Annotated_Video.bind(this);
+        this.open_Annotated_Video_close=this.open_Annotated_Video_close.bind(this);
 
     }
 
@@ -75,11 +78,17 @@ class ViewAnnotations extends Component {
         //alert('kk');
         window.open('/level2/?k='+id,'','height=800,width=800');
     }
-
+    open_Annotated_Video(id){
+        this.setState({open:id})
+    }
+    open_Annotated_Video_close(){
+        this.setState({open:-90})
+    }
 
     render() {
         let {LoadedAnnotatedDetails} = this.state;
         let {categories}=this.state;
+        let {open} = this.state;
         /*const {Cat2}=this.state;
 
         let Cat2List = Cat2.length > 0
@@ -94,7 +103,7 @@ class ViewAnnotations extends Component {
                 <div className="catelevel1dis">
                     <h3>Level 1 Annotations</h3>
                     {categories.map((c) => (
-                        <div className="col-md-6">
+                        <div className="col-md-6 btn-outline-info">
                             <h3> {c.name} </h3>
                                        <div>
                                            {LoadedAnnotatedDetails.map((details)=>(
@@ -117,9 +126,12 @@ class ViewAnnotations extends Component {
                                                                         width="600px"
                                                                         height="200px"
                                                                     />}
-                                                                    <div>
-                                                                    <button className="btn-primary" onClick={() => this.loaLevel2Ann(details.id)}> Add Level 2 Annotations </button> <br/>
-                                                                    <button className="btn-danger"> Delete </button> <br/><br/>
+                                                                    <div><br/>
+                                                                    <button className="btn-outline-dark" onClick={() => this.loaLevel2Ann(details.id)}> Add Level 2 Annotations </button> <br/><br/>
+                                                                    <tr><button className="btn-outline-primary" onClick={() => this.open_Annotated_Video(details.id)}> View Annotations for video ID: {details.id} </button>
+                                                                        <button className="btn-outline-primary" onClick={this.open_Annotated_Video_close}> Close Annotations </button></tr> <br/><br/>
+                                                                    {open === details.id? <ViewAnnotationsLevelTwo childId={details.childid} levelOnevideoId={details.id}/>
+                                                                            : null}
                                                                     </div>
                                                     </div></div></div><br/></div>
 
