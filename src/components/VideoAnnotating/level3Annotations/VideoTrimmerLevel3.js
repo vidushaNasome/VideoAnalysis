@@ -11,7 +11,7 @@ import axios from "axios";
 import {Form} from "react-bootstrap";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from 'prop-types';
-import {categoriesLevel2API, videoUpload,videoUploadLevelTwo} from "../../../configs/config";
+import {categoriesLevel3API, videoUpload,videoUploadLevelThree} from "../../../configs/config";
 
 const ffmpeg = createFFmpeg({log: true});
 
@@ -22,16 +22,18 @@ const ffmpeg = createFFmpeg({log: true});
 *
 * */
 
-class VideoTrimmerLevel2 extends Component {
+class VideoTrimmerLevel3 extends Component {
 
-   static get propTypes() {
+    static get propTypes() {
         return {
             childId: PropTypes.number,
             level: PropTypes.number,
             selectcategory: PropTypes.number,
             url:PropTypes.string,
             videoId:PropTypes.number,
-            levelonecat:PropTypes.number,
+            level1Id:PropTypes.number,
+            catlevel1:PropTypes.number,
+            catlevel2:PropTypes.number,
         }
     }
 
@@ -58,7 +60,8 @@ class VideoTrimmerLevel2 extends Component {
             selectedcategory:this.props.selectcategory,
             time:'',
             c_name:'',
-            levelonecat:'',
+            savefolder:'/media',
+            level1Id:this.props.level1Id
 
         }
         //alert("prop types"+this.props.childId)
@@ -74,13 +77,13 @@ class VideoTrimmerLevel2 extends Component {
     }
     componentDidMount() {
 
-        axios.get(categoriesLevel2API+this.state.selectedcategory)
+        axios.get(categoriesLevel3API+this.state.selectedcategory)
             .then(response => {
-                    this.setState({
-                            c_id: response.data.id,
-                            c_name:response.data.name,
-                        }
-                    )
+                this.setState({
+                        c_id: response.data.id,
+                        c_name:response.data.name,
+                    }
+                )
                 console.log("displaying data"+response.data)
             })
             .catch(function (error) {
@@ -105,7 +108,7 @@ class VideoTrimmerLevel2 extends Component {
 
         // Run the FFMpeg command
         //-i input.mp4 -ss 00:00:05 -c copy -to 00:00:07 sliced-output.mp4
-       await ffmpeg.run('-i', 'test.mp4', '-ss', this.state.markedStartTime, '-c', 'copy', '-to', this.state.markedEndTime, 'out.mp4');
+        await ffmpeg.run('-i', 'test.mp4', '-ss', this.state.markedStartTime, '-c', 'copy', '-to', this.state.markedEndTime, 'out.mp4');
 
         // Read the result
         const data = ffmpeg.FS('readFile', 'out.mp4');
@@ -115,7 +118,7 @@ class VideoTrimmerLevel2 extends Component {
         const url = URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
         //const filenew = await fetchFile(data);
         const file = new File([data], "out.mp4")
-       // const file = new File([new Blob(data)], {type:"video/mp4"});
+        // const file = new File([new Blob(data)], {type:"video/mp4"});
 
         console.log("ttttttttt"+ file);
 
@@ -129,9 +132,9 @@ class VideoTrimmerLevel2 extends Component {
 
     onChange(e){
         if(!ffmpeg.isLoaded()){
-        this.loadx().then(r =>
-            this.convertToTrimmed()
-        );
+            this.loadx().then(r =>
+                this.convertToTrimmed()
+            );
         }else{
             confirmAlert({
                 title: 'Trimmed Video Status',
@@ -166,8 +169,8 @@ class VideoTrimmerLevel2 extends Component {
 
         }
         else{
-        const timeStart = this.format(this.player.current.getCurrentTime());
-        this.setState({markedStartTime: timeStart});
+            const timeStart = this.format(this.player.current.getCurrentTime());
+            this.setState({markedStartTime: timeStart});
         }
 
     }
@@ -200,37 +203,39 @@ class VideoTrimmerLevel2 extends Component {
 
 
     onSubmit(e){
-       e.preventDefault()
+        e.preventDefault()
         let res = this.uploadFile(this.state.selectedvideo);
         //console.log(res.data);
     }
     //async axios
-   uploadFile(file){
+    uploadFile(file){
 
         console.log("details",this.props.childId,this.props.videoId,this.state.description,this.props.level,this.props.selectcategory);
-        //alert("display"+this.props.levelonecat)
 
         const formData = new FormData();
-        formData.append('childid',this.state.childId)
-        formData.append('childidLevel1',this.props.videoId)
+        formData.append('childid',this.props.childId)
+        formData.append('childidLevel1',this.props.level1Id)
+        formData.append('childidLevel2',this.props.videoId)
         formData.append('description',this.state.description)
         formData.append('level',this.props.level)
-       formData.append('categoryid_one',this.props.levelonecat)
-        formData.append('category',this.props.selectcategory)
+        formData.append('category',this.props.catlevel2)
+        formData.append('categoryid_one',this.props.catlevel1)
+        formData.append('categoryid_three',this.props.selectcategory)
+        formData.append('folderstructure',this.state.savefolder)
         formData.append('video',this.state.selectedvideo)
 
-        return  axios.post(videoUploadLevelTwo, formData,{
+        return  axios.post(videoUploadLevelThree, formData,{
             headers: {
-               // contentType: "multipart/form-data", // important
+                // contentType: "multipart/form-data", // important
 
             }
         })
             .then(function (response) {
-            //console.log(response);
-            //window.location.reload();
-            alert('Successfully Saved the Data.\n Click *Load Annotated Videos* Button to view the Results.')
+                //console.log(response);
+                //window.location.reload();
+                alert('Successfully Saved the Data.\n Click *Load Annotated Videos* Button to view the Results.')
                 window.close()
-        })
+            })
             .catch((error) => {
                 alert('Error in Saving')
             });
@@ -240,6 +245,7 @@ class VideoTrimmerLevel2 extends Component {
         const {vurl} = this.state;
         const {childId} = this.state;
         const {videoId} = this.state;
+        const {level1Id}=this.state;
         const {video} = this.state;
         const {gif} = this.state;
         const {markedStartTime} = this.state;
@@ -247,62 +253,63 @@ class VideoTrimmerLevel2 extends Component {
         const {selectedcategory} = this.state;
         const {c_name} = this.state;
         return  (
-                <div className="App">
-                    Video ID (Unique Child Video) : {childId} <br/>
-                    Video ID (Annotated Video 1 ID) : {videoId}<br/>
-                    Selected Category ID and Name : {selectedcategory}-----{c_name}<br/>
-                    Video url: {vurl}<br/>
-                    <br/><br/><br/>
-                    <br/><br/>
-                    {
-                        video &&
-                        <Container>
-                            <div className="PlayerWrapper">
-                                 <br/>
-                        <ReactPlayer
-                            url={vurl}
-                            controls={true}
-                            ref={this.player}
+            <div className="App">
+                Video ID (Unique Child Video) : {childId} <br/>
+                Video ID (Annotated Video 1 ID) : {videoId}<br/>
+                Video ID (Annotated Video 2 ID) : {level1Id}<br/>
+                Selected Category ID and Name : {selectedcategory}-----{c_name}<br/>
+                Video url: {vurl}<br/>
+                <br/><br/><br/>
+                <br/><br/>
+                {
+                    video &&
+                    <Container>
+                        <div className="PlayerWrapper">
+                            <br/>
+                            <ReactPlayer
+                                url={vurl}
+                                controls={true}
+                                ref={this.player}
 
-                        />
-                                <div className="ControlWrapper">
-                                    <Grid container direction="row" alignItems="center" justify="space-between" style={{padding:16}}>
-                                        <Grid item>
-                                            Manual Enter Time:
-                                            <input type="text"
-                                                   id="time"
-                                                   name="time"
-                                                   placeholder="00:00"
+                            />
+                            <div className="ControlWrapper">
+                                <Grid container direction="row" alignItems="center" justify="space-between" style={{padding:16}}>
+                                    <Grid item>
+                                        Manual Enter Time:
+                                        <input type="text"
+                                               id="time"
+                                               name="time"
+                                               placeholder="00:00"
 
-                                                   value={this.state.time}
-                                                   onChange={this.handleInput}
+                                               value={this.state.time}
+                                               onChange={this.handleInput}
 
-                                            /><br/>
-                                            <button onClick={this.settimeStart} id="trimpoints">Mark Trim Start Point
-                                            </button>
-                                            <button onClick={this.settimeEnd} id="trimpoints">Mark Trim End Point
-                                            </button>
-                                            <div className="Trim Timming">
-                                                Selected Times for Trimming Videos<br/>
-                                                Selected Trim Start:{markedStartTime} <br/>
-                                                Selected Trim End:  {markedEndTime} <br/>
-                                                <button onClick={this.onChange} id="trimVideo">Trim Video</button>
+                                        /><br/>
+                                        <button onClick={this.settimeStart} id="trimpoints">Mark Trim Start Point
+                                        </button>
+                                        <button onClick={this.settimeEnd} id="trimpoints">Mark Trim End Point
+                                        </button>
+                                        <div className="Trim Timming">
+                                            Selected Times for Trimming Videos<br/>
+                                            Selected Trim Start:{markedStartTime} <br/>
+                                            Selected Trim End:  {markedEndTime} <br/>
+                                            <button onClick={this.onChange} id="trimVideo">Trim Video</button>
 
-                                            </div>
-                                        </Grid>
-
+                                        </div>
                                     </Grid>
-                                </div>
+
+                                </Grid>
                             </div>
+                        </div>
 
-                        </Container>
+                    </Container>
 
-                    }
-                    <br/>
+                }
+                <br/>
 
-                    <div className="trimmedResults">
-                        <Typography variant="h6"> Trimmed Video Results </Typography>
-                        <br/><br/>
+                <div className="trimmedResults">
+                    <Typography variant="h6"> Trimmed Video Results </Typography>
+                    <br/><br/>
                     {gif &&
                     <ReactPlayer controls={true} url={gif} />}
                     { gif &&
@@ -331,10 +338,10 @@ class VideoTrimmerLevel2 extends Component {
 
                     }
                     <br/><br/><br/>
-                    </div>
-
                 </div>
-            )
+
+            </div>
+        )
     }
 }
-export default VideoTrimmerLevel2;
+export default VideoTrimmerLevel3;

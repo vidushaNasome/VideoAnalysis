@@ -103,7 +103,7 @@ class ViewAnnotations extends Component {
                 <div className="catelevel1dis">
                     <h3>Level 1 Annotations</h3>
                     {categories.map((c) => (
-                        <div className="col-md-6 btn-outline-info">
+                        <div className="col-md-6 border-dark">
                             <h3> {c.name} </h3>
                                        <div>
                                            {LoadedAnnotatedDetails.map((details)=>(
@@ -128,7 +128,7 @@ class ViewAnnotations extends Component {
                                                                     />}
                                                                     <div><br/>
                                                                     <button className="btn-outline-dark" onClick={() => this.loaLevel2Ann(details.id)}> Add Level 2 Annotations </button> <br/><br/>
-                                                                    <tr><button className="btn-outline-primary" onClick={() => this.open_Annotated_Video(details.id)}> View Annotations for video ID: {details.id} </button>
+                                                                    <tr><button className="btn-outline-primary" onClick={() => this.open_Annotated_Video(details.id)}> View Annotations Level-2 for video ID: {details.id} </button>
                                                                         <button className="btn-outline-primary" onClick={this.open_Annotated_Video_close}> Close Annotations </button></tr> <br/><br/>
                                                                     {open === details.id? <ViewAnnotationsLevelTwo childId={details.childid} levelOnevideoId={details.id}/>
                                                                             : null}

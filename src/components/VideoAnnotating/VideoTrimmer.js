@@ -323,6 +323,9 @@ class VideoTrimmer extends Component {
                                           name="description"
 
                             />
+                            <Form.Label>Video Saving Folder</Form.Label>
+                            <Form.Control type="text"
+                            />
                         </Form.Group>
                         <button id="trimVideo">Save Trimmed Video</button>
                     </Form>

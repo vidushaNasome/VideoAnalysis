@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import axios from "axios";
 import qs from "query-string";
 import {confirmAlert} from "react-confirm-alert";
-import VideoTrimmerLevel2 from "./VideoTrimmerLevel2";
+import VideoTrimmerLevel3 from "./VideoTrimmerLevel3";
 import Typography from "@material-ui/core/Typography";
 import {Button} from "react-bootstrap";
-import {categoriesAPI, videoUpload, categoriesLevel2API, categoriesLevel3API} from "../../../configs/config";
+import {videoUploadLevelTwo, videoUpload, categoriesLevel2API, categoriesLevel3API} from "../../../configs/config";
 
-class Level2Annotations extends Component {
+class Level3Annotations extends Component {
     constructor(props) {
         super(props);
         this.state={
@@ -27,7 +27,7 @@ class Level2Annotations extends Component {
 
     componentDidMount() {
 
-        axios.get(videoUpload + this.state.id )
+        axios.get(videoUploadLevelTwo + this.state.id )
             .then(response => {
                 this.setState({
                         videodet:response.data
@@ -45,7 +45,8 @@ class Level2Annotations extends Component {
 
     }
     loadCategories(){
-        axios.get(categoriesLevel2API +'?id='+this.state.videodet.category)
+        //alert(this.state.videodet.categoryid_one+'vvv'+this.state.videodet.category)
+        axios.get(categoriesLevel3API +'?id1='+this.state.videodet.categoryid_one+'&&id2='+this.state.videodet.category)
             .then(response => {
                 this.setState({mainCategories: response.data});
             } )
@@ -57,20 +58,20 @@ class Level2Annotations extends Component {
     }
     componentWillUnmount() {
         confirmAlert({
-                title: 'Confirm Closing Window.',
-                message: 'Navigation to other components are disabled in this Window.Are you Sure you want Close this Window?',
-                buttons: [
-                    {
-                        label: 'Yes',
-                        onClick: () => window.close()
-                    },
-                    {
-                        label: 'No',
-                        onClick: () =>this.props.history.push('/level1/?k='+sessionStorage.getItem('id'))
+            title: 'Confirm Closing Window.',
+            message: 'Navigation to other components are disabled in this Window.Are you Sure you want Close this Window?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => window.close()
+                },
+                {
+                    label: 'No',
+                    onClick: () =>this.props.history.push('/level1/?k='+sessionStorage.getItem('id'))
 
-                    }
-                ]
-            });
+                }
+            ]
+        });
     }
     trimmer(){
         this.setState({
@@ -105,11 +106,13 @@ class Level2Annotations extends Component {
             <div>
                 <div><br/><br/><br/><br/>
                     <div id="main">
-                        <h1> Level 2 Annotations</h1>
+                        <h1> Level 3 Annotations</h1>
                         <Typography variant="h6"> Main Video ID (Unique Child Video ID) : {videodet.childid} <br/> </Typography>
-                        <Typography variant="h6"> Level-1 Annotated Video ID  : {videodet.id} <br/> </Typography>
-                        <Typography variant="h6"> Level 1 Annotated Category ID: {videodet.category} <br/> </Typography>
-                        <Typography variant="h6"> Select Category for Level 2 Annotations <br/> </Typography>
+                        <Typography variant="h6"> Level-1 Annotated Video ID  : {videodet.childidLevel1} <br/> </Typography>
+                        <Typography variant="h6"> Level-1 Annotated Category ID  : {videodet.categoryid_one} <br/> </Typography>
+                        <Typography variant="h6"> Level-2 Annotated Video ID  : {videodet.id} <br/> </Typography>
+                        <Typography variant="h6"> Level-2 Annotated Category ID: {videodet.category} <br/> </Typography>
+                        <Typography variant="h6"> Select Category for Level 3 Annotations <br/> </Typography>
                         <select id="selectmain" variant="primary" ref = {(input)=> this.l1categoryid = input}>
                             >
                             {mainCategoriesList}
@@ -126,7 +129,10 @@ class Level2Annotations extends Component {
                             <br/><br/>
                             {trimstate==='start' ?
                                 <div>
-                                    <VideoTrimmerLevel2 childId = {videodet.childid} videoId={videodet.id} level={2} levelonecat={videodet.category} selectcategory={this.l1categoryid.value} url={videodet.video} />
+                                    <VideoTrimmerLevel3 childId = {videodet.childid} videoId={videodet.id}
+                                                        level={3} selectcategory={this.l1categoryid.value}
+                                                        url={videodet.video} level1Id={videodet.childidLevel1}
+                                                        catlevel1={videodet.categoryid_one} catlevel2={videodet.category}/>
 
                                 </div>
                                 : null}
@@ -134,13 +140,13 @@ class Level2Annotations extends Component {
                         </div>
 
 
-                        </div>
-
-                        <br/>
-
-
                     </div>
+
+                    <br/>
+
+
                 </div>
+            </div>
 
 
 
@@ -149,4 +155,4 @@ class Level2Annotations extends Component {
     }
 }
 
-export default Level2Annotations;
+export default Level3Annotations;

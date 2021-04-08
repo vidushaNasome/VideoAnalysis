@@ -16,6 +16,7 @@ const videoRetrievefromUpload = `${apiBaseUrl}VideoAnalysis/uploadretrieve/`;
 const createfolder = `${apiBaseUrl}VideoAnalysis/createfolder`;
 const videoUpload = `${apiBaseUrl}VideoAnalysis/Videoupload/`;
 const videoUploadLevelTwo = `${apiBaseUrl}VideoAnalysis/VideouploadLeveltwo/`;
+const videoUploadLevelThree = `${apiBaseUrl}VideoAnalysis/Levelthreevideoupload/`;
 
 
 export{
@@ -25,5 +26,6 @@ export{
     createfolder,
     videoRetrievefromUpload,
     videoUpload,
-    videoUploadLevelTwo
+    videoUploadLevelTwo,
+    videoUploadLevelThree,
 }
