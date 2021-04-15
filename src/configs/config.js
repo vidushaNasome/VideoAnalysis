@@ -18,6 +18,8 @@ const videoUpload = `${apiBaseUrl}VideoAnalysis/Videoupload/`;
 const videoUploadLevelTwo = `${apiBaseUrl}VideoAnalysis/VideouploadLeveltwo/`;
 const videoUploadLevelThree = `${apiBaseUrl}VideoAnalysis/Levelthreevideoupload/`;
 
+const csaat_web=`https://CSAAT-WEB.com/`;
+
 
 export{
     categoriesAPI,
@@ -28,4 +30,5 @@ export{
     videoUpload,
     videoUploadLevelTwo,
     videoUploadLevelThree,
+    csaat_web,
 }

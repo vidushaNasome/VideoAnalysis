@@ -12,6 +12,8 @@ import {Form} from "react-bootstrap";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from 'prop-types';
 import {categoriesLevel3API, videoUpload,videoUploadLevelThree} from "../../../configs/config";
+import Foldermakinglevel2 from "../../Foldermaking/Foldermakinglevel2";
+import Foldermakinglevel3 from "../../Foldermaking/Foldermakinglevel3";
 
 const ffmpeg = createFFmpeg({log: true});
 
@@ -60,8 +62,11 @@ class VideoTrimmerLevel3 extends Component {
             selectedcategory:this.props.selectcategory,
             time:'',
             c_name:'',
-            savefolder:'/media',
-            level1Id:this.props.level1Id
+            savefolder:'',
+            level1Id:this.props.level1Id,
+            uploadfolder:'close',
+            folderpath:'anypath',
+            outputfilename:this.props.url,
 
         }
         //alert("prop types"+this.props.childId)
@@ -73,6 +78,8 @@ class VideoTrimmerLevel3 extends Component {
         this.uploadFile = this.uploadFile.bind(this);
         this.loadvideo = this.loadvideo.bind(this);
         this.handleInput = this.handleInput.bind(this);
+        this.uploadfolder = this.uploadfolder.bind(this);
+        this.uploadfolderclose = this.uploadfolderclose.bind(this);
 
     }
     componentDidMount() {
@@ -117,7 +124,7 @@ class VideoTrimmerLevel3 extends Component {
         // Create a URL
         const url = URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
         //const filenew = await fetchFile(data);
-        const file = new File([data], "out.mp4")
+        const file = new File([data], this.state.outputfilename)
         // const file = new File([new Blob(data)], {type:"video/mp4"});
 
         console.log("ttttttttt"+ file);
@@ -223,6 +230,7 @@ class VideoTrimmerLevel3 extends Component {
         formData.append('categoryid_three',this.props.selectcategory)
         formData.append('folderstructure',this.state.savefolder)
         formData.append('video',this.state.selectedvideo)
+        formData.append('folderstructure',this.state.folderpath)
 
         return  axios.post(videoUploadLevelThree, formData,{
             headers: {
@@ -240,6 +248,24 @@ class VideoTrimmerLevel3 extends Component {
                 alert('Error in Saving')
             });
     }
+    uploadfolder(){
+        this.setState({
+                uploadfolder: 'open'
+            }
+        )
+
+    }
+    uploadfolderclose(){
+        this.setState({
+                uploadfolder: 'close'
+            }
+        )
+
+    }
+
+    callbackFunction = (childData) => {
+        this.setState({folderpath: childData})
+    }
 
     render() {
         const {vurl} = this.state;
@@ -252,6 +278,7 @@ class VideoTrimmerLevel3 extends Component {
         const {markedEndTime} = this.state
         const {selectedcategory} = this.state;
         const {c_name} = this.state;
+        const {uploadfolder}=this.state;
         return  (
             <div className="App">
                 Video ID (Unique Child Video) : {childId} <br/>
@@ -324,20 +351,25 @@ class VideoTrimmerLevel3 extends Component {
                                           name="description"
 
                             />
-                            <Form.Label>Video Saving Folder</Form.Label>
-                            <Form.Control type="text"
-                                          value={this.state.savefolder}
-                                          placeholder="Add Descaription"
-                                          onChange={this.handleInputChange}
-                                          name="description"
 
-                            />
                         </Form.Group>
                         <button id="trimVideo">Save Trimmed Video</button>
                     </Form>
 
                     }
                     <br/><br/><br/>
+                    <div align="center" className="bg-warning">
+                        Folder path: {this.state.folderpath} <br/><br/><br/>
+                        <button  onClick={this.uploadfolder} className="btn-dark">Open Upload Folder</button><br/><br/>
+                        <button  onClick={this.uploadfolderclose} className="btn-dark">Close Upload Folder</button><br/><br/>
+                        {uploadfolder==='open' ?
+                            <div>
+                                <Foldermakinglevel3 mainvideoIdfolder={this.props.childId} video1folderId={this.props.level1Id} video2folderId={this.props.videoId} category2folder={this.props.catlevel2} category3folder={selectedcategory+'_'+c_name} category1folder={this.props.catlevel1} parentCallback = {this.callbackFunction} /><br/>
+
+                            </div>
+                            : null}
+
+                    </div>
                 </div>
 
             </div>

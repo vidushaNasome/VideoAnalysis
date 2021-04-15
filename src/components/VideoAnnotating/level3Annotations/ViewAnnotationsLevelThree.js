@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import video1 from "../../../Video_Store/ChildVideo1.mp4";
 import "./style_l3ann.css";
 import axios from "axios";
-import {categoriesLevel2API, videoUploadLevelThree} from "../../../configs/config";
+import {categoriesLevel3API, videoUploadLevelThree} from "../../../configs/config";
 import ReactPlayer from "react-player";
 
 class ViewAnnotationsLevelThree extends Component {
@@ -13,6 +13,8 @@ class ViewAnnotationsLevelThree extends Component {
             childId: PropTypes.number,
             levelOnevideoId: PropTypes.number,
             levelTwovideoId: PropTypes.number,
+            l1category:PropTypes.number,
+            l2category:PropTypes.number,
 
 
         }
@@ -25,7 +27,7 @@ class ViewAnnotationsLevelThree extends Component {
             childId: this.props.childId,
             levelOnevideoId: this.props.levelOnevideoId,
             LoadedAnnotatedDetails:[],
-            cat2:[]
+            Cat2:[],
         }
     }
     componentDidMount() {
@@ -43,9 +45,11 @@ class ViewAnnotationsLevelThree extends Component {
 
             })
 
-        axios.get(categoriesLevel2API)
+        //alert('inside1')
+        axios.get(categoriesLevel3API+'?id1='+this.props.l1category+'&&id2='+this.props.l2category)
             .then(response => {
                 this.setState({Cat2: response.data});
+                //alert('inside2')
             } )
             .catch(function (error) {
                 console.log(error);
@@ -57,17 +61,20 @@ class ViewAnnotationsLevelThree extends Component {
         let {childId} = this.state;
         let {levelOnevideoId} = this.state;
         let {LoadedAnnotatedDetails} = this.state;
+        let {Cat2}=this.state;
         return (
-            <div className="back">
-                <div className="ddx">
+            <div className="backnew">
+                <div>
                     <h5>View Annotations Level-3</h5><br/>
                     Unique Child Video ID: {childId}<br/>
                     Level One Annotated Video ID: {levelOnevideoId}<br/>
                     Level Two Annotated Video ID: {levelOnevideoId}<br/></div><br/>
-
+                {Cat2.map((c) => (
                 <div>
+                    <h3> {c.name} </h3>
                     {LoadedAnnotatedDetails.map((details)=>(
                         <div>
+                            {details.categoryid_three === c.id ?
                             <div className="ddx">
                                 <div className="card text-center font-weight-bold border-warning bg-warning">
                                     <div className="card-header text-black">
@@ -77,7 +84,7 @@ class ViewAnnotationsLevelThree extends Component {
 
                                             Video ID (Unique Child's): {details.childid} <br/>
                                             Annotated Level 1 Video ID:{details.childidLevel1}<br/>
-                                            Annotated Category-Level-2 ID: {details.category} <br/>
+                                            Annotated Category-Level-2 ID: {details.category} {c.name}<br/>
                                             Added Description : {details.description} <br/><br/>
                                             {details.video}
                                             {<ReactPlayer
@@ -89,8 +96,13 @@ class ViewAnnotationsLevelThree extends Component {
                                             />}
 
                                         </div></div></div><br/></div>
+                                : null
+
+                            }
+
                         </div>
                     ))}</div>
+                ))}
 
 
 

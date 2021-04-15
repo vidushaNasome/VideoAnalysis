@@ -13,6 +13,7 @@ class ViewAnnotationsLevelTwo extends Component {
         return {
             childId: PropTypes.number,
             levelOnevideoId: PropTypes.number,
+            l1category:PropTypes.number,
 
 
         }
@@ -25,7 +26,7 @@ class ViewAnnotationsLevelTwo extends Component {
             childId: this.props.childId,
             levelOnevideoId: this.props.levelOnevideoId,
             LoadedAnnotatedDetails:[],
-            cat2:[],
+            Cat2:[],
             open:-90,
         }
 
@@ -38,12 +39,6 @@ class ViewAnnotationsLevelTwo extends Component {
         axios.get(videoUploadLevelTwo+"?id="+this.state.childId+'&&idlOne='+this.state.levelOnevideoId)
             .then(response => {
                     this.setState({LoadedAnnotatedDetails: response.data});
-                    //alert('display:'+response.data)
-
-
-                    //console.log("check"+this.state.LoadedAnnotatedDetails)
-
-                    // alert('checking')
 
                 }
             )
@@ -53,14 +48,18 @@ class ViewAnnotationsLevelTwo extends Component {
 
             })
 
-        axios.get(categoriesLevel2API)
+        axios.get(categoriesLevel2API+'?id='+this.props.l1category)
             .then(response => {
                 this.setState({Cat2: response.data});
+                console.log(this.state.Cat2)
             } )
             .catch(function (error) {
                 console.log(error);
 
             })
+
+
+
     }
     loaLevel3Ann(id){
         //alert('kk');
@@ -72,22 +71,37 @@ class ViewAnnotationsLevelTwo extends Component {
     open_Annotated_Video_close(){
         this.setState({open:-90})
     }
+    /*loadingCat(){
+        axios.get(categoriesLevel2API+'?id='+this.props.l1category)
+            .then(response => {
+                this.setState({Cat2: response.data});
+                console.log(this.state.Cat2)
+            } )
+            .catch(function (error) {
+                console.log(error);
+
+            })
+    }*/
 
     render() {
         let {childId} = this.state;
         let {levelOnevideoId} = this.state;
         let {LoadedAnnotatedDetails} = this.state;
         let {open} = this.state;
+        let {Cat2}=this.state;
         return (
             <div className="back">
                 <div className="dd">
                 <h5>View Annotations Level-2</h5><br/>
                 Unique Child Video ID: {childId}<br/>
-                    Level One Annotated Video ID: {levelOnevideoId}<br/></div><br/>
+                Level One Annotated Video ID: {levelOnevideoId}<br/></div><br/>
 
+                {Cat2.map((c) => (
                 <div>
+                    <h3> {c.name} </h3>
                     {LoadedAnnotatedDetails.map((details)=>(
                         <div>
+                            {details.category === c.id ?
                                 <div>
                                     <div className="card text-center font-weight-bold border-primary">
                                         <div className="card-header text-black">
@@ -95,7 +109,7 @@ class ViewAnnotationsLevelTwo extends Component {
 
                                                 Video ID (Unique Child's): {details.childid} <br/>
                                                 Annotated Level 1 Video ID:{details.childidLevel1}<br/>
-                                                Annotated Category-Level-1 ID: {details.categoryid_one}<br/><br/>
+                                                Annotated Category-Level-1 ID and Name: {details.categoryid_one} {c.name} <br/><br/>
 
                                                 Video ID (Level 2) : {details.id} <br/>
                                                 Annotated Level : {details.level} <br/>
@@ -110,17 +124,20 @@ class ViewAnnotationsLevelTwo extends Component {
                                                     height="200px"
                                                 />}
                                                 <div><br/>
-                                                    <button className="btn-outline-warning" onClick={() => this.loaLevel3Ann(details.id)}> Add Level-3-Annotations </button> <br/><br/>
-                                                    <tr><button className="btn-outline-warning" onClick={() => this.open_Annotated_Video(details.id)}> View Annotations for Level-3 video ID Level-3: {details.id} </button>
+                                                    <tr><button className="btn-outline-warning" onClick={() => this.loaLevel3Ann(details.id)}> Add Level-3-Annotations </button>
+                                                    <button className="btn-outline-warning" onClick={() => this.open_Annotated_Video(details.id)}> View Annotations for Level-3 video ID Level-3: {details.id} </button>
                                                         <button className="btn-outline-warning" onClick={this.open_Annotated_Video_close}> Close Annotations </button></tr> <br/><br/>
-                                                    {open === details.id? <ViewAnnotationsLevelThree childId={details.childid} levelOnevideoId={details.childidLevel1} levelTwovideoId={details.id}/>
+                                                    {open === details.id? <ViewAnnotationsLevelThree childId={details.childid} l1category={details.categoryid_one} l2category={details.category} levelOnevideoId={details.childidLevel1} levelTwovideoId={details.id}/>
                                                         : null}
                                                 </div>
                                             </div></div></div><br/></div>
+                                : null
+
+                            }
                         </div>
                     ))}</div>
 
-
+                    ))}
 
             </div>
         );

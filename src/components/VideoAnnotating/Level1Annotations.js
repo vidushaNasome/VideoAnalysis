@@ -107,7 +107,7 @@ class Level1Annotations extends Component {
                             </button><br/><br/>
                             {trimstate==='start' ?
                                 <div>
-                                    <VideoTrimmer childId = {idv} name={name} level={1} selectcategory={mainCategories.id} url={url} />
+                                    <VideoTrimmer childId = {idv} name={name} level={1} selectcategory={mainCategories.id} catname={mainCategories.name} url={url} />
 
                                 </div>
                                 : null}

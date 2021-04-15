@@ -103,7 +103,7 @@ class ViewAnnotations extends Component {
                 <div className="catelevel1dis">
                     <h3>Level 1 Annotations</h3>
                     {categories.map((c) => (
-                        <div className="col-md-6 border-dark">
+                        <div className="col-md-auto border-dark">
                             <h3> {c.name} </h3>
                                        <div>
                                            {LoadedAnnotatedDetails.map((details)=>(
@@ -112,13 +112,15 @@ class ViewAnnotations extends Component {
                                                     <div>
                                                         <div className="card text-center font-weight-bold alert-primary">
                                                             <div className="card-header text-black">
-                                                                <div className="row">
+                                                                <div className="row text-left">
                                                                     Video ID : {details.id} <br/>
                                                                 Video ID (Unique Child's): {details.childid} <br/>
                                                                 Annotated Level : {details.level} <br/>
                                                                 Annotated Category ID and NAME: {details.category} - {c.name} <br/>
-                                                                    Added Description : {details.description} <br/><br/>
-                                                                    {details.video}
+                                                                Added Description : {details.description} <br/><br/>
+                                                                Url: {details.video}<br/><br/><br/>
+                                                                <div>
+
                                                                     {<ReactPlayer
                                                                         url={details.video}
                                                                         controls={true}
@@ -126,11 +128,12 @@ class ViewAnnotations extends Component {
                                                                         width="600px"
                                                                         height="200px"
                                                                     />}
-                                                                    <div><br/>
-                                                                    <button className="btn-outline-dark" onClick={() => this.loaLevel2Ann(details.id)}> Add Level 2 Annotations </button> <br/><br/>
-                                                                    <tr><button className="btn-outline-primary" onClick={() => this.open_Annotated_Video(details.id)}> View Annotations Level-2 for video ID: {details.id} </button>
-                                                                        <button className="btn-outline-primary" onClick={this.open_Annotated_Video_close}> Close Annotations </button></tr> <br/><br/>
-                                                                    {open === details.id? <ViewAnnotationsLevelTwo childId={details.childid} levelOnevideoId={details.id}/>
+                                                                    <br/><br/>
+                                                                        <div className="flex-row"><button className="btn-outline-dark" onClick={() => this.loaLevel2Ann(details.id)}> Add Level 2 Annotations </button>
+                                                                            <button className="btn-outline-primary" onClick={() => this.open_Annotated_Video(details.id)}> View Annotations Level-2 for video ID: {details.id} </button>
+                                                                            <button className="btn-outline-primary" onClick={this.open_Annotated_Video_close}> Close Annotations </button> <br/><br/></div>
+
+                                                                    {open === details.id? <ViewAnnotationsLevelTwo childId={details.childid} levelOnevideoId={details.id} l1category={details.category}/>
                                                                             : null}
                                                                     </div>
                                                     </div></div></div><br/></div>
