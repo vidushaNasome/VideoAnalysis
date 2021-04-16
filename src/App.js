@@ -36,6 +36,7 @@ class App extends Component {
 
         //Logged In as an Authorized Annotator(Health Researcher, Consultant, Officer)
         if(window.location.pathname==="/user/1"){
+            sessionStorage.setItem("id","1");
         sessionStorage.setItem("Username","Ann");
         sessionStorage.setItem("Position","Doctor");
         sessionStorage.setItem("ENABLE",'YES')
@@ -43,10 +44,12 @@ class App extends Component {
         }
         //Logged In as Parent
         else if(window.location.pathname==="/user/2"){
+            sessionStorage.setItem("id","2");
             sessionStorage.setItem("Username","Mat");
             sessionStorage.setItem("Position","Parent")
             this.setState({loginStatus:'loggedInParent'})
         }else if(window.location.pathname==="/user/3"){
+            sessionStorage.setItem("id","3");
             sessionStorage.setItem("Username","Ben");
             sessionStorage.setItem("Position","Consultant")
             sessionStorage.setItem("ENABLE",'YES')

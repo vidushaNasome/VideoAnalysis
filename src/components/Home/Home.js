@@ -33,14 +33,14 @@ class Home extends Component{
                 </div>
 
             </div>
-                {sessionStorage.getItem("Position") === "Health Professional"?
+                {sessionStorage.getItem("ENABLE") === "YES"?
                     <div>
 
                         <Home1/>
                     </div>
                     :<div>
                     </div>}
-                {sessionStorage.getItem("Position") !== "Health Professional"?
+                {sessionStorage.getItem("ENABLE") !== "YES"?
                     <div>
                         <div className="container" id="categoriesHome">
                             <div className="row">

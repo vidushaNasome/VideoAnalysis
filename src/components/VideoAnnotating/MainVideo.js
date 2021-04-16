@@ -128,6 +128,7 @@ class MainVideo extends Component {
                         <MarkAnnotateCompleteModel
                             show={this.state.addModalShow}
                             onHide={addModalClose}
+                            id={this.state.id}
                         />
                     </div>
                     <div><br/><br/>

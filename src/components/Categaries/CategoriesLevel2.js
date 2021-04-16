@@ -14,10 +14,14 @@ class CategoriesLevel2 extends Component{
             id: '',
             name: '',
             mainCategories: [],
-            cat2:[]
+            cat2:[],
+            update:{},
+            updatename:'',
+            show:false,
 
         }
         this.onSubmit=this.onSubmit.bind(this);
+        this.onSubmit123=this.onSubmit123.bind(this);
         this.handleInputChange=this.handleInputChange.bind(this);
     }
     componentDidMount() {
@@ -72,9 +76,18 @@ class CategoriesLevel2 extends Component{
     }
     onSubmit123(id){
 
+        axios.put(categoriesLevel2API + this.state.update.id+'/', {
+            name: this.state.updatename
+        }).then(function (response) {
+            console.log(response);
+            window.location.reload();
+
+        })
+
     }
     onDeleteClick(id){
         console.log("id:"+id);
+        if("Consultant"===sessionStorage.getItem("Position")){
         confirmAlert({
             title: 'Confirm to Delete Level 2 Category',
             message: 'Are you Sure you want to delete this Category?',
@@ -91,6 +104,39 @@ class CategoriesLevel2 extends Component{
                 }
             ]
         });
+        }else{
+            alert("You dont have access Priviledges.")
+        }
+
+
+
+
+    }
+    onUpdateClick(id){
+        console.log("id:"+id);
+        if("Consultant"===sessionStorage.getItem("Position")){
+
+            axios.get(categoriesLevel2API+id)
+                .then(response => {
+                    this.setState({update: response.data});
+                    this.setState({updatename:response.data.name})
+                    this.setState({show:true})
+
+                    console.log(this.props)
+
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+
+
+                })
+
+
+
+        }else{
+            alert("You dont have access priviledges.")
+        }
 
 
     }
@@ -158,8 +204,8 @@ class CategoriesLevel2 extends Component{
                                     <div className="card text-center font-weight-bold">
                                         <div className="card-header text-black">
                                             Level-1-Catgeory: ID: {l1cat.category_level1}  <br/>
-                                            Level-2-Category:{l1cat.name}<br/>
-                                            <button className="btn-primary" id="cardbtn">Update</button>
+                                            Level-2-Category ID and Name:{l1cat.id}&nbsp;&nbsp;{l1cat.name}<br/>
+                                            <button className="btn-primary" id="cardbtn" onClick={() => this.onUpdateClick(l1cat.id)}>Update</button>
                                             <button className="btn-danger"  onClick={() => this.onDeleteClick(l1cat.id)}> Delete </button>
                                         </div></div>
                                 </div>
@@ -169,9 +215,27 @@ class CategoriesLevel2 extends Component{
                     </div>
                 </div>
 
-                <div align="center">
+                <div align="center" className="catelevel1dis">
+                    {this.state.show?
+                    <Form className="categoryclass" onSubmit={this.onSubmit123} >
+                        <Form.Group>
+                            <Form.Label><h6>Update Level 2 Category</h6></Form.Label>
+                            <Form.Control type="text"
+                                          placeholder="Type LEVEL 2  Category"
+                                          onChange={this.handleInputChange}
+                                          value={this.state.updatename}
+                                          name="updatename"
+
+                            />
+                        </Form.Group>
+
+                            <Button id="btnSubmit" variant="primary" type="submit">
+                                Update Category
+                            </Button>
 
 
+                    </Form>
+                        :null}
 
                     <br/><br/>
                 </div>

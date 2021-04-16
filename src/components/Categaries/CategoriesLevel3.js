@@ -26,12 +26,16 @@ class CategoriesLevel3 extends Component{
             ],
             select:{},
             selectedTrue:false,
-            res:''
+            res:'',
+            update:{},
+            updatename:'',
+            show:false,
 
         }
         this.onSubmit=this.onSubmit.bind(this);
         this.handleInputChange=this.handleInputChange.bind(this);
         this.selectlevel1=this.selectlevel1.bind(this);
+        this.onSubmit123=this.onSubmit123.bind(this);
     }
     componentDidMount() {
         axios.get(categoriesAPI)
@@ -54,6 +58,17 @@ class CategoriesLevel3 extends Component{
 
 
             })
+
+    }
+    onSubmit123(id){
+
+        axios.put(categoriesLevel3API + this.state.update.id+'/', {
+            name: this.state.updatename
+        }).then(function (response) {
+            console.log(response);
+            window.location.reload();
+
+        })
 
     }
 
@@ -116,6 +131,7 @@ class CategoriesLevel3 extends Component{
 
     }
     onDeleteClick(id){
+        if("Consultant"===sessionStorage.getItem("Position")){
         console.log("id:"+id);
         confirmAlert({
             title: 'Confirm to Delete Level 3 Category',
@@ -132,7 +148,38 @@ class CategoriesLevel3 extends Component{
 
                 }
             ]
-        });
+        });}
+        else{
+                alert("You dont have access priviledges.")
+            }
+
+
+    }
+    onUpdateClick(id){
+        console.log("id:"+id);
+        if("Consultant"===sessionStorage.getItem("Position")){
+
+            axios.get(categoriesLevel3API+id)
+                .then(response => {
+                    this.setState({update: response.data});
+                    this.setState({updatename:response.data.name})
+                    this.setState({show:true})
+
+                    console.log(this.props)
+
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+
+
+                })
+
+
+
+        }else{
+            alert("You dont have access priviledges.")
+        }
 
 
     }
@@ -227,8 +274,8 @@ class CategoriesLevel3 extends Component{
                                         <div className="card-header text-black">
                                             Level-1-Catgeory ID:{l1cat.category_level1} <br/>
                                             Level-2-Category ID:{l1cat.category_level2} <br/>
-                                            Level-3-Category ID:{l1cat.name}<br/>
-                                            <button className="btn-primary" id="cardbtn">Update</button>
+                                            Level-3-Category ID and Name:{l1cat.id}&nbsp;&nbsp; {l1cat.name}<br/>
+                                            <button className="btn-primary" id="cardbtn" onClick={() => this.onUpdateClick(l1cat.id)}>Update</button>
                                             <button className="btn-danger"  onClick={() => this.onDeleteClick(l1cat.id)}> Delete </button>
                                         </div></div>
                                 </div>
@@ -239,7 +286,26 @@ class CategoriesLevel3 extends Component{
                 </div>
 
                 <div align="center">
+                    {this.state.show?
+                        <Form className="categoryclass" onSubmit={this.onSubmit123} >
+                            <Form.Group>
+                                <Form.Label><h6>Update Level 3 Category</h6></Form.Label>
+                                <Form.Control type="text"
+                                              placeholder="Type LEVEL 2  Category"
+                                              onChange={this.handleInputChange}
+                                              value={this.state.updatename}
+                                              name="updatename"
 
+                                />
+                            </Form.Group>
+
+                            <Button id="btnSubmit" variant="primary" type="submit">
+                                Update Category
+                            </Button>
+
+
+                        </Form>
+                        :null}
 
 
                     <br/><br/>

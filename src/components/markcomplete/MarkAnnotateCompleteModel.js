@@ -4,23 +4,37 @@ import VideoPlayer from "react-video-js-player";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {categoriesAPI} from "../../configs/config";
+import PropTypes from "prop-types";
 
 export class MarkAnnotateCompleteModel extends Component{
+    static get propTypes() {
+        return {
+            id: PropTypes.string,
+
+        }
+    }
     constructor(props) {
         super(props);
 
         this.state = {
-            videoid:'',
+            videoid:this.props.id,
             name:'',
             position:'',
             date:'',
-            comments:''
+            comments:'',
+            id:'',
 
         }
 
         this.onSubmit=this.onSubmit.bind(this);
         this.handleInputChange=this.handleInputChange.bind(this);
     }
+    componentDidMount() {
+        this.setState({id:sessionStorage.getItem('id')})
+        this.setState({name:sessionStorage.getItem('Username')})
+        this.setState({position:sessionStorage.getItem('Position')})
+    }
+
     handleInputChange(event){
         this.setState({
             [event.target.name]: event.target.value
@@ -71,17 +85,33 @@ export class MarkAnnotateCompleteModel extends Component{
                                                  placeholder="Video ID"
                                                  onChange={this.handleInputChange}
                                                  value={this.state.videoid}
-                                                 name="name"
+                                                 name="videoid"
+                                                 readonly="readonly"
+
 
                                    />
                                </Form.Group>
                            <Form.Group>
-                               <Form.Label>Annotator ID and Name</Form.Label>
+                               <Form.Label>Annotator ID</Form.Label>
                                <Form.Control type="text"
                                              placeholder="Annotator ID"
                                              onChange={this.handleInputChange}
+                                             value={this.state.id}
+                                             name="id"
+                                             readonly="readonly"
+
+
+                               />
+                           </Form.Group>
+                           <Form.Group>
+                               <Form.Label>Annotator Name</Form.Label>
+                               <Form.Control type="text"
+                                             placeholder="Annotator Name"
+                                             onChange={this.handleInputChange}
                                              value={this.state.name}
                                              name="name"
+                                             readonly="readonly"
+
 
                                />
                            </Form.Group>
@@ -91,7 +121,8 @@ export class MarkAnnotateCompleteModel extends Component{
                                              placeholder="Annotator Level"
                                              onChange={this.handleInputChange}
                                              value={this.state.position}
-                                             name="name"
+                                             name="position"
+                                             readonly="readonly"
 
                                />
                            </Form.Group>
@@ -100,7 +131,7 @@ export class MarkAnnotateCompleteModel extends Component{
                                <Form.Control type="date"
                                              onChange={this.handleInputChange}
                                              value={this.state.date}
-                                             name="name"
+                                             name="date"
 
                                />
                                <Form.Group>
@@ -109,7 +140,7 @@ export class MarkAnnotateCompleteModel extends Component{
                                                  placeholder="Type Comments here"
                                                  onChange={this.handleInputChange}
                                                  value={this.state.comments}
-                                                 name="name"
+                                                 name="comments"
 
                                    />
                                </Form.Group>

@@ -102,7 +102,7 @@ class CategoryLevel1 extends Component{
 
     }
     update(){
-        alert('here')
+        //alert('here')
         axios.put(categoriesAPI + this.state.update.id+'/', {
             name: this.state.name
         }).then(function (response) {
@@ -191,9 +191,9 @@ class CategoryLevel1 extends Component{
                             <div className="col-md-4">
                                 <div className="card text-center font-weight-bold">
                                     <div className="card-header text-black">
-                                <tr className="row">{l1cat.name}
+                                <div className="row">Category ID and Name:<br/>{l1cat.id}&nbsp;&nbsp;{l1cat.name}<br/>
                                 <button className="btn-primary" id="cardbtn" onClick={() => this.onUpdateClick(l1cat.id)}>Update</button>
-                                <button className="btn-danger"  onClick={() => this.onDeleteClick(l1cat.id)}> Delete </button></tr>
+                                <button className="btn-danger"  onClick={() => this.onDeleteClick(l1cat.id)}> Delete </button></div>
                                     </div></div>
                             </div>
                         ))}
