@@ -5,6 +5,7 @@ import "./style_l3ann.css";
 import axios from "axios";
 import {categoriesLevel3API, videoUploadLevelThree} from "../../../configs/config";
 import ReactPlayer from "react-player";
+import ReactTooltip from 'react-tooltip';
 
 class ViewAnnotationsLevelThree extends Component {
 
@@ -78,15 +79,14 @@ class ViewAnnotationsLevelThree extends Component {
                             <div className="ddx">
                                 <div className="card text-center font-weight-bold border-warning bg-warning">
                                     <div className="card-header text-black">
-                                        <div className="row">
+                                        <div className="row text-left">
                                             Video ID : {details.id} <br/>
                                             Annotated Level : {details.level} <br/><br/>
-
                                             Video ID (Unique Child's): {details.childid} <br/>
                                             Annotated Level 1 Video ID:{details.childidLevel1}<br/>
                                             Annotated Category-Level-2 ID: {details.category} {c.name}<br/>
-                                            Added Description : {details.description} <br/><br/>
-                                            {details.video}
+                                            Added Description : {details.description} <br/><br/><br/>
+
                                             {<ReactPlayer
                                                 url={details.video}
                                                 controls={true}
@@ -95,7 +95,10 @@ class ViewAnnotationsLevelThree extends Component {
                                                 height="200px"
                                             />}
 
-                                        </div></div></div><br/></div>
+                                        </div><br/>
+                                        <div className="align-content-left"><p data-tip={details.video}><h6 align="left">View Saved URL</h6></p>
+                                            <ReactTooltip /></div>
+                                    </div></div><br/></div>
                                 : null
 
                             }

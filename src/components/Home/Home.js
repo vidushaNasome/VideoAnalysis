@@ -16,10 +16,10 @@ class Home extends Component{
                     <div className="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center"
                          data-aos="fade-up">
                         <div>
-                            <div id="tt">We create our tool to automatically detect Autism in
+                            <div id="tt">We create our tool to automatically detect symptoms Autism in
                                 an uploaded children’s video by using the latest
                                 Artificial Intelligence and Machine Learning technologies
-                                which will be gather data collection, by video recordings and
+                                which will  gather data collection, by video recordings and
                                 annotating videos based on the categories by professional health
                                 users.</div>
                             {/*<Link to="/searchandretrive" id="homebtnid" style={{  textDecoration: 'none' }} >Go to Search Page</Link>*/}
@@ -61,9 +61,8 @@ class Home extends Component{
                                         <h3>Learn more about CSAAT - Video Analysis Tool</h3>
                                         <ul>
                                             <li><i className="icofont-check-circled">How we collect Data?</i><br/>
-                                                The child’s video data will be collected by doing in room
-                                                activities done by according to the script written by professionals.
-                                                All the videos will be recorded with high quality and 360 degrees
+                                            The child’s video will be collected after conducting in-room activities
+                                                followed according to a script provided by professionals.
                                             </li><br/>
                                             <li><i className="icofont-check-circled">Who will be Analyzing and Annotating it?</i><br/>
                                                 Health Professionals will only have access to annotate a video.
@@ -72,7 +71,8 @@ class Home extends Component{
                                                 Generate folder structure with videos annotations for a particular child's video.
                                             </li><br/>
                                             <li><i className="icofont-check-circled">What will be the Outcome of this overall project?</i><br/>
-                                                Detect and generate a report, whether the child has autism or not.
+                                                The system will generate a report which
+                                                will includes if the child shows symptoms of Autism Spectrum Disorder or not.
                                             </li><br/>
                                         </ul>
 

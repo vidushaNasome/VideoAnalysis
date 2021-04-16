@@ -11,7 +11,7 @@ import axios from "axios";
 import {Form} from "react-bootstrap";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from 'prop-types';
-import {categoriesLevel2API, videoUpload,videoUploadLevelTwo} from "../../../configs/config";
+import {categoriesLevel2API, videono, videoUpload, videoUploadLevelTwo} from "../../../configs/config";
 import Foldermaking from "../../Foldermaking/Foldermaking";
 import Foldermakinglevel2 from "../../Foldermaking/Foldermakinglevel2";
 
@@ -239,10 +239,18 @@ class VideoTrimmerLevel2 extends Component {
             //console.log(response);
             //window.location.reload();
             alert('Successfully Saved the Data.\n Click *Load Annotated Videos* Button to view the Results.')
-                window.close()
+                axios.post(videono, {
+                    videochildleveltwo_id: response.data.id
+
+                })
+                    .then(function () {
+                        alert('Successfully Updated the Video no.')
+                        window.close()
+
+                    })
         })
             .catch((error) => {
-                alert('Error in Saving')
+                alert('Folder already created or Error in Saving')
             });
     }
     uploadfolder(){

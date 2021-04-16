@@ -13,11 +13,16 @@ class CategoryLevel1 extends Component{
         this.state = {
             id: '',
             name: '',
-            cat: []
+            cat: [],
+            update:{},
+            show:false,
+            show_main:true,
 
         }
         this.onSubmit=this.onSubmit.bind(this);
+        this.update=this.update.bind(this);
         this.handleInputChange=this.handleInputChange.bind(this);
+        this.onUpdateClick=this.onUpdateClick.bind(this);
     }
     componentDidMount() {
 
@@ -74,6 +79,7 @@ class CategoryLevel1 extends Component{
     }
     onDeleteClick(id){
         console.log("id:"+id);
+        if("Consultant"===sessionStorage.getItem("Position")){
         confirmAlert({
             title: 'Confirm to Delete Level 1 Category',
             message: 'Are you Sure you want to delete this Category?',
@@ -89,11 +95,50 @@ class CategoryLevel1 extends Component{
 
                 }
             ]
-        });
+        });}else{
+            alert("You dont have access priviledges.")
+        }
 
 
     }
+    update(){
+        alert('here')
+        axios.put(categoriesAPI + this.state.update.id+'/', {
+            name: this.state.name
+        }).then(function (response) {
+            console.log(response);
+            window.location.reload();
 
+        })
+    }
+    onUpdateClick(id){
+        console.log("id:"+id);
+        if("Consultant"===sessionStorage.getItem("Position")){
+
+            axios.get(categoriesAPI+id)
+                .then(response => {
+                    this.setState({update: response.data});
+                    this.setState({name:response.data.name})
+                    this.setState({show:true})
+                    this.setState({show_main:false})
+                    console.log(this.props)
+
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+
+
+                })
+
+
+
+        }else{
+            alert("You dont have access priviledges.")
+        }
+
+
+    }
     render() {
     const { tt } = this.state;
     const {cat}=this.state;
@@ -118,10 +163,18 @@ class CategoryLevel1 extends Component{
 
                         />
                     </Form.Group>
-                    <Button id="btnSubmit" variant="primary" type="submit">
-                        Add Category
-                    </Button>
+                    {this.state.show_main?
+                        <Button id="btnSubmit" variant="primary" type="submit">
+                            Add Category
+                        </Button>
+                    :null}
+
                 </Form>
+                {this.state.show ?
+                    <div><Button variant="primary" onClick={this.update}>Update </Button></div>
+                    :null
+                }
+
                 <br/><br/>
             </div>
         </div>
@@ -139,7 +192,7 @@ class CategoryLevel1 extends Component{
                                 <div className="card text-center font-weight-bold">
                                     <div className="card-header text-black">
                                 <tr className="row">{l1cat.name}
-                                <button className="btn-primary" id="cardbtn">Update</button>
+                                <button className="btn-primary" id="cardbtn" onClick={() => this.onUpdateClick(l1cat.id)}>Update</button>
                                 <button className="btn-danger"  onClick={() => this.onDeleteClick(l1cat.id)}> Delete </button></tr>
                                     </div></div>
                             </div>

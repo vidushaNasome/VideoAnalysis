@@ -6,6 +6,7 @@ import axios from "axios";
 import {categoriesLevel2API, videoUploadLevelTwo} from "../../../configs/config";
 import ReactPlayer from "react-player";
 import ViewAnnotationsLevelThree from "../level3Annotations/ViewAnnotationsLevelThree";
+import ReactTooltip from 'react-tooltip';
 
 class ViewAnnotationsLevelTwo extends Component {
 
@@ -105,7 +106,7 @@ class ViewAnnotationsLevelTwo extends Component {
                                 <div>
                                     <div className="card text-center font-weight-bold border-primary">
                                         <div className="card-header text-black">
-                                            <div className="row">
+                                            <div className="row text-left">
 
                                                 Video ID (Unique Child's): {details.childid} <br/>
                                                 Annotated Level 1 Video ID:{details.childidLevel1}<br/>
@@ -115,7 +116,6 @@ class ViewAnnotationsLevelTwo extends Component {
                                                 Annotated Level : {details.level} <br/>
                                                 Annotated Category-Level-2 ID: {details.category}<br/>
                                                 Added Description : {details.description} <br/><br/>
-                                                {details.video}
                                                 {<ReactPlayer
                                                     url={details.video}
                                                     controls={true}
@@ -123,9 +123,13 @@ class ViewAnnotationsLevelTwo extends Component {
                                                     width="600px"
                                                     height="200px"
                                                 />}
+
                                                 <div><br/>
-                                                    <tr><button className="btn-outline-warning" onClick={() => this.loaLevel3Ann(details.id)}> Add Level-3-Annotations </button>
-                                                    <button className="btn-outline-warning" onClick={() => this.open_Annotated_Video(details.id)}> View Annotations for Level-3 video ID Level-3: {details.id} </button>
+                                                    <tr>
+                                                        <p data-tip={details.video}> <h6 className="text-left">View Saved URL</h6> </p>
+                                                        <ReactTooltip />
+                                                        <button className="btn-outline-warning" onClick={() => this.loaLevel3Ann(details.id)}> Add Level-3-Annotations </button>
+                                                         <button className="btn-outline-warning" onClick={() => this.open_Annotated_Video(details.id)}> View Annotations for Level-3 video ID Level-3: {details.id} </button>
                                                         <button className="btn-outline-warning" onClick={this.open_Annotated_Video_close}> Close Annotations </button></tr> <br/><br/>
                                                     {open === details.id? <ViewAnnotationsLevelThree childId={details.childid} l1category={details.categoryid_one} l2category={details.category} levelOnevideoId={details.childidLevel1} levelTwovideoId={details.id}/>
                                                         : null}

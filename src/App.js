@@ -37,7 +37,8 @@ class App extends Component {
         //Logged In as an Authorized Annotator(Health Researcher, Consultant, Officer)
         if(window.location.pathname==="/user/1"){
         sessionStorage.setItem("Username","Ann");
-        sessionStorage.setItem("Position","Health Professional");
+        sessionStorage.setItem("Position","Doctor");
+        sessionStorage.setItem("ENABLE",'YES')
             this.setState({loginStatus:'loggedInHealthProffesional'})
         }
         //Logged In as Parent
@@ -45,6 +46,11 @@ class App extends Component {
             sessionStorage.setItem("Username","Mat");
             sessionStorage.setItem("Position","Parent")
             this.setState({loginStatus:'loggedInParent'})
+        }else if(window.location.pathname==="/user/3"){
+            sessionStorage.setItem("Username","Ben");
+            sessionStorage.setItem("Position","Consultant")
+            sessionStorage.setItem("ENABLE",'YES')
+            this.setState({loginStatus:'loggedInHealthProffesional'})
         }//Normal page without login(Guest Account)
         else{
             //Guest Account

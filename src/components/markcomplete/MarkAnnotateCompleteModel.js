@@ -10,6 +10,11 @@ export class MarkAnnotateCompleteModel extends Component{
         super(props);
 
         this.state = {
+            videoid:'',
+            name:'',
+            position:'',
+            date:'',
+            comments:''
 
         }
 
@@ -65,7 +70,7 @@ export class MarkAnnotateCompleteModel extends Component{
                                    <Form.Control type="text"
                                                  placeholder="Video ID"
                                                  onChange={this.handleInputChange}
-                                                 value={this.state.name}
+                                                 value={this.state.videoid}
                                                  name="name"
 
                                    />
@@ -85,7 +90,7 @@ export class MarkAnnotateCompleteModel extends Component{
                                <Form.Control type="text"
                                              placeholder="Annotator Level"
                                              onChange={this.handleInputChange}
-                                             value={this.state.name}
+                                             value={this.state.position}
                                              name="name"
 
                                />
@@ -94,7 +99,7 @@ export class MarkAnnotateCompleteModel extends Component{
                                <Form.Label>Date</Form.Label>
                                <Form.Control type="date"
                                              onChange={this.handleInputChange}
-                                             value={this.state.name}
+                                             value={this.state.date}
                                              name="name"
 
                                />
@@ -103,7 +108,7 @@ export class MarkAnnotateCompleteModel extends Component{
                                    <Form.Control type="text"
                                                  placeholder="Type Comments here"
                                                  onChange={this.handleInputChange}
-                                                 value={this.state.name}
+                                                 value={this.state.comments}
                                                  name="name"
 
                                    />

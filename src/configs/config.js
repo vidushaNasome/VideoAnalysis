@@ -17,6 +17,7 @@ const createfolder = `${apiBaseUrl}VideoAnalysis/createfolder`;
 const videoUpload = `${apiBaseUrl}VideoAnalysis/Videoupload/`;
 const videoUploadLevelTwo = `${apiBaseUrl}VideoAnalysis/VideouploadLeveltwo/`;
 const videoUploadLevelThree = `${apiBaseUrl}VideoAnalysis/Levelthreevideoupload/`;
+const videono = `${apiBaseUrl}VideoAnalysis/videono/`
 
 const csaat_web=`https://CSAAT-WEB.com/`;
 
@@ -31,4 +32,5 @@ export{
     videoUploadLevelTwo,
     videoUploadLevelThree,
     csaat_web,
+    videono,
 }

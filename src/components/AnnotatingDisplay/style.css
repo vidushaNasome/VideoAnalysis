@@ -177,7 +177,16 @@ h3 {
 .videonavmainbtn a{
     color: white;
 }
+#addmaincat3{
+    margin-top: 5%;
+    background-color: #f7f8f9;
+    padding: 0 0 0 0;
+    margin-right: 3%;
+    overflow-y: scroll;
+    max-height: 500px;
+    border-radius: 20px;
 
+}
 
 
 

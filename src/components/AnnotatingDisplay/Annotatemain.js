@@ -4,6 +4,7 @@ import {Button} from "react-bootstrap";
 import "./style.css";
 import Analyze from "./Analyze";
 import Complete from "./Complete";
+import Display from "../displaysaved/Display";
 
 class Annotatemain extends Component{
 
@@ -41,6 +42,18 @@ class Annotatemain extends Component{
                         <Complete/>
                         <br/> <br/> <br/> <br/>
                     </div></div></div>
+                </div><br/><br/>
+
+                <h3 align="left" id="headingSub">Annotation Summary</h3>
+                <div id="addmaincat3">
+                    <div className="container">
+                        <div className="sizecontainer">
+                            <div>
+                            </div>
+                            <div align="center">
+                                <Display/>
+                                <br/> <br/> <br/> <br/>
+                            </div></div></div>
                 </div>
 
 

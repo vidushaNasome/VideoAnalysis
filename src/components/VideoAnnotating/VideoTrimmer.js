@@ -11,7 +11,7 @@ import axios from "axios";
 import {Form} from "react-bootstrap";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from 'prop-types';
-import {videoUpload} from "../../configs/config";
+import {categoriesAPI, videoUpload,videono} from "../../configs/config";
 import Foldermaking from "../Foldermaking/Foldermaking";
 
 const ffmpeg = createFFmpeg({log: true});
@@ -246,10 +246,18 @@ class VideoTrimmer extends Component {
             }
         })
             .then(function (response) {
-            //console.log(response);
-            //window.location.reload();
-            alert('Successfully Saved the Data.\n Click *Load Annotated Videos* Button to view the Results.')
-                window.close()
+                alert('Successfully Saved the Data.\n Click *Load Annotated Videos* Button to view the Results.')
+
+                axios.post(videono, {
+                    videochild_id: response.data.id
+
+                })
+                    .then(function () {
+                        alert('Successfully Updated the Video no.')
+                        window.close()
+
+                    })
+
         })
             .catch((error) => {
                 alert('Folder already created or Error in Saving')

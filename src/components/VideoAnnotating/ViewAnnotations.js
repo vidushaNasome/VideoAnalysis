@@ -118,7 +118,7 @@ class ViewAnnotations extends Component {
                                                                 Annotated Level : {details.level} <br/>
                                                                 Annotated Category ID and NAME: {details.category} - {c.name} <br/>
                                                                 Added Description : {details.description} <br/><br/>
-                                                                Url: {details.video}<br/><br/><br/>
+                                                                URL: {details.video}<br/><br/><br/>
                                                                 <div>
 
                                                                     {<ReactPlayer
