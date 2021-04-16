@@ -19,6 +19,8 @@ import MainVideo from "./components/VideoAnnotating/MainVideo";
 import Level1Annotations from "./components/VideoAnnotating/Level1Annotations";
 import Level2Annotations from "./components/VideoAnnotating/level2Annotations/Level2Annotations";
 import Level3Annotations from "./components/VideoAnnotating/level3Annotations/Level3Annotations";
+import axios from "axios";
+import {categoriesAPI} from "./configs/config";
 
 //import BrowserHistory from'react-router';
 
@@ -33,10 +35,11 @@ class App extends Component {
     }
 
     componentDidMount() {
+        this.retrievedetails()
 
         //Logged In as an Authorized Annotator(Health Researcher, Consultant, Officer)
         if(window.location.pathname==="/user/1"){
-            sessionStorage.setItem("id","1");
+            //sessionStorage.setItem("id","1");
         sessionStorage.setItem("Username","Ann");
         sessionStorage.setItem("Position","Doctor");
         sessionStorage.setItem("ENABLE",'YES')
@@ -44,12 +47,12 @@ class App extends Component {
         }
         //Logged In as Parent
         else if(window.location.pathname==="/user/2"){
-            sessionStorage.setItem("id","2");
+            //sessionStorage.setItem("id","2");
             sessionStorage.setItem("Username","Mat");
             sessionStorage.setItem("Position","Parent")
             this.setState({loginStatus:'loggedInParent'})
         }else if(window.location.pathname==="/user/3"){
-            sessionStorage.setItem("id","3");
+            //sessionStorage.setItem("id","3");
             sessionStorage.setItem("Username","Ben");
             sessionStorage.setItem("Position","Consultant")
             sessionStorage.setItem("ENABLE",'YES')
@@ -61,6 +64,34 @@ class App extends Component {
             this.setState({loginStatus:''})*/
         }
 
+    }
+    retrievedetails(){
+
+        const path=window.location.pathname;
+        const MyArray = path.split('/');
+        let cc='';
+
+        MyArray.forEach(function(entry) {
+            console.log(entry);
+            if(cc=='getid'){
+                sessionStorage.setItem("id",entry);
+                cc=''
+            }
+            if(entry == 'user'){
+                cc='getid'
+            }
+        });
+
+        //alert(MyArray)
+        axios.get('user  url to do')
+            .then(response => {
+
+            })
+            .catch(function (error) {
+                console.log(error);
+
+
+            })
     }
 
     render() {

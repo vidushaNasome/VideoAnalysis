@@ -27,7 +27,7 @@ function NavigationBar() {
                         </div>
                         :<div id="logged1">
                             <div className="align-content-left">
-                                <p data-tip={'UserName:'+ sessionStorage.getItem("Username")+'\n Position:'+sessionStorage.getItem("Position")} >
+                                <p data-tip={'UserID:'+ sessionStorage.getItem("id")+'\n '+'UserName:'+ sessionStorage.getItem("Username")+'\n Position:'+sessionStorage.getItem("Position")} >
                                 <img src={userimg}  alt="" height="20" width="20"/></p>
                                 <ReactTooltip multiline={true}/></div>
                             <button id="logoutbtn" onClick={onClickMethod}>Log Out</button>
@@ -46,7 +46,7 @@ function NavigationBar() {
                         <div>
                         </div>
                         :<div id="logged2"><br/>
-                            <p data-tip={'UserName:'+ sessionStorage.getItem("Username")+'\n Position:'+sessionStorage.getItem("Position")} >
+                            <p data-tip={'UserID:'+ sessionStorage.getItem("id")+'\n'+'UserName:'+ sessionStorage.getItem("Username")+'\n Position:'+sessionStorage.getItem("Position")} >
                             <img src={userimg}  alt="" height="20" width="20" />
                             </p>
                             <button id="logoutbtn" className="h6"  onClick={onClickMethod}>Log Out</button>
